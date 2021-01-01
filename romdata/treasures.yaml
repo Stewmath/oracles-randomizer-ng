@@ -35,36 +35,36 @@ common:
   power ring L-1: 0x2d0e
 
   # dungeon items
-  d0 small key: 0x3003
-  d1 small key: 0x3003
-  d2 small key: 0x3003
+  d0 small key: 0x3000
+  d1 small key: 0x3001
+  d2 small key: 0x3002
   d3 small key: 0x3003
-  d4 small key: 0x3003
-  d5 small key: 0x3003
-  d7 small key: 0x3003
-  d8 small key: 0x3003
-  d1 boss key: 0x3103
-  d2 boss key: 0x3103
+  d4 small key: 0x3004
+  d5 small key: 0x3005
+  d7 small key: 0x3007
+  d8 small key: 0x3008
+  d1 boss key: 0x3101
+  d2 boss key: 0x3102
   d3 boss key: 0x3103
-  d4 boss key: 0x3103 # technically a different subid for seasons
-  d5 boss key: 0x3103 # ^
-  d6 boss key: 0x3103
-  d7 boss key: 0x3103
-  d8 boss key: 0x3103
-  d1 compass: 0x3202
+  d4 boss key: 0x3104
+  d5 boss key: 0x3105
+  d6 boss key: 0x3106
+  d7 boss key: 0x3107
+  d8 boss key: 0x3108
+  d1 compass: 0x3201
   d2 compass: 0x3202
-  d3 compass: 0x3202
-  d4 compass: 0x3202
-  d5 compass: 0x3202
-  d7 compass: 0x3202
-  d8 compass: 0x3202
-  d1 dungeon map: 0x3302
+  d3 compass: 0x3203
+  d4 compass: 0x3204
+  d5 compass: 0x3205
+  d7 compass: 0x3207
+  d8 compass: 0x3208
+  d1 dungeon map: 0x3301
   d2 dungeon map: 0x3302
-  d3 dungeon map: 0x3302
-  d4 dungeon map: 0x3302
-  d5 dungeon map: 0x3302
-  d7 dungeon map: 0x3302
-  d8 dungeon map: 0x3302
+  d3 dungeon map: 0x3303
+  d4 dungeon map: 0x3304
+  d5 dungeon map: 0x3305
+  d7 dungeon map: 0x3307
+  d8 dungeon map: 0x3308
 
   # common page 2
   flippers: 0x2e00
@@ -85,12 +85,12 @@ seasons:
   rupees, 5: 0x2801
 
   # hearts
-  rare peach stone: 0x2b02 # subrosia market
+  rare peach stone: 0x2b03 # subrosia market
 
   # dungeon items
-  d6 small key: 0x3003
-  d6 compass: 0x3202
-  d6 dungeon map: 0x3302
+  d6 small key: 0x3006
+  d6 compass: 0x3206
+  d6 dungeon map: 0x3306
 
   # rings
   green joy ring: 0x2d01
@@ -150,12 +150,12 @@ ages:
   like-like ring: 0x2d28
 
   # dungeon items
-  d6 present small key: 0x3003
-  d6 past small key: 0x3003
-  d6 present compass: 0x3202
-  d6 past compass: 0x3202
-  d6 present dungeon map: 0x3302
-  d6 past dungeon map: 0x3302
+  d6 present small key: 0x300c # TODO: Is 0x0c right?
+  d6 past small key: 0x3006
+  d6 present compass: 0x320c
+  d6 past compass: 0x3206
+  d6 present dungeon map: 0x330c
+  d6 past dungeon map: 0x3306
 
   # page 2
   graveyard key: 0x4200

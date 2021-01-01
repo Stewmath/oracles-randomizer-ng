@@ -80,20 +80,19 @@ type romState struct {
 	itemSlots    map[string]*itemSlot
 	codeMutables map[string]*mutableRange
 	bankEnds     []uint16 // bus offset of free space in each bank
-	assembler    *assembler
-	includes     []string // filenames
+	symbols      map[string]address
 }
 
-func newRomState(data []byte, game, player int, includes []string) *romState {
+func newRomState(data []byte, symbols map[string]address, game, player int) *romState {
 	rom := &romState{
 		game:      game,
 		player:    player,
 		data:      data,
-		treasures: loadTreasures(data, game),
-		includes:  includes,
+		symbols:   symbols,
+		treasures: loadTreasures(data, symbols["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots()
-	rom.initBanks()
+	rom.codeMutables = make(map[string]*mutableRange)
 	return rom
 }
 
@@ -103,10 +102,12 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	ropts *randomizerOptions) ([]byte, error) {
 	// need to set this *before* treasure map data
 	if len(warpMap) != 0 {
-		rom.setWarps(warpMap, ropts.dungeons)
+		//rom.setWarps(warpMap, ropts.dungeons) // TODO
 	}
 
 	if rom.game == gameSeasons {
+		// TODO
+		/*
 		northHoronSeason :=
 			rom.codeMutables["northHoronSeason"].new[0]
 		rom.codeMutables["initialSeason"].new =
@@ -117,86 +118,20 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 			[]byte{westernCoastSeason}
 
 		rom.setTreasureMapData()
-
-		// explicitly set these addresses and IDs after their functions
-		codeAddr := rom.codeMutables["setStarOreIds"].addr
-		rom.itemSlots["subrosia seaside"].idAddrs[0].offset = codeAddr.offset + 2
-		rom.itemSlots["subrosia seaside"].subidAddrs[0].offset = codeAddr.offset + 5
-		codeAddr = rom.codeMutables["setHardOreIds"].addr
-		rom.itemSlots["great furnace"].idAddrs[0].offset = codeAddr.offset + 2
-		rom.itemSlots["great furnace"].subidAddrs[0].offset = codeAddr.offset + 5
-		codeAddr = rom.codeMutables["script_diverGiveItem"].addr
-		rom.itemSlots["master diver's reward"].idAddrs[0].offset = codeAddr.offset + 1
-		rom.itemSlots["master diver's reward"].subidAddrs[0].offset = codeAddr.offset + 2
-		codeAddr = rom.codeMutables["createMtCuccoItem"].addr
-		rom.itemSlots["mt. cucco, platform cave"].idAddrs[0].offset = codeAddr.offset + 2
-		rom.itemSlots["mt. cucco, platform cave"].subidAddrs[0].offset = codeAddr.offset + 1
+		*/
 	} else {
-		// explicitly set these addresses and IDs after their functions
-		mut := rom.codeMutables["script_soldierGiveItem"]
-		slot := rom.itemSlots["deku forest soldier"]
-		slot.idAddrs[0].offset = mut.addr.offset + 13
-		slot.subidAddrs[0].offset = mut.addr.offset + 14
-		mut = rom.codeMutables["script_giveTargetCartsSecondPrize"]
-		codeAddr := mut.addr
-		rom.itemSlots["target carts 2"].idAddrs[1].offset = codeAddr.offset + 1
-		rom.itemSlots["target carts 2"].subidAddrs[1].offset = codeAddr.offset + 2
 	}
 
-	rom.setBossItemAddrs()
-	rom.setSeedData()
-	rom.setRoomTreasureData()
-	rom.setFileSelectText(optString(seed, ropts, "+"))
-	rom.attachText()
-	rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player)
-
-	// regenerate collect mode table to accommodate changes based on contents.
-	rom.codeMutables["collectPropertiesTable"].new =
-		[]byte(makeCollectPropertiesTable(rom.itemSlots))
-
-	// set the text IDs for all rings to $ff (blank), since custom code deals
-	// with text
-	for _, t := range rom.treasures {
-		if t.id == 0x2d {
-			t.text = 0xff
-		}
-	}
+	//rom.setSeedData() // TODO
+	//rom.setFileSelectText(optString(seed, ropts, "+")) // TODO
+	//rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player) // TODO: Multiworld
 
 	mutables := rom.getAllMutables()
 	for _, k := range orderedKeys(mutables) {
 		mutables[k].mutate(rom.data)
 	}
 
-	// explicitly set these items after their functions are written
-	rom.writeBossItems()
-	if rom.game == gameSeasons {
-		rom.itemSlots["subrosia seaside"].mutate(rom.data)
-		rom.itemSlots["great furnace"].mutate(rom.data)
-		rom.itemSlots["master diver's reward"].mutate(rom.data)
-
-		// annoying special case to prevent text on key drop
-		mut := rom.itemSlots["d7 armos puzzle"]
-		if mut.treasure.id == rom.treasures["d7 small key"].id {
-			rom.data[mut.subidAddrs[0].fullOffset()] = 0x01
-		}
-	} else {
-		rom.itemSlots["nayru's house"].mutate(rom.data)
-		rom.itemSlots["deku forest soldier"].mutate(rom.data)
-		rom.itemSlots["target carts 2"].mutate(rom.data)
-		rom.itemSlots["hidden tokay cave"].mutate(rom.data)
-
-		// other special case to prevent text on key drop
-		mut := rom.itemSlots["d8 stalfos"]
-		if mut.treasure.id == rom.treasures["d8 small key"].id {
-			rom.data[mut.subidAddrs[0].fullOffset()] = 0x00
-		}
-	}
-
-	rom.setCompassData()
-	rom.setLinkedData()
-
-	// do this last; includes have precendence over everything else
-	rom.addIncludes()
+	//rom.setCompassData() // TODO
 
 	sum := makeRomChecksum(rom.data)
 	rom.data[0x14e] = sum[0]
@@ -327,18 +262,6 @@ func inflictCamelCase(s string) string {
 		strings.Title(strings.ReplaceAll(s, "'", "")), " ", "")[1:])
 }
 
-// fill table. initial table is blank, since it's created before items are
-// placed.
-func (rom *romState) setRoomTreasureData() {
-	rom.codeMutables["roomTreasures"].new =
-		[]byte(makeRoomTreasureTable(rom.game, rom.itemSlots))
-	if rom.game == gameSeasons {
-		t := rom.itemSlots["d7 zol button"].treasure
-		rom.codeMutables["aboveD7ZolButtonId"].new = []byte{t.id}
-		rom.codeMutables["aboveD7ZolButtonSubid"].new = []byte{t.subid}
-	}
-}
-
 // sets the high nybble (seed type) of a seed tree interaction in ages.
 func setTreeNybble(subid *mutableRange, slot *itemSlot) {
 	subid.new[0] = (subid.new[0] & 0x0f) | (slot.treasure.id << 4)
@@ -427,7 +350,7 @@ func (rom *romState) lookupAllItemSlots(itemName string) []*itemSlot {
 // get the location of the dungeon properties byte for a specific room.
 func getDungeonPropertiesAddr(game int, group, room byte) *address {
 	offset := uint16(room)
-	offset += uint16(sora(game, 0x4d41, 0x4dce).(int))
+	offset += uint16(sora(game, 0x4d41, 0x4dce).(int)) // TODO
 	if group%2 != 0 {
 		offset += 0x100
 	}
@@ -436,6 +359,7 @@ func getDungeonPropertiesAddr(game int, group, room byte) *address {
 
 // randomizes the types of rings in the item pool, returning a map of vanilla
 // ring names to the randomized ones.
+// TODO: Make sure this works
 func (rom *romState) randomizeRingPool(src *rand.Rand,
 	planValues []string) (map[string]string, error) {
 	nameMap := make(map[string]string)
@@ -509,58 +433,6 @@ func (rom *romState) randomizeRingPool(src *rand.Rand,
 	return nameMap, nil
 }
 
-func (rom *romState) setBossItemAddrs() {
-	table := rom.codeMutables["bossItemTable"]
-	for i := uint16(1); i <= 8; i++ {
-		slot := rom.itemSlots[fmt.Sprintf("d%d boss", i)]
-		slot.idAddrs[0].offset = table.addr.offset + i*2
-		slot.subidAddrs[0].offset = table.addr.offset + i*2 + 1
-	}
-}
-
-func (rom *romState) writeBossItems() {
-	for i := 1; i <= 8; i++ {
-		rom.itemSlots[fmt.Sprintf("d%d boss", i)].mutate(rom.data)
-	}
-}
-
-// set data to make linked playthroughs isomorphic to unlinked ones.
-func (rom *romState) setLinkedData() {
-	if rom.game == gameSeasons {
-		// set linked starting / hero's cave terrace items based on which items
-		// in unlinked hero's cave aren't keys. order matters.
-		var tStart, tCave *treasure
-		if rom.itemSlots["d0 key chest"].treasure.id == 0x30 {
-			tStart = rom.itemSlots["d0 sword chest"].treasure
-			tCave = rom.itemSlots["d0 rupee chest"].treasure
-		} else {
-			tStart = rom.itemSlots["d0 key chest"].treasure
-			tCave = rom.itemSlots["d0 sword chest"].treasure
-		}
-
-		// give this item at start
-		linkedStartItem := &itemSlot{
-			idAddrs:    []address{{0x0a, 0x7ffd}},
-			subidAddrs: []address{{0x0a, 0x7ffe}},
-			treasure:   tStart,
-		}
-		linkedStartItem.mutate(rom.data)
-
-		// create slot for linked hero's cave terrace
-		linkedChest := &itemSlot{
-			treasure:    rom.treasures["rupees, 20"],
-			idAddrs:     []address{{0x15, 0x50e2}},
-			subidAddrs:  []address{{0x15, 0x50e3}},
-			group:       0x05,
-			room:        0x2c,
-			collectMode: collectModes["chest"],
-			mapTile:     0xd4,
-		}
-		linkedChest.treasure = tCave
-		linkedChest.mutate(rom.data)
-	}
-}
-
 // -- dungeon entrance / subrosia portal connections --
 
 type warpData struct {
@@ -588,7 +460,7 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 	for name, warp := range warps {
 		if strings.HasSuffix(name, "essence") {
 			warp.len = 4
-			warp.bank = byte(sora(rom.game, 0x09, 0x0a).(int))
+			warp.bank = byte(sora(rom.game, 0x09, 0x0a).(int)) // TODO
 		} else {
 			warp.bank, warp.len = 0x04, 2
 		}

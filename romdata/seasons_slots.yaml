@@ -2,174 +2,194 @@
 #   the item is on a map tile that has exclusive music (like dungeons).
 # - if `collect` is not specified, it uses the mode that the item has in the
 #   vanilla treasure table.
+#
+# TODO: Do something about "ids", "subids", "reverseaddr" fields for disassembly.
 
 # holodrum
 eyeglass lake, across bridge:
   treasure: gasha seed
   room: 0x00b8
+  label: seasonsSlot_eyeglassLakeAcrossBridge
 maku tree:
   treasure: gnarled key
   room: 0x020b # for zero essences. other rooms are for more
   morerooms: [0x020c, 0x022b, 0x022c, 0x022d, 0x025b, 0x025c, 0x025d, 0x027b]
-  ids: [{bank: 0x15, addr: 0x613a}, {bank: 0x09, addr: 0x7e16}]
-  subids: [{bank: 0x15, addr: 0x613d}, {bank: 0x09, addr: 0x7e19}]
-  collect: maku tree (seasons)
   local: true
+  label: seasonsSlot_makuTree
+  # TODO: Set maptile?
 horon village SW chest:
   treasure: rupees, 20
   room: 0x00f5
+  label: seasonsSlot_horonVillageSWChest
 horon village SE chest:
   treasure: rupees, 20
   room: 0x00f9
+  label: seasonsSlot_horonVillageSEChest
 holly's house:
   treasure: shovel
   room: 0x03a3
   maptile: 0x7f
-  addr: {bank: 0x0b, addr: 0x6a6c}
+  label: seasonsSlot_hollysHouse
 chest on top of D2:
   treasure: gasha seed
   room: 0x008e
+  label: seasonsSlot_chestOnTopOfD2
 blaino prize:
   treasure: gasha seed # rip ricky's gloves
   room: 0x03b4
   maptile: 0x78
-  addr: {bank: 0x0b, addr: 0x64cc}
-  collect: touch
   local: true
+  label: seasonsSlot_blainoPrize
 floodgate keeper's house:
   treasure: floodgate key
   room: 0x03b5
   maptile: 0x62
-  reverseaddr: {bank: 0x09, addr: 0x6281}
+  label: seasonsSlot_floodgateKeepersHouse
 spool swamp cave:
   treasure: square jewel
   room: 0x04fa
   maptile: 0xc2
   chest: true
+  label: seasonsSlot_spoolSwampCave
 moblin keep:
   treasure: piece of heart
   room: 0x005b
+  label: seasonsSlot_moblinKeep
 master diver's challenge:
   treasure: master's plaque
   room: 0x05bc
   maptile: 0x2e
+  label: seasonsSlot_masterDiversChallenge
 master diver's reward:
   treasure: flippers
   room: 0x05bd
   maptile: 0x2e
-  addr: {bank: 0x0b} # addr set at EOB
-  collect: diver room
   local: true
+  label: seasonsSlot_masterDiversReward
 spring banana tree:
   treasure: spring banana
   room: 0x000f
-  reverseaddr: {bank: 0x09, addr: 0x66c6}
+  label: seasonsSlot_springBananaTree
 goron mountain, across pits:
   treasure: dragon key
   room: 0x001a
-  reverseaddr: {bank: 0x09, addr: 0x62a3}
+  label: seasonsSlot_goronMountainAcrossPits
 mt. cucco, platform cave:
   treasure: green joy ring
   room: 0x05bb
   maptile: 0x1f
-  reverseaddr: {bank: 0x09} # addr set at EOB
+  label: seasonsSlot_mtCuccoPlatformCave
 diving spot outside D4:
   treasure: pyramid jewel
   room: 0x07e5
   maptile: 0x1d
-  ids: [{bank: 0x0b, addr: 0x734e}, {bank: 0x0b, addr: 0x7358}]
-  subids: [{bank: 0x0b, addr: 0x734f}, {bank: 0x0b, addr: 0x7359}]
+  label: seasonsSlot_divingSpotOutsideD4
 black beast's chest:
   treasure: x-shaped jewel
   room: 0x00f4
+  label: seasonsSlot_blackBeastsChest
 old man in treehouse:
   treasure: round jewel
   room: 0x0394
   maptile: 0xb5
-  addr: {bank: 0x0b, addr: 0x7332}
+  label: seasonsSlot_oldManInTreehouse
 lost woods:
   treasure: sword
   room: 0x00c9
   maptile: 0x40
-  addr: {bank: 0x0b, addr: 0x6418}
-  collect: touch
+  label: seasonsSlot_lostWoods
 samasa desert pit:
   treasure: rusty bell
   room: 0x05d2
   maptile: 0xbf
-  ids: [{bank: 0x09, addr: 0x648d}, {bank: 0x0b, addr: 0x60b1}]
-  subids: [{bank: 0x09, addr: 0x648c}]
+  label: seasonsSlot_samasaDesertPit
 samasa desert chest:
   treasure: rang ring L-1
   room: 0x00ff
+  label: seasonsSlot_samasaDesertChest
 western coast, beach chest:
   treasure: blast ring
   room: 0x00e3
+  label: seasonsSlot_westernCoastBeachChest
 western coast, in house:
   treasure: bombs, 10
   room: 0x0388
   maptile: 0xd2
+  label: seasonsSlot_westernCoastInHouse
 cave south of mrs. ruul:
   treasure: octo ring
   room: 0x04e0
   maptile: 0xb3
+  label: seasonsSlot_caveSouthOfMrsRuul
 cave north of D1:
   treasure: quicksand ring
   room: 0x04e1
   maptile: 0x87
+  label: seasonsSlot_caveNorthOfD1
 cave outside D2:
   treasure: moblin ring
   room: 0x05b3
   maptile: 0x8e
+  label: seasonsSlot_caveOutsideD2
 woods of winter, 1st cave:
   treasure: rupees, 30
   room: 0x05b4
   maptile: 0x7d
+  label: seasonsSlot_woodsOfWinter1stCave
 sunken city, summer cave:
   treasure: gasha seed
   room: 0x05b5
   maptile: 0x4f
+  label: seasonsSlot_sunkenCitySummerCave
 chest in master diver's cave:
   treasure: rupees, 50
   room: 0x05bd
   maptile: 0x2e
-  collect: diver room
   local: true
+  label: seasonsSlot_chestInMasterDiversCave
 dry eyeglass lake, east cave:
   treasure: piece of heart
   room: 0x05c0
   maptile: 0xaa
+  label: seasonsSlot_dryEyeglassLakeEastCave
 chest in goron mountain:
   treasure: armor ring L-2
   room: 0x05c8
   maptile: 0x18
+  label: seasonsSlot_chestInGoronMountain
 natzu region, across water:
   treasure: rupees, 50
   room: 0x050e
   maptile: 0x49
+  label: seasonsSlot_natzuRegionAcrossWater
 mt. cucco, talon's cave:
   treasure: subrosian ring
   room: 0x05b6
   maptile: 0x1b
   local: true
+  label: seasonsSlot_mtCuccoTalonsCave
 tarm ruins, under tree:
   treasure: gasha seed
   room: 0x039b
   maptile: 0x10
+  label: seasonsSlot_tarmRuinsUnderTree
 eastern suburbs, on cliff:
   treasure: gasha seed
   room: 0x04f7
   maptile: 0xcc
+  label: seasonsSlot_easternSuburbsOnCliff
 dry eyeglass lake, west cave:
   treasure: rupees, 100
   room: 0x04fb
   maptile: 0xa7
   chest: true
+  label: seasonsSlot_dryEyeglassLakeWestCave
 woods of winter, 2nd cave:
   treasure: gasha seed
   room: 0x0512
   maptile: 0x7e
   chest: true
+  label: seasonsSlot_woodsOfWinter2ndCave
 shop, 20 rupees:
   treasure: bombs, 10
   room: 0x03a6
@@ -184,26 +204,26 @@ shop, 150 rupees:
   treasure: moosh's flute
   room: 0x03a6
   maptile: 0xe6
-  addr: {bank: 0x08, addr: 0x4ce8}
   local: true
+  label: seasonsSlot_shop150Rupees
 member's shop 1:
   treasure: satchel
   room: 0x03b0
   maptile: 0xe6
-  addr: {bank: 0x08, addr: 0x4cce}
   local: true
+  label: seasonsSlot_membersShop1
 member's shop 2:
   treasure: gasha seed
   room: 0x03b0
   maptile: 0xe6
-  addr: {bank: 0x08, addr: 0x4cd2}
   local: true
+  label: seasonsSlot_membersShop2
 member's shop 3:
   treasure: treasure map
   room: 0x03b0
   maptile: 0xe6
-  addr: {bank: 0x08, addr: 0x4cd8}
   local: true
+  label: seasonsSlot_membersShop3
 
 # subrosia
 #
@@ -224,449 +244,521 @@ tower of winter:
   treasure: winter
   room: 0x05f2
   maptile: 0xb0
-  addr: {bank: 0x0b, addr: 0x4fc5}
+  label: seasonsSlot_towerOfWinter
 tower of summer:
   treasure: summer
   room: 0x05f8
   maptile: 0xb0
-  addr: {bank: 0x0b, addr: 0x4fb9}
+  label: seasonsSlot_towerOfSummer
 tower of spring:
   treasure: spring
   room: 0x05f5
   maptile: 0x1e
-  addr: {bank: 0x0b, addr: 0x4fb5}
+  label: seasonsSlot_towerOfSpring
 tower of autumn:
   treasure: autumn
   room: 0x05fb
   maptile: 0xb0
-  addr: {bank: 0x0b, addr: 0x4fc1}
+  label: seasonsSlot_towerOfAutumn
 subrosian dance hall:
   treasure: boomerang
   room: 0x0395
   maptile: 0x9a
-  addr: {bank: 0x0b, addr: 0x6646}
   local: true
+  label: seasonsSlot_subrosianDanceHall
 temple of seasons:
   treasure: fool's ore # lone rod doesn't exist in rando
   room: 0x03ac
   maptile: 0xb0
-  ids: [{bank: 0x15, addr: 0x70ce}]
-  subids: [{bank: 0x15, addr: 0x70cc}]
   local: true
+  label: seasonsSlot_templeOfSeasons
 subrosia seaside:
   treasure: star ore
   room: 0x0166
   morerooms: [0x0176, 0x0175, 0x0165]
   maptile: 0xb0
-  addr: {bank: 0x08} # addr set at EOB
   local: true
+  label: seasonsSlot_subrosiaSeaside
 subrosian wilds chest:
   treasure: blue ore
   room: 0x0141
   maptile: 0x1e
+  label: seasonsSlot_subrosianWildsChest
 subrosia village chest:
   treasure: red ore
   room: 0x0158
   maptile: 0xb0
+  label: seasonsSlot_subrosiaVillageChest
 subrosia, open cave:
   treasure: gasha seed
   room: 0x04f1
   maptile: 0x25
+  label: seasonsSlot_subrosiaOpenCave
 subrosia, locked cave:
   treasure: gasha seed
   room: 0x05c6
   maptile: 0x25
+  label: seasonsSlot_subrosiaLockedCave
 subrosia market, 1st item:
   treasure: ribbon
   room: 0x03a0
   maptile: 0xb0
-  addr: {bank: 0x09, addr: 0x77da}
   local: true
+  label: seasonsSlot_subrosiaMarket1stItem
 subrosia market, 2nd item:
   treasure: rare peach stone
   room: 0x03a0
   maptile: 0xb0
-  addr: {bank: 0x09, addr: 0x77e2}
   local: true
+  label: seasonsSlot_subrosiaMarket2ndItem
 subrosia market, 5th item:
   treasure: member's card
   room: 0x03a0
   maptile: 0xb0
-  addr: {bank: 0x09, addr: 0x77f4}
   local: true
+  label: seasonsSlot_subrosiaMarket5thItem
 great furnace:
   treasure: hard ore
   room: 0x038e
   maptile: 0xb9
-  ids: [{bank: 0x15}, {bank: 0x09, addr: 0x66eb}] # addr set at EOB
-  subids: [{bank: 0x15}, {bank: 0x09, addr: 0x66ea}] # addr set at EOB
+  label: seasonsSlot_greatFurnace
 subrosian smithy:
   treasure: iron shield
   room: 0x0397
   maptile: 0x1e
-  ids: [{bank: 0x15, addr: 0x62be}]
-  subids: [{bank: 0x15, addr: 0x62b4}]
   local: true
+  label: seasonsSlot_subrosianSmithy
 
 # hero's cave
 d0 key chest:
   treasure: d0 small key
   room: 0x0403
+  label: seasonsSlot_d0KeyChest
 d0 sword chest:
   treasure: sword
   room: 0x0404
-  ids: [{bank: 0x0a, addr: 0x7b90}] # not a real chest!
-  subids: [{bank: 0x0a, addr: 0x7b92}]
   local: true
+  label: seasonsSlot_d0SwordChest
 d0 rupee chest:
   treasure: rupees, 30
   room: 0x0405
   morerooms: [0x052c] # linked equivalent
+  label: seasonsSlot_d0RupeeChest
 
 # d1
 d1 stalfos drop:
   treasure: d1 small key
   room: 0x041b
   keydrop: true
+  label: seasonsSlot_d1_stalfosDrop
 d1 basement:
   treasure: satchel
   room: 0x0609
-  reverseaddr: {bank: 0x09, addr: 0x66b1}
+  label: seasonsSlot_d1_basement
 d1 block-pushing room:
   treasure: gasha seed
   room: 0x040d
+  label: seasonsSlot_d1_blockPushingRoom
 d1 railway chest:
   treasure: bombs, 10
   room: 0x0410
+  label: seasonsSlot_d1_railwayChest
 d1 floormaster room:
   treasure: discovery ring
   room: 0x0417
+  label: seasonsSlot_d1_floormasterRoom
 d1 lever room:
   treasure: d1 compass
   room: 0x040f
+  label: seasonsSlot_d1_leverRoom
 d1 stalfos chest:
   treasure: d1 dungeon map
   room: 0x0419
+  label: seasonsSlot_d1_stalfosChest
 d1 button chest:
   treasure: d1 small key
   room: 0x0411
+  label: seasonsSlot_d1_buttonChest
 d1 goriya chest:
   treasure: d1 boss key
   room: 0x0414
+  label: seasonsSlot_d1_goriyaChest
 d1 boss:
   treasure: heart container
   room: 0x0412
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d1_boss
 
 # d2
 d2 rope drop:
   treasure: d2 small key
   room: 0x0434
   keydrop: true
+  label: seasonsSlot_d2_ropeDrop
 d2 moblin chest:
   treasure: bracelet
   room: 0x042a
+  label: seasonsSlot_d2_moblinChest
 d2 roller chest:
   treasure: rupees, 10
   room: 0x041f
+  label: seasonsSlot_d2_rollerChest
 d2 left from entrance:
   treasure: rupees, 5
   room: 0x0438
+  label: seasonsSlot_d2_leftFromEntrance
 d2 pot chest:
   treasure: d2 dungeon map
   room: 0x042b
+  label: seasonsSlot_d2_potChest
 d2 rope chest:
   treasure: d2 compass
   room: 0x0436
+  label: seasonsSlot_d2_ropeChest
 d2 blade chest:
   treasure: d2 small key
   room: 0x0431
+  label: seasonsSlot_d2_bladeChest
 d2 spiral chest:
   treasure: d2 small key
   room: 0x042d
+  label: seasonsSlot_d2_spiralChest
 d2 terrace chest:
   treasure: d2 boss key
   room: 0x0424
+  label: seasonsSlot_d2_terraceChest
 d2 boss:
   treasure: heart container
   room: 0x0429
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d2_boss
 
 # d3
 d3 roller chest:
   treasure: d3 small key
   room: 0x044c
+  label: seasonsSlot_d3_rollerChest
 d3 mimic chest:
   treasure: feather
   room: 0x0450
+  label: seasonsSlot_d3_mimicChest
 d3 zol chest:
   treasure: d3 small key
   room: 0x044f
+  label: seasonsSlot_d3_zolChest
 d3 water room:
   treasure: rupees, 30
   room: 0x0441
+  label: seasonsSlot_d3_waterRoom
 d3 quicksand terrace:
   treasure: gasha seed
   room: 0x0444
+  label: seasonsSlot_d3_quicksandTerrace
 d3 moldorm chest:
   treasure: bombs, 10
   room: 0x0454
+  label: seasonsSlot_d3_moldormChest
 d3 trampoline chest:
   treasure: d3 compass
   room: 0x044d
+  label: seasonsSlot_d3_trampolineChest
 d3 bombed wall chest:
   treasure: d3 dungeon map
   room: 0x0451
+  label: seasonsSlot_d3_bombedWallChest
 d3 giant blade room:
   treasure: d3 boss key
   room: 0x0446
+  label: seasonsSlot_d3_giantBladeRoom
 d3 boss:
   treasure: heart container
   room: 0x0453
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d3_boss
 
 # d4
 d4 pot puzzle:
   treasure: d4 small key
   room: 0x047b
   keydrop: true
+  label: seasonsSlot_d4_potPuzzle
 d4 cracked floor room:
   treasure: slingshot
   room: 0x0473
+  label: seasonsSlot_d4_crackedFloorRoom
 d4 north of entrance:
   treasure: bombs, 10
   room: 0x047f
+  label: seasonsSlot_d4_northOfEntrance
 d4 maze chest:
   treasure: d4 dungeon map
   room: 0x0469
+  label: seasonsSlot_d4_mazeChest
 d4 dark room:
   treasure: d4 small key
   room: 0x046d
+  label: seasonsSlot_d4_darkRoom
 d4 water ring room:
   treasure: d4 compass
   room: 0x0483
+  label: seasonsSlot_d4_waterRingRoom
 d4 pool:
   treasure: d4 small key
   room: 0x0475
-  collect: d4 pool
+  label: seasonsSlot_d4_pool
 d4 terrace:
   treasure: d4 small key
   room: 0x0463
+  label: seasonsSlot_d4_terrace
 d4 torch chest:
   treasure: d4 small key
   room: 0x0464
+  label: seasonsSlot_d4_torchChest
 d4 dive spot:
   treasure: d4 boss key
   room: 0x046c
-  addr: {bank: 0x0b, addr: 0x4c0b}
-  collect: dive
+  label: seasonsSlot_d4_diveSpot
 d4 boss:
   treasure: heart container
   room: 0x045f
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d4_boss
 
 # d5
 d5 cart chest:
   treasure: d5 small key
   room: 0x0499
+  label: seasonsSlot_d5_cartChest
 d5 left chest:
   treasure: d5 small key
   room: 0x04a3
+  label: seasonsSlot_d5_leftChest
 d5 magnet ball chest:
   treasure: magnet gloves
   room: 0x0489
+  label: seasonsSlot_d5_magnetBallChest
 d5 terrace chest:
   treasure: rupees, 100
   room: 0x0497
+  label: seasonsSlot_d5_terraceChest
 d5 armos chest:
   treasure: d5 small key
   room: 0x0491
-  addr: {bank: 0x09, addr: 0x5051}
-  collect: d5 armos
   local: true
+  label: seasonsSlot_d5_armosChest
 d5 gibdo/zol chest:
   treasure: d5 dungeon map
   room: 0x048f
+  label: seasonsSlot_d5_gibdoZolChest
 d5 spiral chest:
   treasure: d5 compass
   room: 0x049d
+  label: seasonsSlot_d5_spiralChest
 d5 spinner chest:
   treasure: d5 small key
   room: 0x049f
+  label: seasonsSlot_d5_spinnerChest
 d5 stalfos room:
   treasure: d5 small key
   room: 0x04a5
+  label: seasonsSlot_d5_stalfosChest
 d5 basement:
   treasure: d5 boss key
   room: 0x068b
-  addr: {bank: 0x0b, addr: 0x4c22}
-  collect: touch
+  label: seasonsSlot_d5_basement
 d5 boss:
   treasure: heart container
   room: 0x048c
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d5_boss
 
 # d6
 d6 magnet ball drop:
   treasure: d6 small key
   room: 0x04ab
   keydrop: true
+  label: seasonsSlot_d6_magnetBallDrop
 d6 spinner north:
   treasure: d6 small key
   room: 0x04c2
+  label: seasonsSlot_d6_spinnerNorth
 d6 armos hall:
   treasure: boomerang
   room: 0x04d0
-  collect: chest
+  label: seasonsSlot_d6_armosHall
 d6 crystal trap room:
   treasure: rupees, 10
   room: 0x04af
+  label: seasonsSlot_d6_crystalTrapRoom
 d6 1F east:
   treasure: rupees, 5
   room: 0x04b3
+  label: seasonsSlot_d6_1fEast
 d6 2F gibdo chest:
   treasure: bombs, 10
   room: 0x04bf
+  label: seasonsSlot_d6_2fGibdoChest
 d6 2F armos chest:
   treasure: rupees, 5
   room: 0x04c3
+  label: seasonsSlot_d6_2fArmosChest
 d6 beamos room:
   treasure: d6 compass
   room: 0x04ad
+  label: seasonsSlot_d6_beamosRoom
 d6 1F terrace:
   treasure: d6 dungeon map
   room: 0x04b0
+  label: seasonsSlot_d6_1fTerrace
 d6 escape room:
   treasure: d6 boss key
   room: 0x04c4
+  label: seasonsSlot_d6_escapeRoom
 d6 vire chest:
   treasure: d6 small key
   room: 0x04c1
+  label: seasonsSlot_d6_vireChest
 d6 boss:
   treasure: heart container
   room: 0x04d5
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d6_boss
 
 # d7
 d7 wizzrobe chest:
   treasure: d7 small key
   room: 0x0554
+  label: seasonsSlot_d7_wizzrobeChest
 d7 spike chest:
   treasure: feather
   room: 0x0544
+  label: seasonsSlot_d7_spikeChest
 d7 maze chest:
   treasure: rupees, 1
   room: 0x0543
+  label: seasonsSlot_d7_mazeChest
 d7 right of entrance:
   treasure: power ring L-1
   room: 0x055a
+  label: seasonsSlot_d7_rightOfEntrance
 d7 bombed wall chest:
   treasure: d7 compass
   room: 0x0552
-  collect: poe skip room
+  label: seasonsSlot_d7_bombedWallChest
 d7 zol button:
   treasure: d7 small key
   room: 0x0545
   keydrop: true
+  label: seasonsSlot_d7_zolButton
 d7 armos puzzle:
   treasure: d7 small key
   room: 0x0535
-  reverseaddr: {bank: 0x09, addr: 0x5689}
-  collect: drop
+  label: seasonsSlot_d7_armosPuzzle
 d7 magunesu chest:
   treasure: d7 small key
   room: 0x0547
+  label: seasonsSlot_d7_magunesuChest
 d7 quicksand chest:
   treasure: d7 dungeon map
   room: 0x0558
+  label: seasonsSlot_d7_quicksandChest
 d7 B2F drop:
   treasure: d7 small key
   room: 0x053d
   keydrop: true
+  label: seasonsSlot_d7_b2fDrop
 d7 stalfos chest:
   treasure: d7 boss key
   room: 0x0548
+  label: seasonsSlot_d7_stalfosChest
 d7 boss:
   treasure: heart container
   room: 0x0550
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d7_boss
 
 # d8
 d8 eye drop:
   treasure: d8 small key
   room: 0x0582
   keydrop: true
+  label: seasonsSlot_d8_eyeDrop
 d8 armos chest:
   treasure: slingshot
   room: 0x058d
+  label: seasonsSlot_d8_armosChest
 d8 SW lava chest:
   treasure: bombs, 10
   room: 0x056a
+  label: seasonsSlot_d8_swLavaChest
 d8 three eyes chest:
   treasure: steadfast ring
   room: 0x057d
+  label: seasonsSlot_d8_threeEyesChest
 d8 hardhat drop:
   treasure: d8 small key
   room: 0x0575
   keydrop: true
+  label: seasonsSlot_d8_hardhatDrop
 d8 spike room:
   treasure: d8 compass
   room: 0x058b
+  label: seasonsSlot_d8_spikeRoom
 d8 spinner chest:
   treasure: d8 small key
   room: 0x0570
+  label: seasonsSlot_d8_spinnerChest
 d8 magnet ball room:
   treasure: d8 dungeon map
   room: 0x058e
+  label: seasonsSlot_d8_magnetBallRoom
 d8 darknut chest:
   treasure: d8 small key
   room: 0x058c
+  label: seasonsSlot_d8_darknutChest
 d8 ghost armos drop:
   treasure: d8 small key
   room: 0x057f
   keydrop: true
+  label: seasonsSlot_d8_ghostArmosDrop
 d8 pols voice chest:
   treasure: d8 boss key
   room: 0x0580
+  label: seasonsSlot_d8_polsVoiceChest
 d8 SE lava chest:
   treasure: d8 small key
   room: 0x056b
+  label: seasonsSlot_d8_seLavaChest
 d8 spark chest:
   treasure: d8 small key
   room: 0x058a
+  label: seasonsSlot_d8_sparkChest
 d8 boss:
   treasure: heart container
   room: 0x0564
-  addr: {bank: 0x15} # addr set at EOB
+  label: seasonsSlot_d8_boss
 
 # seed trees; semi-fake in that they don't slot real treasures
 horon village tree:
   treasure: ember tree seeds
   room: 0x00f8
-  ids: [{bank: 0x0d, addr: 0x68fb}]
+  tree: true
   local: true
 woods of winter tree:
   treasure: mystery tree seeds
   room: 0x009e
-  ids: [{bank: 0x0d, addr: 0x68fe}]
+  tree: true
   local: true
 north horon tree:
   treasure: scent tree seeds
   room: 0x0067
-  ids: [{bank: 0x0d, addr: 0x6901}]
+  tree: true
   local: true
 spool swamp tree:
   treasure: pegasus tree seeds
   room: 0x0072
-  ids: [{bank: 0x0d, addr: 0x6904}]
+  tree: true
   local: true
 sunken city tree:
   treasure: gale tree seeds
   room: 0x005f
-  ids: [{bank: 0x0d, addr: 0x6907}]
+  tree: true
   local: true
 tarm ruins tree:
   treasure: gale tree seeds
   room: 0x0010
-  ids: [{bank: 0x0d, addr: 0x690a}]
+  tree: true
   local: true

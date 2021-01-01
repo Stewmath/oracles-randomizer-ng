@@ -58,7 +58,6 @@ var (
 	flagDevCmd   string
 	flagDungeons bool
 	flagHard     bool
-	flagIncludes string
 	flagNoUI     bool
 	flagPlan     string
 	flagMulti    string
@@ -77,7 +76,6 @@ type randomizerOptions struct {
 	plan     *plan
 	race     bool
 	seed     string
-	include  []string
 	game     int
 	players  int
 }
@@ -88,13 +86,11 @@ func initFlags() {
 	flag.StringVar(&flagCpuProf, "cpuprofile", "",
 		"write CPU profile to file")
 	flag.StringVar(&flagDevCmd, "devcmd", "",
-		"subcommands are 'findaddr', 'showasm', 'stats', and 'hardstats'")
+		"subcommands are 'findaddr', 'stats', and 'hardstats'")
 	flag.BoolVar(&flagDungeons, "dungeons", false,
 		"shuffle dungeon entrances")
 	flag.BoolVar(&flagHard, "hard", false,
 		"enable more difficult logic")
-	flag.StringVar(&flagIncludes, "include", "",
-		"comma-separated list of additional asm files to include")
 	flag.BoolVar(&flagNoUI, "noui", false,
 		"use command line without prompts if input file is given")
 	flag.StringVar(&flagPlan, "plan", "",
@@ -168,13 +164,11 @@ func Main() {
 
 	// get options
 	optsList := make([]*randomizerOptions, 0, 1)
-	include := strings.Split(flagIncludes, ",")
 	if flagMulti != "" {
 		for i, s := range strings.Split(flagMulti, ",") {
 			optsList = append(optsList, &randomizerOptions{
 				race:    flagRace,
 				seed:    flagSeed,
-				include: include,
 			})
 			if err := roptsFromString(s, optsList[i]); err != nil {
 				fatal(err, printErrf)
@@ -189,7 +183,6 @@ func Main() {
 			hard:     flagHard,
 			dungeons: flagDungeons,
 			portals:  flagPortals,
-			include:  include,
 		})
 	}
 	for _, ropts := range optsList {
@@ -221,7 +214,7 @@ func Main() {
 		// i forget why or whether this is useful.
 		var rom *romState
 		if flag.Arg(1) == "" {
-			rom = newRomState(nil, game, 1, optsList[0].include)
+			rom = newRomState(nil, nil, game, 1)
 		} else {
 			f, err := os.Open(flag.Arg(1))
 			if err != nil {
@@ -234,7 +227,7 @@ func Main() {
 				fatal(err, printErrf)
 				return
 			}
-			rom = newRomState(b, game, 1, optsList[0].include)
+			rom = newRomState(b, nil, game, 1)
 		}
 
 		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
@@ -258,21 +251,6 @@ func Main() {
 				fmt.Printf(s, a...)
 				fmt.Println()
 			})
-	case "showasm":
-		// print the asm for the named function/etc
-		tokens := strings.Split(flag.Arg(0), "/")
-		if len(tokens) != 2 {
-			fatal(fmt.Errorf("showasm: invalid argument: %s", flag.Arg(0)),
-				printErrf)
-			return
-		}
-		game := reverseLookupOrPanic(gameNames, tokens[0]).(int)
-
-		rom := newRomState(nil, game, 1, optsList[0].include)
-		if err := rom.showAsm(tokens[1], os.Stdout); err != nil {
-			fatal(err, printErrf)
-			return
-		}
 	case "":
 		// no devcmd, run randomizer normally
 		if flagMulti != "" ||
@@ -329,12 +307,12 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 		for i, infile := range infiles {
 			ropts := optsList[i]
 
-			b, game, err := readGivenRom(filepath.Join(dirName, infile))
+			b, sym, game, err := readGivenRom(filepath.Join(dirName, infile))
 			if err != nil {
 				fatal(err, logf)
 				return
 			} else {
-				roms[i] = newRomState(b, game, i+1, ropts.include)
+				roms[i] = newRomState(b, sym, game, i+1)
 			}
 
 			// sanity check beforehand
@@ -354,7 +332,7 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 				logf("")
 			}
 
-			roms[i].setTreewarp(ropts.treewarp)
+			//roms[i].setTreewarp(ropts.treewarp) // TODO
 
 			if flagPlan != "" {
 				var err error
@@ -639,34 +617,29 @@ func findVanillaRoms(
 // read the specified file into a slice of bytes, returning an error if the
 // read fails or if the file is an invalid rom. also returns the game as an
 // int.
-func readGivenRom(filename string) ([]byte, int, error) {
+func readGivenRom(filename string) ([]byte, map[string]address, int, error) {
 	// read file
 	f, err := os.Open(filename)
 	if err != nil {
-		return nil, gameNil, err
+		return nil, nil, gameNil, err
 	}
 	defer f.Close()
 	b, err := ioutil.ReadAll(f)
 	if err != nil {
-		return nil, gameNil, err
+		return nil, nil, gameNil, err
 	}
 
 	// check file data
 	if !romIsAges(b) && !romIsSeasons(b) {
-		return nil, gameNil,
+		return nil, nil, gameNil,
 			fmt.Errorf("%s is not an oracles ROM", filename)
 	}
-	if romIsJp(b) {
-		return nil, gameNil,
-			fmt.Errorf("%s is a JP ROM; only US is supported", filename)
-	}
-	if !romIsVanilla(b) {
-		return nil, gameNil,
-			fmt.Errorf("%s is an unrecognized oracles ROM", filename)
-	}
+
+	symbolFilename := filename[:strings.LastIndex(filename, ".")] + ".sym"
+	symbols := readSymbolFile(symbolFilename)
 
 	game := ternary(romIsSeasons(b), gameSeasons, gameAges).(int)
-	return b, game, nil
+	return b, symbols, game, nil
 }
 
 // setRandomSeed sets a 32-bit unsigned random seed based on a hexstring, if
@@ -723,14 +696,16 @@ func setRomData(rom *romState, ri *routeInfo, ropts *randomizerOptions,
 		rom.itemSlots[slot.name].treasure = rom.treasures[romItemName]
 	}
 
-	// set season data
+	// set season data (TODO)
+	/*
 	if rom.game == gameSeasons {
 		for area, id := range ri.seasons {
 			rom.setSeason(inflictCamelCase(area+"Season"), id)
 		}
 	}
+	*/
 
-	rom.setAnimal(ri.companion)
+	//rom.setAnimal(ri.companion) // TODO
 
 	warps := make(map[string]string)
 	if ropts.dungeons {

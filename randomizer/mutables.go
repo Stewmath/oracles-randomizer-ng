@@ -94,12 +94,8 @@ func (rom *romState) findAddr(bank byte, addr uint16) string {
 				return name
 			}
 		case *itemSlot:
-			for _, addrs := range [][]address{mut.idAddrs, mut.subidAddrs} {
-				for _, addr := range addrs {
-					if offset == addr.fullOffset() {
-						return name
-					}
-				}
+			if mut.hasAddr && offset == mut.addr.fullOffset() {
+				return name
 			}
 		case *treasure:
 			if offset >= mut.addr.fullOffset() &&

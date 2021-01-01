@@ -23,7 +23,3 @@ func TestMutableOverlap(t *testing.T) {
 		}
 	}
 }
-
-func TestProcessText(t *testing.T) {
-	testExpect(t, processText("A\\xff # hello\nB"), []byte{'A', 0xff, 'B'})
-}

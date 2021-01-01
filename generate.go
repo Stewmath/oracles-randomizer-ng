@@ -6,4 +6,4 @@ package main
 // git repo is configured to ignore) importing the appropriate local path.
 
 //go:generate go run generate/generate.go
-//go:generate esc -o randomizer/embed.go -pkg randomizer asm/ hints/ logic/ romdata/ lgbtasm/lgbtasm.lua
+//go:generate esc -o randomizer/embed.go -pkg randomizer hints/ logic/ romdata/
