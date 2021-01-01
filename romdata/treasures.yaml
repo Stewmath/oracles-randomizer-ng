@@ -93,7 +93,6 @@ seasons:
   d6 dungeon map: 0x3306
 
   # rings
-  green joy ring: 0x2d01
   moblin ring: 0x2d05
   steadfast ring: 0x2d06
   blast ring: 0x2d07
@@ -102,6 +101,7 @@ seasons:
   quicksand ring: 0x2d0a
   armor ring L-2: 0x2d0b
   subrosian ring: 0x2d10
+  green joy ring: 0x2d11 # New SubID created for this (originally had none)
 
   # page 2
   gnarled key: 0x4200
