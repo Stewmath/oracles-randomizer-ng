@@ -36,6 +36,32 @@ func (mut *mutableRange) check(b []byte) error {
 	return nil
 }
 
+// add a ranged mutable to the rom's codeMutables list
+func (rom *romState) addMutableRange(symbol string, old []byte, new []byte) {
+	addr := rom.lookupSymbol(symbol)
+	if _, ok := rom.codeMutables[symbol]; ok {
+		panic(fmt.Sprintf("Tried to add mutable \"%s\" to rom multiple times", symbol))
+	}
+	rom.codeMutables[symbol] = &mutableRange{addr, old, new}
+}
+
+func (rom *romState) addMutableByte(symbol string, old byte, new byte) {
+	rom.addMutableRange(symbol, []byte{old}, []byte{new})
+}
+
+// add mutables to "rom.codeMutables" (generally the "new" values will be
+// overwritten later on)
+func (rom *romState) initializeMutables() {
+	rom.codeMutables = make(map[string]*mutableRange)
+
+	rom.addMutableByte("randovar_animalCompanion", 0x0b, 0x00)
+
+	defaultSeasonTable := []byte{
+		0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x00,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,
+		0x03,0x02,0x01,0x02,0x00,0x01,0x03,0x02,0x00,0x01,0x00,0x03,0x03,0x03}
+	rom.addMutableRange("roomPackSeasonTable", defaultSeasonTable, defaultSeasonTable)
+}
+
 // sets treewarp on or off in the modified ROM. By default, it is on.
 func (rom *romState) setTreewarp(treewarp bool) {
 	mut := rom.codeMutables["treeWarp"]
@@ -44,13 +70,16 @@ func (rom *romState) setTreewarp(treewarp bool) {
 
 // sets the natzu region based on a companion number 1 to 3.
 func (rom *romState) setAnimal(companion int) {
-	rom.codeMutables["romAnimalRegion"].new =
-		[]byte{byte(companion + 0x0a)}
+	rom.codeMutables["randovar_animalCompanion"].new = []byte{byte(companion + 0x0a)}
 }
 
 // key = area name (as in asm/vars.yaml), id = season index (spring -> winter).
-func (rom *romState) setSeason(key string, id byte) {
-	rom.codeMutables[key].new[0] = id
+func (rom *romState) setSeason(area string, id byte) {
+	roomPack, ok := seasonAreaRoomPacks[area]
+	if !ok {
+		panic(fmt.Sprintf("Room pack for area \"%s\" not defined?", area))
+	}
+	rom.codeMutables["roomPackSeasonTable"].new[roomPack] = id
 }
 
 // get a collated map of all mutables.

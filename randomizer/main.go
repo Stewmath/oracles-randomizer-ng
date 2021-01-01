@@ -696,16 +696,14 @@ func setRomData(rom *romState, ri *routeInfo, ropts *randomizerOptions,
 		rom.itemSlots[slot.name].treasure = rom.treasures[romItemName]
 	}
 
-	// set season data (TODO)
-	/*
+	// set season data
 	if rom.game == gameSeasons {
 		for area, id := range ri.seasons {
-			rom.setSeason(inflictCamelCase(area+"Season"), id)
+			rom.setSeason(area, id)
 		}
 	}
-	*/
 
-	//rom.setAnimal(ri.companion) // TODO
+	rom.setAnimal(ri.companion)
 
 	warps := make(map[string]string)
 	if ropts.dungeons {

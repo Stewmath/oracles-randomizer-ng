@@ -92,7 +92,7 @@ func newRomState(data []byte, symbols map[string]address, game, player int) *rom
 		treasures: loadTreasures(data, symbols["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots()
-	rom.codeMutables = make(map[string]*mutableRange)
+	rom.initializeMutables()
 	return rom
 }
 
@@ -107,18 +107,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 
 	if rom.game == gameSeasons {
 		// TODO
-		/*
-		northHoronSeason :=
-			rom.codeMutables["northHoronSeason"].new[0]
-		rom.codeMutables["initialSeason"].new =
-			[]byte{0x2d, northHoronSeason}
-		westernCoastSeason :=
-			rom.codeMutables["westernCoastSeason"].new[0]
-		rom.codeMutables["seasonAfterPirateCutscene"].new =
-			[]byte{westernCoastSeason}
-
-		rom.setTreasureMapData()
-		*/
+		//rom.setTreasureMapData()
 	} else {
 	}
 
@@ -176,6 +165,14 @@ func (rom *romState) verify() []error {
 		return errors
 	}
 	return nil
+}
+
+func (rom *romState) lookupSymbol(name string) address {
+	val, ok := rom.symbols[name]
+	if !ok {
+		panic(fmt.Sprintf("Symbol \"%s\" not found!", name))
+	}
+	return val
 }
 
 // set the initial satchel and slingshot seeds (and selections) based on what

@@ -173,6 +173,18 @@ var (
 		"holodrum plain", "sunken city", "lost woods", "tarm ruins",
 		"western coast", "temple remains",
 	}
+	seasonAreaRoomPacks = map[string]int {
+		"north horon":     0x10,
+		"eastern suburbs": 0x11,
+		"woods of winter": 0x12,
+		"spool swamp":     0x13,
+		"holodrum plain":  0x14,
+		"sunken city":     0x15,
+		"lost woods":      0x17,
+		"tarm ruins":      0x18,
+		"western coast":   0x1b,
+		"temple remains":  0x1c,
+	}
 )
 
 // set the default seasons for all the applicable areas in the game, and return
