@@ -92,7 +92,7 @@ func parseSummary(path string, game int) (*plan, error) {
 }
 
 // like findRoute, but uses a specified configuration instead of a random one.
-func makePlannedRoute(rom *romState, p *plan) (*routeInfo, error) {
+func makePlannedRoute(rom *romState, p *plan, ropts *randomizerOptions) (*routeInfo, error) {
 	ri := &routeInfo{
 		companion: sora(rom.game, moosh, dimitri).(int), // shop is default
 		entrances: make(map[string]string),
@@ -130,7 +130,7 @@ func makePlannedRoute(rom *romState, p *plan) (*routeInfo, error) {
 			return nil, fmt.Errorf("no such check: %s", slot)
 		}
 		ri.graph[item] = newNode(item, orNode)
-		if !itemFitsInSlot(ri.graph[item], ri.graph[slot]) {
+		if !itemFitsInSlot(ri.graph[item], ri.graph[slot], ropts) {
 			return nil, fmt.Errorf("%s doesn't fit in %s", item, slot)
 		}
 		ri.graph[item].addParent(ri.graph[slot])

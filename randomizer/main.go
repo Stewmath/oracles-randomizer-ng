@@ -54,30 +54,32 @@ func printErrf(s string, a ...interface{}) {
 
 // options specified on the command line or via the TUI
 var (
-	flagCpuProf  string
-	flagDevCmd   string
-	flagDungeons bool
-	flagHard     bool
-	flagNoUI     bool
-	flagPlan     string
-	flagMulti    string
-	flagPortals  bool
-	flagSeed     string
-	flagRace     bool
-	flagTreewarp bool
-	flagVerbose  bool
+	flagCpuProf   string
+	flagDevCmd    string
+	flagDungeons  bool
+	flagHard      bool
+	flagKeysanity bool
+	flagNoUI      bool
+	flagPlan      string
+	flagMulti     string
+	flagPortals   bool
+	flagSeed      string
+	flagRace      bool
+	flagTreewarp  bool
+	flagVerbose   bool
 )
 
 type randomizerOptions struct {
-	treewarp bool
-	hard     bool
-	dungeons bool
-	portals  bool
-	plan     *plan
-	race     bool
-	seed     string
-	game     int
-	players  int
+	treewarp  bool
+	hard      bool
+	dungeons  bool
+	portals   bool
+	keysanity bool
+	plan      *plan
+	race      bool
+	seed      string
+	game      int
+	players   int
 }
 
 // initFlags initializes the CLI/TUI option values and variables.
@@ -91,6 +93,8 @@ func initFlags() {
 		"shuffle dungeon entrances")
 	flag.BoolVar(&flagHard, "hard", false,
 		"enable more difficult logic")
+	flag.BoolVar(&flagKeysanity, "keysanity", false,
+		"shuffle dungeon keys, maps, compasses, and slates outside their dungeons")
 	flag.BoolVar(&flagNoUI, "noui", false,
 		"use command line without prompts if input file is given")
 	flag.StringVar(&flagPlan, "plan", "",
@@ -177,12 +181,13 @@ func Main() {
 		}
 	} else {
 		optsList = append(optsList, &randomizerOptions{
-			race:     flagRace,
-			seed:     flagSeed,
-			treewarp: flagTreewarp,
-			hard:     flagHard,
-			dungeons: flagDungeons,
-			portals:  flagPortals,
+			race:      flagRace,
+			seed:      flagSeed,
+			treewarp:  flagTreewarp,
+			hard:      flagHard,
+			dungeons:  flagDungeons,
+			portals:   flagPortals,
+			keysanity: flagKeysanity,
 		})
 	}
 	for _, ropts := range optsList {
@@ -351,7 +356,7 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 				}
 				routes[i] = route
 			} else {
-				route, err := makePlannedRoute(roms[i], ropts.plan)
+				route, err := makePlannedRoute(roms[i], ropts.plan, ropts)
 				if err != nil {
 					fatal(err, logf)
 					return
@@ -362,9 +367,11 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 			}
 		}
 
+		/* TODO: Multiworld
 		if len(routes) > 1 {
 			shuffleMultiworld(routes, roms, flagVerbose, logf)
 		}
+		*/
 
 		// come up with log data
 		g, checks, spheres, extra := getAllSpheres(routes)
@@ -523,6 +530,11 @@ func getAndLogOptions(game int, ui *uiInstance, ropts *randomizerOptions,
 		}
 		logf("portal shuffle %s.", ternary(ropts.portals, "on", "off"))
 	}
+
+	if ui != nil {
+		ropts.keysanity = ui.doPrompt("enable keysanity? (y/n)") == 'y'
+	}
+	logf("keysanity %s.", ternary(ropts.keysanity, "on", "off"))
 }
 
 // attempt to write rom data to a file and print summary info.
@@ -732,9 +744,16 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		sum := sha1.Sum([]byte(ropts.plan.source))
 		s += fmt.Sprintf("plan-%03x", ((int(sum[0])<<8)+int(sum[1]))>>4)
 
-		// treewarp is the only option that makes a difference in plando
-		if ropts.treewarp {
-			s += flagSep + "t"
+		// treewarp and keysanity are the only options that make a difference in
+		// plando
+		if ropts.treewarp || ropts.keysanity {
+			s += flagSep
+			if ropts.treewarp {
+				s += "t"
+			}
+			if ropts.keysanity {
+				s += "k"
+			}
 		}
 
 		return s
@@ -761,6 +780,9 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		}
 		if ropts.portals {
 			s += "p"
+		}
+		if ropts.keysanity {
+			s += "k"
 		}
 	}
 

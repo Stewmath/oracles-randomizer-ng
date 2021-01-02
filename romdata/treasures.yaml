@@ -11,7 +11,7 @@ common:
   boomerang: 0x0600
   biggoron's sword: 0x0c00
   bombchu, 10: 0x0d00
-  ricky's flute: 0x0e00 # these flutes are correct for ages but fake for seasons
+  ricky's flute: 0x0e00 # new flute subIDs were added to Seasons to match Ages
   dimitri's flute: 0x0e01
   moosh's flute: 0x0e02
   shovel: 0x1500
@@ -85,7 +85,7 @@ seasons:
   rupees, 5: 0x2801
 
   # hearts
-  rare peach stone: 0x2b03 # subrosia market
+  rare peach stone: 0x2b03 # New SubID created for this (originally had none)
 
   # dungeon items
   d6 small key: 0x3006

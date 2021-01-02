@@ -43,7 +43,7 @@ func randomMultiCheck(src *rand.Rand, mr *multiRoute) (*node, *node) {
 }
 
 func shuffleMultiworld(
-	ris []*routeInfo, roms []*romState, verbose bool, logf logFunc) {
+	ris []*routeInfo, roms []*romState, verbose bool, logf logFunc, ropts *randomizerOptions) {
 	mrs := make([]*multiRoute, len(ris))
 	src := ris[0].src
 	swapCounts := make(map[*node]int)
@@ -81,8 +81,8 @@ func shuffleMultiworld(
 		if slot1.player == slot2.player ||
 			roms[slot1.player-1].treasures[item2.name] == nil ||
 			roms[slot2.player-1].treasures[item1.name] == nil ||
-			!itemFitsInSlot(item2, slot1) ||
-			!itemFitsInSlot(item1, slot2) {
+			!itemFitsInSlot(item2, slot1, ropts) ||
+			!itemFitsInSlot(item1, slot2, ropts) {
 			continue
 		}
 
