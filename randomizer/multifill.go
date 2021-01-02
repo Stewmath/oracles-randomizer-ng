@@ -174,7 +174,8 @@ func shuffleMultiworld(
 // returns true iff any of the players have >= limit empty spheres *before*
 // they're finished.
 func playerHasConsecutiveEmptySpheres(routes []*routeInfo, limit int) bool {
-	g, _, spheres, _ := getAllSpheres(routes)
+	// TODO: when should keys count as progression?
+	g, _, spheres, _ := getAllSpheres(routes, false)
 
 	// clean up getAllSpheres master graph
 	for _, ri := range routes {

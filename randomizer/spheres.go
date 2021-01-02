@@ -25,7 +25,8 @@ func getChecks(usedItems, usedSlots *list.List) map[*node]*node {
 // items from sphere 0, and so on. each check only belongs to one sphere. it
 // also returns a separate slice of checks that aren't reachable at all.
 // returned slices are ordered alphabetically.
-func getSpheres(g graph, checks map[*node]*node, resetFunc func()) ([][]*node, []*node) {
+func getSpheres(g graph, checks map[*node]*node, keysAreProgression bool,
+resetFunc func()) ([][]*node, []*node) {
 	reached := make(map[*node]bool)
 	spheres := make([][]*node, 0)
 
@@ -33,9 +34,9 @@ func getSpheres(g graph, checks map[*node]*node, resetFunc func()) ([][]*node, [
 	// have their parents restored even if they're not reachable yet.
 	unreachedChecks := make(map[*node]*node)
 	for slot, item := range checks {
-		// don't delimit spheres by intra-dungeon keys -- it obscures "actual"
-		// progression in the log file.
-		if !keyRegexp.MatchString(item.name) {
+		// when keysanity is disabled, don't delimit spheres by intra-dungeon
+		// keys -- it obscures "actual" progression in the log file.
+		if keysAreProgression || !keyRegexp.MatchString(item.name) {
 			unreachedChecks[slot] = item
 			item.removeParent(slot)
 		}
@@ -149,7 +150,8 @@ func logSpheres(summary chan string, checks map[*node]*node,
 
 // collates all the checks from multiple routes and returns check/sphere data.
 // also returns a "master graph" which contains all the route graphs.
-func getAllSpheres(routes []*routeInfo) (graph, map[*node]*node, [][]*node, []*node) {
+func getAllSpheres(routes []*routeInfo,
+keysAreProgression bool) (graph, map[*node]*node, [][]*node, []*node) {
 	checks, spheres := make(map[*node]*node), make([][]*node, 0)
 	for _, ri := range routes {
 		for k, v := range getChecks(ri.usedItems, ri.usedSlots) {
@@ -163,7 +165,7 @@ func getAllSpheres(routes []*routeInfo) (graph, map[*node]*node, [][]*node, []*n
 		ri.graph["start"].addParent(g["start"])
 		g["done"].addParent(ri.graph["done"])
 	}
-	spheres, extra := getSpheres(g, checks, func() {
+	spheres, extra := getSpheres(g, checks, keysAreProgression, func() {
 		for _, ri := range routes {
 			ri.graph.reset()
 		}

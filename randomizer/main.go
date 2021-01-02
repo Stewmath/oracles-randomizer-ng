@@ -373,8 +373,20 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 		}
 		*/
 
+		// if any route uses keysanity, consider keys as progression in the log.
+		// (note: this could cause some strange results in multiworld if only
+		// some people have keysanity enabled. I believe spheres are used in
+		// order to "balance" the progression between players.)
+		keysAreProgression := false
+		for _, ri := range optsList {
+			if ri.keysanity {
+				keysAreProgression = true
+				break
+			}
+		}
+
 		// come up with log data
-		g, checks, spheres, extra := getAllSpheres(routes)
+		g, checks, spheres, extra := getAllSpheres(routes, keysAreProgression)
 		resetFunc := func() {
 			for _, ri := range routes {
 				ri.graph.reset()
