@@ -112,6 +112,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 
 	rom.setSeedData()
 	//rom.setFileSelectText(optString(seed, ropts, "+")) // TODO
+	rom.attachText()
 	//rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player) // TODO: Multiworld
 
 	mutables := rom.getAllMutables()
@@ -134,25 +135,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 func (rom *romState) verify() []error {
 	errors := make([]error, 0)
 	for k, m := range rom.getAllMutables() {
-		// ignore special cases that would error even when correct
 		switch k {
-		// seasons shop items
-		case "zero shop text", "member's card", "treasure map",
-			"rare peach stone", "ribbon":
-		// flutes
-		case "ricky's flute", "dimitri's flute", "moosh's flute":
-		// seasons linked chests
-		case "spool swamp cave", "woods of winter, 2nd cave",
-			"dry eyeglass lake, west cave":
-		// seasons misc.
-		case "bracelet", "temple of seasons", "fool's ore", "blaino prize",
-			"mt. cucco, platform cave", "diving spot outside D4":
-		// ages progressive w/ different item IDs
-		case "nayru's house", "tokkey's composition", "rescue nayru",
-			"d6 present vire chest":
-		// ages misc.
-		case "south shore dirt", "target carts 2", "sea of storms past",
-			"starting chest", "graveyard poe":
 		default:
 			if err := m.check(rom.data); err != nil {
 				errors = append(errors, fmt.Errorf("%s: %v", k, err))
@@ -609,4 +592,57 @@ func stringToTiles(s string) []byte {
 		}()
 	}
 	return b
+}
+
+// attaches text for shop items to matching labels.
+func (rom *romState) attachText() {
+	// insert randomized item names into shop text
+	shopNames := loadShopNames(gameNames[rom.game])
+	shopMap := map[string]string{
+		"randoText_shop150Rupees": "shop, 150 rupees",
+	}
+	if rom.game == gameSeasons {
+		shopMap["randoText_membersShop1"] = "member's shop 1"
+		shopMap["randoText_membersShop2"] = "member's shop 2"
+		shopMap["randoText_membersShop3"] = "member's shop 3"
+		shopMap["randoText_subrosiaMarket1stItem"] = "subrosia market, 1st item"
+		shopMap["randoText_subrosiaMarket2ndItem"] = "subrosia market, 2nd item"
+		shopMap["randoText_subrosiaMarket5thItem"] = "subrosia market, 5th item"
+	}
+	for codeName, slotName := range shopMap {
+		addr := rom.lookupSymbol(codeName).fullOffset()
+		itemName := shopNames[rom.itemSlots[slotName].treasure.displayName]
+		for _, c := range []byte(itemName) {
+			rom.data[addr] = c
+			addr += 1
+		}
+		rom.data[addr] = 0
+	}
+}
+
+var articleRegexp = regexp.MustCompile("^(an?|the) ")
+
+// return a map of internal item names to text that should be displayed for the
+// item in shops.
+func loadShopNames(game string) map[string]string {
+	m := make(map[string]string)
+
+	// load names used for owl hints
+	itemFiles := []string{
+		"/hints/common_items.yaml",
+		fmt.Sprintf("/hints/%s_items.yaml", game),
+	}
+	for _, filename := range itemFiles {
+		if err := yaml.Unmarshal(
+			FSMustByte(false, filename), m); err != nil {
+			panic(err)
+		}
+	}
+
+	// remove articles
+	for k, v := range m {
+		m[k] = articleRegexp.ReplaceAllString(v, "")
+	}
+
+	return m
 }
