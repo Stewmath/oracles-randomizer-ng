@@ -122,6 +122,8 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 
 	//rom.setCompassData() // TODO
 
+	rom.setConfigData(ropts)
+
 	sum := makeRomChecksum(rom.data)
 	rom.data[0x14e] = sum[0]
 	rom.data[0x14f] = sum[1]
@@ -645,4 +647,16 @@ func loadShopNames(game string) map[string]string {
 	}
 
 	return m
+}
+
+// writes boolean configuration parameters to the rom
+func (rom *romState) setConfigData(ropts *randomizerOptions) {
+	var config byte = 0
+
+	if ropts.treewarp {
+		config |= 2
+	}
+
+	addr := rom.lookupSymbol("randoConfig").fullOffset()
+	rom.data[addr] = config
 }

@@ -332,8 +332,6 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 				logf("")
 			}
 
-			//roms[i].setTreewarp(ropts.treewarp) // TODO
-
 			if flagPlan != "" {
 				var err error
 				ropts.plan, err = parseSummary(flagPlan, game)

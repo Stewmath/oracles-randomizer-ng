@@ -62,12 +62,6 @@ func (rom *romState) initializeMutables() {
 	rom.addMutableRange("roomPackSeasonTable", defaultSeasonTable, defaultSeasonTable)
 }
 
-// sets treewarp on or off in the modified ROM. By default, it is on.
-func (rom *romState) setTreewarp(treewarp bool) {
-	mut := rom.codeMutables["treeWarp"]
-	mut.new[5] = byte(ternary(treewarp, 0x28, 0x18).(int)) // jr z / jr
-}
-
 // sets the natzu region based on a companion number 1 to 3.
 func (rom *romState) setAnimal(companion int) {
 	rom.codeMutables["randovar_animalCompanion"].new = []byte{byte(companion + 0x0a)}

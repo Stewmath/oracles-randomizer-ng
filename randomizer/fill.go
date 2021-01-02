@@ -494,6 +494,7 @@ func itemFitsInSlot(itemNode, slotNode *node) bool {
 	// bomb flower has special graphics something. this could probably be
 	// worked around like with the temple of seasons, but i'm not super
 	// interested in doing that.
+	// (TODO: Look into this)
 	if itemNode.name == "bomb flower" {
 		switch slotNode.name {
 		case "cheval's test", "cheval's invention", "wild tokay game",
