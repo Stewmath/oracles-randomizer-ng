@@ -15,6 +15,7 @@ nayru's house:
 maku tree:
   treasure: satchel
   room: 0x0038
+  maptile: 0x38
   ids: [{bank: 0x15, addr: 0x70e0}, {bank: 0x15, addr: 0x7115}]
   subids: [{bank: 0x15, addr: 0x70e3}, {bank: 0x15, addr: 0x7118}]
   collect: maku tree (ages)

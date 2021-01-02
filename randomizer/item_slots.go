@@ -16,7 +16,7 @@ type itemSlot struct {
 
 	group, room, player   byte
 	moreRooms             []uint16 // high = group, low = room
-	mapTile               byte     // overworld map coords, yx
+	mapTile               uint16   // overworld map coords (includes group)
 	localOnly             bool     // multiworld
 }
 
@@ -66,8 +66,8 @@ type rawSlot struct {
 	Treasure string
 	Room     uint16
 
-	// required if not == low byte of room or in dungeon.
-	MapTile *byte
+	// required if not equal to room and not in dungeon.
+	MapTile *uint16
 
 	// pick one
 	Label string
@@ -80,10 +80,30 @@ type rawSlot struct {
 	Local bool // dummy implies true
 }
 
-// data that can be inferred from a room's music.
-type musicData struct {
-	MapTile byte
+var seasonsDungeonMapTiles = map[string]uint16 {
+	"d0": 0x0d4,
+	"d1": 0x096,
+	"d2": 0x08d,
+	"d3": 0x060,
+	"d4": 0x01d,
+	"d5": 0x08a,
+	"d6": 0x000,
+	"d7": 0x0d0,
+	"d8": 0x100,
 }
+
+var agesDungeonMapTiles = map[string]uint16 {
+	"d1": 0x08d,
+	"d2": 0x183, // TODO: Past & present entrances
+	"d3": 0x0ba,
+	"d4": 0x003,
+	"d5": 0x00a,
+	"d6 past":    0x13c,
+	"d6 present": 0x03c,
+	"d7": 0x090,
+	"d8": 0x15c,
+}
+
 
 // return a map of slot names to slot data. if romState.data is nil, only
 // "static" data is loaded.
@@ -95,15 +115,6 @@ func (rom *romState) loadSlots() map[string]*itemSlot {
 		FSMustByte(false, filename), raws); err != nil {
 		panic(err)
 	}
-
-	/*
-	allMusic := make(map[string](map[byte]musicData))
-	if err := yaml.Unmarshal(
-		FSMustByte(false, "/romdata/music.yaml"), allMusic); err != nil {
-		panic(err)
-	}
-	musicMap := allMusic[gameNames[rom.game]]
-	*/
 
 	m := make(map[string]*itemSlot)
 	for name, raw := range raws {
@@ -119,26 +130,20 @@ func (rom *romState) loadSlots() map[string]*itemSlot {
 			localOnly: raw.Local || raw.Dummy,
 		}
 
-		// TODO: mapTile
-		/*
-		// unspecified map tile = assume overworld
-		if raw.MapTile == nil && rom.data != nil {
-			musicIndex := getMusicIndex(rom.data, rom.game, slot.group, slot.room)
-			if music, ok := musicMap[musicIndex]; ok {
-				slot.mapTile = music.MapTile
-			} else {
-				// nope, definitely not overworld.
-				if slot.group > 2 || (slot.group == 2 &&
-					(slot.room&0x0f > 0x0d || slot.room&0xf0 > 0xd0)) {
-					panic(fmt.Sprintf("invalid room for %s: %04x",
-						name, raw.Room))
-				}
-				slot.mapTile = slot.room
-			}
-		} else if raw.MapTile != nil {
+		if raw.MapTile != nil {
 			slot.mapTile = *raw.MapTile
+		} else { // unspecified map tile = assume either overworld or dungeon
+			dungeonMapTiles := sora(rom.game,
+				seasonsDungeonMapTiles, agesDungeonMapTiles).(map[string]uint16)
+			dungeonName := getDungeonName(name)
+			if tile, ok := dungeonMapTiles[dungeonName]; ok {
+				slot.mapTile = tile
+			} else if slot.group < 2 { // Overworld / Subrosia
+				slot.mapTile = raw.Room
+			} else {
+				panic(fmt.Sprintf("need a maptile for %s", name))
+			}
 		}
-		*/
 
 		if raw.Label != "" {
 			slot.label = raw.Label
@@ -158,20 +163,4 @@ func (rom *romState) loadSlots() map[string]*itemSlot {
 	}
 
 	return m
-}
-
-// returns the music index for the given room.
-func getMusicIndex(b []byte, game int, group, room byte) byte {
-	// TODO
-	return 0
-	/*
-	ptr := sora(game, address{0x04, 0x483c}, address{0x04, 0x495c}).(address)
-
-	ptr.offset += uint16(group) * 2
-	ptr.offset = uint16(b[ptr.fullOffset()]) +
-		uint16(b[ptr.fullOffset()+1])*0x100
-	ptr.offset += uint16(room)
-
-	return b[ptr.fullOffset()]
-	*/
 }

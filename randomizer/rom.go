@@ -107,9 +107,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	}
 
 	if rom.game == gameSeasons {
-		// TODO
-		//rom.setTreasureMapData()
-	} else {
+		rom.setTreasureMapData()
 	}
 
 	rom.setSeedData()
@@ -267,12 +265,14 @@ func setTreeNybble(subid *mutableRange, slot *itemSlot) {
 
 // set the locations of the sparkles for the jewels on the treasure map.
 func (rom *romState) setTreasureMapData() {
-	for _, name := range []string{"round", "pyramid", "square", "x-shaped"} {
-		label := strings.ReplaceAll(name, "-s", "S") + "JewelCoords"
-		rom.codeMutables[label].new[0] = 0x63 // default to tarm gate
+	for i, name := range []string{"round", "pyramid", "square", "x-shaped"} {
+		addr := rom.symbols["_mapMenu_drawJewelLocations@jewelLocations"].fullOffset() + i * 2
+		rom.data[addr+0] = 0x00
+		rom.data[addr+1] = 0x63 // default to tarm gate
 		for _, slot := range rom.lookupAllItemSlots(name + " jewel") {
 			if int(slot.player) == 0 || int(slot.player) == rom.player {
-				rom.codeMutables[label].new[0] = slot.mapTile
+				rom.data[addr+0] = byte(slot.mapTile >> 8)
+				rom.data[addr+1] = byte(slot.mapTile & 0xff)
 			}
 		}
 	}
@@ -437,10 +437,11 @@ func (rom *romState) randomizeRingPool(src *rand.Rand,
 type warpData struct {
 	// loaded from yaml
 	Entry, Exit uint16
-	MapTile     byte
+	MapTile     uint16
 
 	// set after loading
-	bank, vanillaMapTile         byte
+	bank                         byte
+	vanillaMapTile               uint16
 	len, entryOffset, exitOffset int
 
 	vanillaEntryData, vanillaExitData []byte // read from rom
@@ -509,10 +510,10 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 			func(s string) bool { return strings.HasSuffix(s, "portal") },
 		}
 		for _, cond := range conditions {
-			changeTreasureMapTiles(rom.itemSlots, func(c chan byteChange) {
+			changeTreasureMapTiles(rom.itemSlots, func(c chan tileChange) {
 				for name, warp := range warps {
 					if cond(name) {
-						c <- byteChange{warp.vanillaMapTile, warp.MapTile}
+						c <- tileChange{warp.vanillaMapTile, warp.MapTile}
 					}
 				}
 				close(c)
@@ -535,16 +536,16 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 	}
 }
 
-type byteChange struct {
-	old, new byte
+type tileChange struct {
+	old, new uint16
 }
 
 // process a set of treasure map tile changes in a way that ensures each tile
 // is substituted only once (per call to this function).
 func changeTreasureMapTiles(slots map[string]*itemSlot,
-	generate func(chan byteChange)) {
-	pendingTiles := make(map[*itemSlot]byte)
-	c := make(chan byteChange)
+	generate func(chan tileChange)) {
+	pendingTiles := make(map[*itemSlot]uint16)
+	c := make(chan tileChange)
 	go generate(c)
 
 	for change := range c {
