@@ -1,43 +1,43 @@
-# Zelda Oracles Randomizer
+# Zelda Oracles Randomizer NG
 
-This program reads a Zelda: Oracle of Seasons or Oracle of Ages ROM (US
-versions only), shuffles the locations of (most) items and mystical seeds, and
-writes the modified ROM to a new file. In Seasons, the default seasons for each
-area are also randomized. Most arbitrary overworld checks for essences and
-other game flags are removed, so the dungeons and other checks can be done in
-any order that the randomized items facilitate. However, you do need to collect
-all 8 essences to get the Maku Seed and finish the game.
+This program reads a Zelda: Oracle of Seasons or Oracle of Ages ROM, shuffles
+the locations of (most) items and mystical seeds, and writes the modified ROM to
+a new file. In Seasons, the default seasons for each area are also randomized.
+Most arbitrary overworld checks for essences and other game flags are removed,
+so the dungeons and other checks can be done in any order that the randomized
+items facilitate. However, you do need to collect all 8 essences to get the Maku
+Seed and finish the game.
 
+## Differences from the original
+
+The NG version of the randomizer is an overhaul of Jangler's original randomizer
+which is built on top of the oracles disassembly. The base features of the
+randomizer are generally the same, and if the new features aren't enabled, you
+shouldn't see much difference.
+
+Here are some of the differences you *will* encounter:
+
+- The treasure map works in Subrosia
 
 ## Usage
 
-There are three ways to use the randomizer:
+At this time, this version of the randomizer only works on the commandline, and
+you must be able to build the disassembly first. A way for non-technical users
+to use this will come in the future.
 
-1. Place the randomizer in the same directory as your vanila ROM(s) (or vice
-   versa), and run it. The randomizer will automatically find your vanilla
-   ROM(s) and prompt for further options.
-2. In Windows, drag your vanilla ROM onto the executable. Same deal as above,
-   except that the ROM and randomizer don't have to be in the same folder.
-3. Use the command line. Type `./oracles-randomizer -h` to view the usage
-   summary.
+You must first build oracles-disasm from the submodule in this project, which
+produces modified oracles ROMs. Then, run `./oracles-randomizer
+oracles-disasm/seasons.gbc <output rom>`. Only Seasons is supported at the
+moment.
 
-A web interface also exists at <http://oosarando.jaysee.live/>, created and
-maintained by jaysee87. Note that the web interface may not always be using the
-latest version of the randomizer.
+When building the disassembly, there will be a file named `seasons.sym` created
+along with `seasons.gbc`. It is very important that this file is in the same
+directory as `seasons.gbc`, otherwise this won't work.
 
 
 ## Download
 
-You can download executables for Windows, macOS, and Linux from the
-[releases](https://github.com/jangler/oracles-randomizer/releases) page. Don't
-use the "Download ZIP" link on the main page; that only contains the source
-code. The download also contains a rudimentary location checklist and item
-tracker. If you're looking for a more detailed item and map tracker,
-[EmoTracker](https://emotracker.net/) has a pack developed by Herreteman.
-
-See
-[contributing.md](https://github.com/jangler/oracles-randomizer/blob/master/doc/contributing.md)
-for instructions on building the randomizer from source.
+Unavailable at the moment.
 
 
 ## Randomization notes
@@ -98,22 +98,15 @@ mainly focused on speedrunning, but randomizer-specific channels exist as well.
 A: Open an issue about it on GitHub or bring it up in a randomizer channel in
 the Oracles discord. Provide your seed's log file either way.
 
-**Q: Will you make a cross-game randomizer that combines Ages and Seasons into
-one ROM?**
+**Q: Can I do a linked game?**
 
-A: no
-
-**Q: Can I at least do a linked game?**
-
-A: Yes, although linked support has not been extensively tested, and linked
-elements of the games are not randomized. Animal companion is still determined
-by the seed, not by the linked file. Multiworld linked games are not supported.
+A: Linked games are currently disabled. They will probably be re-enabled later
+after being tested properly but it's low-priority.
 
 
 ## Thanks to:
 
-- Drenn for [oracles-disasm](https://github.com/Drenn1/oracles-disasm) and
-  additional code.
+- Jangler for the [original oracles-randomizer](https://github.com/jangler/oracles-randomizer).
 - Herreteman, dragonc0, Phoenomenom714, and jaysee87 for help with logic,
   playtesting, design, and "customer support".
 - Everyone who helped playtest prerelease versions of the randomizer.
