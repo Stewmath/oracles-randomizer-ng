@@ -3,7 +3,8 @@
 # - if `collect` is not specified, it uses the mode that the item has in the
 #   vanilla treasure table.
 #
-# TODO: Do something about "ids", "subids", "reverseaddr" fields for disassembly.
+# TODO: Anything marked as "local" can probably have that removed when
+# multiworld is re-implemented (aside from seed trees).
 
 # holodrum
 eyeglass lake, across bridge:
@@ -16,7 +17,6 @@ maku tree:
   morerooms: [0x020c, 0x022b, 0x022c, 0x022d, 0x025b, 0x025c, 0x025d, 0x027b]
   local: true
   label: seasonsSlot_makuTree
-  # TODO: Set maptile?
 horon village SW chest:
   treasure: rupees, 20
   room: 0x00f5

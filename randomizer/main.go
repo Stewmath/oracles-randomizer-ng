@@ -617,7 +617,7 @@ func findVanillaRoms(
 // read the specified file into a slice of bytes, returning an error if the
 // read fails or if the file is an invalid rom. also returns the game as an
 // int.
-func readGivenRom(filename string) ([]byte, map[string]address, int, error) {
+func readGivenRom(filename string) ([]byte, map[string]*address, int, error) {
 	// read file
 	f, err := os.Open(filename)
 	if err != nil {

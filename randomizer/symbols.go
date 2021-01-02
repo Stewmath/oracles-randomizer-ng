@@ -9,12 +9,12 @@ import (
 	"strconv"
 )
 
-func readSymbolFile(filename string) map[string]address {
+func readSymbolFile(filename string) map[string]*address {
 	symbolPanic := func(line string) {
 		panic(fmt.Sprintf("Error parsing symbol file \"%s\": \"%s\"", filename, line))
 	}
 
-	retval := make(map[string]address)
+	retval := make(map[string]*address)
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -38,7 +38,7 @@ func readSymbolFile(filename string) map[string]address {
 		}
 		bank, _ := strconv.ParseUint(addr[0], 16, 8)
 		offset, _ := strconv.ParseUint(addr[1], 16, 16)
-		retval[list[1]] = address{uint8(bank), uint16(offset)}
+		retval[list[1]] = &address{uint8(bank), uint16(offset)}
 	}
 
 	return retval

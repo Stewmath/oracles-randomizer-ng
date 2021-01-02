@@ -11,7 +11,7 @@ type itemSlot struct {
 	treasure              *treasure
 
 	hasAddr               bool
-	addr                  address  // address of item slot data (only if hasAddr is true)
+	addr                  *address // address of item slot data (only if hasAddr is true)
 	label                 string   // label referencing item slot
 
 	group, room, player   byte
@@ -29,7 +29,7 @@ func (mut *itemSlot) mutate(b []byte) {
 }
 
 // helper function for itemSlot.check()
-func checkByte(b []byte, addr address, value byte) error {
+func checkByte(b []byte, addr *address, value byte) error {
 	if b[addr.fullOffset()] != value {
 		return fmt.Errorf("expected %x at %x; found %x",
 			value, addr.fullOffset(), b[addr.fullOffset()])

@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"strconv"
 
 	"gopkg.in/yaml.v2"
 )
@@ -80,16 +81,16 @@ type romState struct {
 	itemSlots    map[string]*itemSlot
 	codeMutables map[string]*mutableRange
 	bankEnds     []uint16 // bus offset of free space in each bank
-	symbols      map[string]address
+	symbols      map[string]*address
 }
 
-func newRomState(data []byte, symbols map[string]address, game, player int) *romState {
+func newRomState(data []byte, symbols map[string]*address, game, player int) *romState {
 	rom := &romState{
 		game:      game,
 		player:    player,
 		data:      data,
 		symbols:   symbols,
-		treasures: loadTreasures(data, symbols["treasureObjectData"], game),
+		treasures: loadTreasures(data, *symbols["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots()
 	rom.initializeMutables()
@@ -111,7 +112,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	} else {
 	}
 
-	//rom.setSeedData() // TODO
+	rom.setSeedData()
 	//rom.setFileSelectText(optString(seed, ropts, "+")) // TODO
 	//rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player) // TODO: Multiworld
 
@@ -167,7 +168,7 @@ func (rom *romState) verify() []error {
 	return nil
 }
 
-func (rom *romState) lookupSymbol(name string) address {
+func (rom *romState) lookupSymbol(name string) *address {
 	val, ok := rom.symbols[name]
 	if !ok {
 		panic(fmt.Sprintf("Symbol \"%s\" not found!", name))
@@ -180,28 +181,28 @@ func (rom *romState) lookupSymbol(name string) address {
 // the seed type.
 func (rom *romState) setSeedData() {
 	treeName := sora(rom.game, "horon village tree", "south lynna tree").(string)
-	seedType := rom.itemSlots[treeName].treasure.id
+	initialSeedType := rom.itemSlots[treeName].treasure.id
 
 	if rom.game == gameSeasons {
-		// satchel/slingshot starting seeds
-		rom.codeMutables["satchelInitialSeeds"].new[0] = 0x20 + seedType
-		rom.codeMutables["editGainLoseItemsTables"].new[1] = 0x20 + seedType
+		rom.data[rom.symbols["randovar_initialSeedType"].fullOffset()] = initialSeedType
 
-		for _, name := range []string{
-			"satchelInitialSelection", "slingshotInitialSelection"} {
-			rom.codeMutables[name].new[1] = seedType
-		}
-
-		for _, names := range [][]string{
-			{"horon village tree", "horonVillageTreeMapIcon"},
-			{"north horon tree", "northHoronTreeMapIcon"},
-			{"woods of winter tree", "woodsOfWinterTreeMapIcon"},
-			{"spool swamp tree", "spoolSwampTreeMapIcon"},
-			{"sunken city tree", "sunkenCityTreeMapIcon"},
-			{"tarm ruins tree", "tarmRuinsTreeMapIcon"},
+		for i, names := range [][]string{
+			{"horon village tree",  "5"},
+			{"woods of winter tree","4"},
+			{"north horon tree",    "2"},
+			{"spool swamp tree",    "3"},
+			{"sunken city tree",    "1"},
+			{"tarm ruins tree",     "0"},
 		} {
+			// Set seed type
 			id := rom.itemSlots[names[0]].treasure.id
-			rom.codeMutables[names[1]].new[0] = 0x15 + id
+			addr := rom.lookupSymbol("enemyCode5a@treeDataTable")
+			rom.data[addr.fullOffset() + i * 3] = id
+
+			// Set map popup (order is different)
+			popupIndex, _ := strconv.ParseInt(names[1], 10, 64)
+			addr = rom.lookupSymbol("treeWarps")
+			rom.data[addr.fullOffset() + int(popupIndex) * 3 + 2] = 0x15 + id
 		}
 	} else {
 		// set high nybbles (seed types) of seed tree interactions
@@ -227,11 +228,11 @@ func (rom *romState) setSeedData() {
 			rom.itemSlots["zora village tree"])
 
 		// satchel and shooter come with south lynna tree seeds
-		rom.codeMutables["satchelInitialSeeds"].new[0] = 0x20 + seedType
-		rom.codeMutables["seedShooterGiveSeeds"].new[6] = 0x20 + seedType
+		rom.codeMutables["satchelInitialSeeds"].new[0] = 0x20 + initialSeedType
+		rom.codeMutables["seedShooterGiveSeeds"].new[6] = 0x20 + initialSeedType
 		for _, name := range []string{"satchelInitialSelection",
 			"shooterInitialSelection"} {
-			rom.codeMutables[name].new[1] = seedType
+			rom.codeMutables[name].new[1] = initialSeedType
 		}
 
 		// set map icons
@@ -289,8 +290,8 @@ func (rom *romState) setCompassData() {
 	for _, prefix := range prefixes {
 		for name, slot := range rom.itemSlots {
 			if strings.HasPrefix(name, prefix+" ") {
-				offset := getDungeonPropertiesAddr(
-					rom.game, slot.group, slot.room).fullOffset()
+				offset := rom.getDungeonPropertiesAddr(
+					slot.group, slot.room).fullOffset()
 				rom.data[offset] = rom.data[offset] & 0xed // reset bit 4
 			}
 		}
@@ -316,8 +317,8 @@ func (rom *romState) setCompassData() {
 		}
 
 		for _, slot := range slots {
-			offset := getDungeonPropertiesAddr(
-				rom.game, slot.group, slot.room).fullOffset()
+			offset := rom.getDungeonPropertiesAddr(
+				slot.group, slot.room).fullOffset()
 			rom.data[offset] = (rom.data[offset] & 0xbf) | 0x10 // set bit 4, reset bit 6
 		}
 	}
@@ -345,13 +346,14 @@ func (rom *romState) lookupAllItemSlots(itemName string) []*itemSlot {
 }
 
 // get the location of the dungeon properties byte for a specific room.
-func getDungeonPropertiesAddr(game int, group, room byte) *address {
+func (rom *romState) getDungeonPropertiesAddr(group, room byte) *address {
+	baseAddr := rom.symbols["dungeonRoomPropertiesGroup4Data"]
 	offset := uint16(room)
-	offset += uint16(sora(game, 0x4d41, 0x4dce).(int)) // TODO
+	offset += baseAddr.offset
 	if group%2 != 0 {
 		offset += 0x100
 	}
-	return &address{0x01, offset}
+	return &address{baseAddr.bank, offset}
 }
 
 // randomizes the types of rings in the item pool, returning a map of vanilla
