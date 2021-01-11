@@ -1,7 +1,6 @@
 package randomizer
 
 import (
-	"bytes"
 	"crypto/sha1"
 	"fmt"
 	"math/rand"
@@ -111,7 +110,7 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	}
 
 	rom.setSeedData()
-	//rom.setFileSelectText(optString(seed, ropts, "+")) // TODO
+	rom.setFileSelectText(optString(seed, ropts, "+"))
 	rom.attachText()
 	//rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player) // TODO: Multiworld
 
@@ -119,8 +118,6 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	for _, k := range orderedKeys(mutables) {
 		mutables[k].mutate(rom.data)
 	}
-
-	//rom.setCompassData() // TODO
 
 	rom.setConfigData(ropts)
 
@@ -259,56 +256,6 @@ func (rom *romState) setTreasureMapData() {
 				rom.data[addr+0] = byte(slot.mapTile >> 8)
 				rom.data[addr+1] = byte(slot.mapTile & 0xff)
 			}
-		}
-	}
-}
-
-// set dungeon properties so that the compass beeps in the rooms actually
-// containing small keys and boss keys.
-func (rom *romState) setCompassData() {
-	prefixes := sora(rom.game,
-		[]string{"d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"},
-		[]string{"d0", "d1", "d2", "d3", "d4", "d5", "d6 present", "d6 past",
-			"d7", "d8"}).([]string)
-
-	// clear key flags
-	for _, prefix := range prefixes {
-		for name, slot := range rom.itemSlots {
-			if strings.HasPrefix(name, prefix+" ") {
-				// safe to assume this is in a dungeon
-				offset := rom.getDungeonPropertiesAddr(
-					slot.group, slot.room).fullOffset()
-				rom.data[offset] = rom.data[offset] & 0xed // reset bit 4
-			}
-		}
-	}
-
-	// set key flags
-	for _, prefix := range prefixes {
-		slots := rom.lookupAllItemSlots(fmt.Sprintf("%s small key", prefix))
-
-		// boss keys can be absent in plando, so handle the nil case
-		switch prefix {
-		case "d0", "d6 present":
-			break
-		case "d6 past":
-			if slot := rom.lookupItemSlot("d6 boss key"); slot != nil {
-				slots = append(slots, slot)
-			}
-		default:
-			keyName := fmt.Sprintf("%s boss key", prefix)
-			if slot := rom.lookupItemSlot(keyName); slot != nil {
-				slots = append(slots, slot)
-			}
-		}
-
-		for _, slot := range slots {
-			if slot.group < 4 { // can't set dungeon property data outside dungeons
-				continue
-			}
-			offset := rom.getDungeonPropertiesAddr(
-				slot.group, slot.room).fullOffset()
-			rom.data[offset] = (rom.data[offset] & 0xbf) | 0x10 // set bit 4, reset bit 6
 		}
 	}
 }
@@ -557,20 +504,15 @@ func (rom *romState) setFileSelectText(row2 string) {
 	// construct tiles from strings
 	version := strings.Replace(version, "beta", "bet", 1) // full won't fit
 	fileSelectRow1 := stringToTiles(strings.ToUpper(ternary(len(version) == 5,
-		fmt.Sprintf("randomizer %s", version),
-		fmt.Sprintf("rando %10s", version)[:16]).(string)))
+		fmt.Sprintf("rando-ng %s", version),
+		fmt.Sprintf("ng %13s", version)[:16]).(string)))
 	fileSelectRow2 := stringToTiles(
 		strings.ToUpper(strings.ReplaceAll(row2, "-", " ")))
 
-	tiles := rom.codeMutables["dma_FileSelectStringTiles"]
-	buf := new(bytes.Buffer)
-	buf.Write(tiles.new[:2])
-	buf.Write(fileSelectRow1)
+	tileAddr := rom.lookupSymbol("randoFileSelectStringTiles").fullOffset() + 2
+	copy(rom.data[tileAddr:tileAddr+len(fileSelectRow1)], fileSelectRow1)
 	padding := 16 - len(fileSelectRow2) // bias toward right padding
-	buf.Write(tiles.new[2+len(fileSelectRow1) : 0x22+padding/2])
-	buf.Write(fileSelectRow2)
-	buf.Write(tiles.new[0x22+len(fileSelectRow2)+padding/2:])
-	tiles.new = buf.Bytes()
+	copy(rom.data[tileAddr+32+padding/2:tileAddr+32+padding/2+32], fileSelectRow2)
 }
 
 // returns a conversion of the string to file select screen tile indexes, using

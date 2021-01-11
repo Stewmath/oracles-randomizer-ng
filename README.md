@@ -17,7 +17,10 @@ shouldn't see much difference.
 
 Here are some of the differences you *will* encounter:
 
-- The treasure map works in Subrosia
+- The treasure map works in Subrosia.
+- The Advance Shop is always open (not that anything in it is randomized).
+- Animal companions can spawn into rooms on stairs (ie. seasons D1 entrance
+  screen).
 
 ## Usage
 
