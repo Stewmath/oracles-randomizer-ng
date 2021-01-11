@@ -334,7 +334,7 @@ d0 key chest:
   label: seasonsSlot_d0KeyChest
 d0 sword chest:
   treasure: sword
-  room: 0x0404
+  room: 0x0406
   local: true
   label: seasonsSlot_d0SwordChest
 d0 rupee chest:
