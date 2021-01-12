@@ -1,0 +1,106 @@
+# "entry/exitlabel" is the label where the dungeon entrance/exit warp source
+# data is defined, while "entry/exitindex" is the index within the referenced
+# table to modify. index is multiplied by 4 before being added.
+#
+# warp destinations for getting essences behave differently. they are four-byte
+# table entries that go directly to warp variables (no further indexing).
+#
+# entries only need map tile info for the purposes of the treasure map.
+
+seasons:
+  d1:
+    entrylabel: "group0WarpSources"
+    entryindex: 1
+    exitlabel: "group4WarpSources"
+    exitindex: 1
+    maptile: 0x0096
+  d2:
+    entrylabel: "warpSource7657"
+    entryindex: 0
+    exitlabel: "group4WarpSources"
+    exitindex: 2
+    maptile: 0x008d
+  d3:
+    entrylabel: "warpSource766b"
+    entryindex: 1
+    exitlabel: "group4WarpSources"
+    exitindex: 3
+    maptile: 0x0060
+  d4:
+    entrylabel: "group0WarpSources"
+    entryindex: 4
+    exitlabel: "group4WarpSources"
+    exitindex: 4
+    maptile: 0x001d
+  d5:
+    entrylabel: "group0WarpSources"
+    entryindex: 5
+    exitlabel: "group4WarpSources"
+    exitindex: 5
+    maptile: 0x008a
+  d6:
+    entrylabel: "group0WarpSources"
+    entryindex: 6
+    exitlabel: "group4WarpSources"
+    exitindex: 6
+    maptile: 0x0000
+  d7:
+    entrylabel: "group0WarpSources"
+    entryindex: 7
+    exitlabel: "group5WarpSources"
+    exitindex: 0
+    maptile: 0x00d0
+  d8:
+    entrylabel: "group1WarpSources"
+    entryindex: 0
+    exitlabel: "group5WarpSources"
+    exitindex: 1
+    maptile: 0x0100
+
+  # stairs on the "roof" of d2
+  d2 alt left:
+    entrylabel: "warpSource7657"
+    entryindex: 1
+    exitlabel: "group4WarpSources"
+    exitindex: 11
+  d2 alt right:
+    entrylabel: "warpSource765f"
+    entryindex: 0
+    exitlabel: "group4WarpSources"
+    exitindex: 12
+
+common:
+  d1 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 0
+  d2 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 1
+  d3 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 2
+  d4 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 3
+  d5 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 4
+  d6 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 5
+  d7 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 6
+  d8 essence:
+    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitindex: 7
+#
+#  eastern suburbs portal: {entry: 0x74fd, exit: 0x76b5, maptile: 0x9a}
+#  spool swamp portal: {entry: 0x7501, exit: 0x76b9, maptile: 0xb0}
+#  mt. cucco portal: {entry: 0x7601, exit: 0x76bd, maptile: 0x1e}
+#  eyeglass lake portal: {entry: 0x7509, exit: 0x76c1, maptile: 0xb9}
+#  horon village portal: {entry: 0x7905, exit: 0x7729, maptile: 0xf7}
+#  temple remains lower portal: {entry: 0x750d, exit: 0x76c5, maptile: 0x25}
+#  temple remains upper portal: {entry: 0x788d, exit: 0x76c9, maptile: 0x04}
+
+# TODO: Ages
