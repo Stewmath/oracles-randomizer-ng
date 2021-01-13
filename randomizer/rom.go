@@ -454,22 +454,15 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 	}
 
 	if rom.game == gameSeasons {
-		// set treasure map data. because of d8, portals go first, then dungeon
-		// entrances.
-		conditions := [](func(string) bool){
-			dungeonNameRegexp.MatchString,
-			func(s string) bool { return strings.HasSuffix(s, "portal") },
-		}
-		for _, cond := range conditions {
-			changeTreasureMapTiles(rom.itemSlots, func(c chan tileChange) {
-				for name, warp := range warps {
-					if cond(name) {
-						c <- tileChange{warp.vanillaMapTile, warp.MapTile}
-					}
+		// shuffle treasure map data along with dungeons.
+		changeTreasureMapTiles(rom.itemSlots, func(c chan tileChange) {
+			for name, warp := range warps {
+				if dungeonNameRegexp.MatchString(name) {
+					c <- tileChange{warp.vanillaMapTile, warp.MapTile}
 				}
-				close(c)
-			})
-		}
+			}
+			close(c)
+		})
 
 		if dungeons {
 			// remove alternate d2 entrances and connect d2 stairs exits

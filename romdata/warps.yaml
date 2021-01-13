@@ -69,6 +69,49 @@ seasons:
     exitlabel: "group4WarpSources"
     exitindex: 12
 
+  eastern suburbs portal:
+    entrylabel: "group0WarpSources"
+    entryindex: 37
+    exitlabel: "group1WarpSources"
+    exitindex: 6
+    maptile: 0x9a
+  spool swamp portal:
+    entrylabel: "group0WarpSources"
+    entryindex: 38
+    exitlabel: "group1WarpSources"
+    exitindex: 7
+    maptile: 0x00b0
+  mt. cucco portal:
+    entrylabel: "warpSource75fb"
+    entryindex: 1
+    exitlabel: "group1WarpSources"
+    exitindex: 8
+    maptile: 0x001e
+  eyeglass lake portal:
+    entrylabel: "group0WarpSources"
+    entryindex: 40
+    exitlabel: "group1WarpSources"
+    exitindex: 9
+    maptile: 0x00b9
+  temple remains lower portal:
+    entrylabel: "group0WarpSources"
+    entryindex: 41
+    exitlabel: "group1WarpSources"
+    exitindex: 10
+    maptile: 0x0025
+  temple remains upper portal:
+    entrylabel: "group3WarpSources"
+    entryindex: 37
+    exitlabel: "group1WarpSources"
+    exitindex: 11
+    maptile: 0x0004
+  horon village portal:
+    entrylabel: "warpSource78ff"
+    entryindex: 1
+    exitlabel: "warpSource7727"
+    exitindex: 0
+    maptile: 0x00f7
+
 common:
   d1 essence:
     exitlabel: "_interaction7f_subid00@essenceWarps"
@@ -94,13 +137,5 @@ common:
   d8 essence:
     exitlabel: "_interaction7f_subid00@essenceWarps"
     exitindex: 7
-#
-#  eastern suburbs portal: {entry: 0x74fd, exit: 0x76b5, maptile: 0x9a}
-#  spool swamp portal: {entry: 0x7501, exit: 0x76b9, maptile: 0xb0}
-#  mt. cucco portal: {entry: 0x7601, exit: 0x76bd, maptile: 0x1e}
-#  eyeglass lake portal: {entry: 0x7509, exit: 0x76c1, maptile: 0xb9}
-#  horon village portal: {entry: 0x7905, exit: 0x7729, maptile: 0xf7}
-#  temple remains lower portal: {entry: 0x750d, exit: 0x76c5, maptile: 0x25}
-#  temple remains upper portal: {entry: 0x788d, exit: 0x76c9, maptile: 0x04}
 
 # TODO: Ages
