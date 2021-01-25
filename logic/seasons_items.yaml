@@ -23,11 +23,14 @@ noble sword: {count: [2, sword]}
 magic boomerang: {count: [2, boomerang]}
 hyper slingshot: {count: [2, slingshot]}
 cape: {count: [2, feather]}
+long hook: {count: [2, switch hook]}
+power glove: {count: [2, bracelet]}
+mermaid suit: {count: [2, flippers]}
 
 # this of course doesn't apply to all trees, but trees won't have any seeds
 # attached to them unless they can be harvested. so it works out.
 refill seeds: {or: [harvest tree, dimitri's flute, dimitri,
-    [hard, or: [sword, flute, magic boomerang]]]}
+    [hard, or: [sword, flute, magic boomerang, switch hook]]]}
 
 harvest ember seeds: [seed item, or: [
     [ember tree seeds, refill seeds], [hard, d5 armos chest],
@@ -49,14 +52,16 @@ gale satchel: [harvest gale seeds, satchel]
 any satchel: {or: [ember satchel, mystery satchel, scent satchel,
     pegasus satchel, gale satchel]}
 
-ember slingshot: [harvest ember seeds, slingshot]
-mystery slingshot: [harvest mystery seeds, slingshot]
-scent slingshot: [harvest scent seeds, slingshot]
-pegasus slingshot: [harvest pegasus seeds, slingshot]
-gale slingshot: [harvest gale seeds, slingshot]
-any slingshot: {or: [ember slingshot, mystery slingshot,
-    scent slingshot, pegasus slingshot, gale slingshot]}
-any hyper slingshot: [hyper slingshot, any slingshot]
+ember ranged: [harvest ember seeds, or: [slingshot, seed shooter]]
+mystery ranged: [harvest mystery seeds, or: [slingshot, seed shooter]]
+scent ranged: [harvest scent seeds, or: [slingshot, seed shooter]]
+pegasus ranged: [harvest pegasus seeds, or: [slingshot, seed shooter]]
+gale ranged: [harvest gale seeds, or: [slingshot, seed shooter]]
+seed ranged: {or: [ember ranged, mystery ranged,
+    scent ranged, pegasus ranged, gale ranged]}
+any hyper slingshot: [hyper slingshot, or: [harvest ember seeds,
+    harvest mystery seeds, harvest scent seeds, harvest pegasus seeds,
+    harvest gale seeds]]
 
 ember seeds: [harvest ember seeds, seed item]
 mystery seeds: [harvest mystery seeds, seed item]
@@ -69,7 +74,7 @@ bomb flower: [furnace, feather, bracelet]
 flute: {or: [ricky's flute, moosh's flute, dimitri's flute]}
 
 shield: {or: [wooden shield, iron shield, [beach, ember seeds]]}
-seed item: {or: [satchel, slingshot]}
+seed item: {or: [satchel, slingshot, seed shooter]}
 bombs: {or: [
     [hard, harvest bush, d2 bracelet room],
     ["bombs, 10", or: [shovel, bracelet, break flower, flute]]]}

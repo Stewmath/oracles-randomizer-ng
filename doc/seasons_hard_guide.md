@@ -35,6 +35,13 @@ for a list of things that are out of logic even in hard.
   Specific multi-directional bomb jumps are detailed later in this document,
   with video examples.
 
+## Cross-game items
+
+- Cane of Somaria can be used to push hardhat beetles into holes (ie.
+  map chest room in D2)
+- Cane of Somaria can be used to kill water tektites by creating the
+  block by the edge of the water, then pushing it into the water
+
 ## Overworld
 
 - RNG manip 100-rupee drops using the shovel, for infinite rupees in logic.

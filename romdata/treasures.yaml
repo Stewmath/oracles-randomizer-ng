@@ -19,6 +19,11 @@ common:
   feather: 0x1700
   satchel: 0x1900
 
+  # ages items, available in seasons with crossitems mode
+  cane: 0x0400
+  switch hook: 0x0a00
+  seed shooter: 0x0f00
+
   # rupees
   rupees, 10: 0x2802
   rupees, 20: 0x2803
@@ -124,9 +129,6 @@ seasons:
   master's plaque: 0x5400
 
 ages:
-  cane: 0x0400
-  switch hook: 0x0a00
-  seed shooter: 0x0f00
   harp: 0x2500 # actually tune of echoes, which gives harp as well
 
   # rupees

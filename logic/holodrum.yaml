@@ -23,8 +23,8 @@ member's shop 3: [member's shop 1]
 
 # western coast
 black beast's chest: [horon village,
-    or: [ember slingshot, [hard, mystery slingshot]],
-    mystery seeds, kill armored]
+    or: [ember ranged, [hard, mystery ranged]],
+    mystery seeds, kill moldorm]
 d0 entrance: [horon village]
 pirate ship: [pirate's bell, pirate house]
 coast stump: [pirate ship, bombs, or: [feather, hard]]
