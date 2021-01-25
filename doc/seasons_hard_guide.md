@@ -41,6 +41,13 @@ for a list of things that are out of logic even in hard.
   map chest room in D2)
 - Cane of Somaria can be used to kill water tektites by creating the
   block by the edge of the water, then pushing it into the water
+- Use Cane of Somaria through a wall in multiple rooms in D6. (TODO:
+  video)
+- Seed Shooter can be used to hit the orbs in D6 on the path to Vire.
+  This requires using pegasus seeds to wall-clip into a specific pixel,
+  and furthermore, may be subpixel dependent. (TODO: video)
+- Use the long hook in D5 to reach some pots off-screen and access
+  a chest. (TODO: video)
 
 ## Overworld
 

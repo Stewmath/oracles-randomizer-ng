@@ -107,7 +107,7 @@ blaino's gym: {or: [
     [north horon stump, or: [bracelet,
         [or: [break bush, flute], or: [flippers, dimitri's flute]]]],
     [temple remains lower stump, jump 3],
-    [goron mountain, flippers]]}
+    [goron mountain, or: [flippers, [dimitri's flute, or: [switch hook, bomb jump 4]]]]]}
 north horon tree: [blaino's gym, seed item,
     or: [harvest tree, dimitri's flute]]
 blaino prize: [blaino's gym, or: [count: [10, fixed rupees], [hard, shovel]]]
@@ -126,7 +126,7 @@ spool swamp tree: [north swamp, seed item,
 floodgate keeper's house: [north swamp, or: [hit lever, [hard, bracelet]]]
 floodgate keeper owl: [mystery seeds, floodgate keeper's house]
 spool stump: [north swamp, hit lever, bracelet, floodgate key,
-    or: [pegasus satchel, flippers, feather]]
+    or: [pegasus satchel, flippers, feather, cane]]
 dry swamp: {or: [
     spool swamp default summer,
     spool swamp default autumn,
@@ -246,8 +246,8 @@ diving spot outside D4: ["mt. cucco, talon's cave", flippers]
 # goron mountain
 goron mountain: {or: [
     [mount cucco, or: [shovel, spring banana], bracelet],
-    [temple remains lower stump, jump 3, or: [flippers, bomb jump 4]],
-    [blaino's gym, flippers]]}
+    [temple remains lower stump, jump 3, or: [flippers, switch hook, bomb jump 4]],
+    [blaino's gym, or: [flippers, [dimitri's flute, or: [switch hook, bomb jump 4]]]]]}
 chest in goron mountain: [goron mountain, bombs, bomb jump 3]
 
 # tarm ruins
@@ -288,7 +288,7 @@ temple remains lower stump: {or: [
             [bomb temple remains,
                 or: [summer, temple remains default summer],
                 or: [jump 6, [bomb jump 2, magnet gloves]]]]],
-    [goron mountain, or: [flippers, bomb jump 4], jump 3],
+    [goron mountain, or: [flippers, switch hook, bomb jump 4], jump 3],
     [blaino's gym, jump 3]]}
 # this is from the upper stump
 temple remains not spring: {or: [

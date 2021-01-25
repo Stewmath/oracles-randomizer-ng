@@ -80,7 +80,7 @@ enter d3: {or: []}
 spiked beetles owl: [mystery seeds, enter d3]
 d3 center: [enter d3,
     or: [kill spiked beetle, [flip spiked beetle, bracelet]]]
-d3 mimic stairs: {or: [d3 water room, [d3 center, bracelet]]}
+d3 mimic stairs: {or: [d3 water room, [d3 center, or: [bracelet, [cane, break pot]]]]}
 d3 roller chest: [d3 mimic stairs, bracelet]
 d3 water room: {or: [d3 mimic stairs, [d3 center, feather]]}
 d3 quicksand terrace: [d3 mimic stairs, feather]
@@ -93,7 +93,7 @@ d3 zol chest: [d3 center, feather]
 
 # 2 keys
 d3 mimic chest: [d3 water room, kill normal, count: [2, d3 small key]]
-d3 omuai stairs: [d3 mimic stairs, feather, kill omuai,
+d3 omuai stairs: [d3 mimic stairs, or: [feather, switch hook], kill omuai,
     count: [2, d3 small key]]
 d3 giant blade room: [d3 omuai stairs]
 d3 boss: [d3 omuai stairs, d3 boss key]
@@ -129,7 +129,7 @@ d4 cracked floor room: [d4 final minecart, count: [5, d4 small key]]
 d4 dive spot: [d4 final minecart, hit very far lever, flippers,
     count: [5, d4 small key]]
 d4 basement stairs: [d4 cracked floor room,
-    or: [boomerang, seed ranged, hard]]
+    or: [boomerang, seed ranged, switch hook, hard]]
 gohma owl: [mystery seeds, d4 basement stairs]
 enter gohma: [d4 basement stairs, d4 boss key,
     or: [ember ranged, [hard, mystery ranged], jump 3,
@@ -153,7 +153,7 @@ d5 terrace chest: [enter d5, or: [magnet gloves, [d5 cart bay, feather, bombs]]]
 armos knights owl: [mystery seeds, d5 terrace chest]
 d5 spiral chest: [enter d5, or: [shield, [kill moldorm, kill normal (pit)]]]
 d5 armos chest: [d5 terrace chest, kill moldorm, kill armos]
-d5 spinner chest: [d5 cart bay, or: [magnet gloves, jump 6]]
+d5 spinner chest: [d5 cart bay, or: [magnet gloves, jump 6, [hard, long hook]]]
 d5 drop ball: [d5 cart bay, hit lever from minecart, kill darknut (pit)]
 # stalfos room means right side [where the chest is]
 d5 stalfos room: [or: [d5 cart bay, d5 pot room], or: [magnet gloves, cape]]
@@ -162,8 +162,9 @@ d5 stalfos room: [or: [d5 cart bay, d5 pot room], or: [magnet gloves, cape]]
 d5 post-syger: [d5 stalfos room, kill syger]
 d5 magnet ball chest: [d5 pot room, or: [flippers, jump 6, [hard, cape]],
     count: [5, d5 small key]]
-d5 basement: [d5 drop ball, d5 post-syger, magnet gloves,
-    or: [kill magunesu, [hard, feather]], count: [5, d5 small key]]
+d5 basement: [d5 post-syger, count: [5, d5 small key],
+    or: [[d5 drop ball, magnet gloves], [cane, feather, pegasus satchel]],
+    or: [[kill magunesu, magnet gloves], [hard, feather]]]
 d5 boss: [d5 post-syger, magnet gloves, d5 boss key, or: [feather, hard],
     count: [5, d5 small key]]
 
@@ -173,10 +174,11 @@ enter d6: {or: []}
 # 0 keys
 d6 1F east: [enter d6, or: [hard, feather, sword, bombs, expert's ring]]
 d6 rupee room: [d6 1F east, bombs]
-d6 1F terrace: {or: [d6 1F east, [magnet gloves, count: [2, d6 small key]]]}
-d6 magnet ball drop: [d6 1F terrace, or: [[magnet gloves, feather], cape]]
+d6 1F terrace: {or: [d6 1F east, [or: [magnet gloves, cane], count: [2, d6 small key]]]}
+d6 magnet ball drop: [d6 1F terrace, or: [[magnet gloves, feather], cape, [hard, cane]]]
 d6 crystal trap room: [d6 1F terrace]
-d6 U-room: [d6 1F terrace, break crystal, magic boomerang]
+d6 U-room: [d6 1F terrace, break crystal,
+    or: [magic boomerang, [hard, any seed shooter, pegasus satchel]]]
 d6 torch stairs: [d6 U-room, ember seeds]
 d6 escape room: [d6 torch stairs, feather]
 d6 vire chest: [d6 escape room, kill stalfos]
@@ -186,7 +188,7 @@ d6 beamos room: [enter d6, count: [3, d6 small key]]
 d6 2F gibdo chest: [d6 beamos room]
 d6 2F armos chest: [d6 2F gibdo chest, bombs]
 d6 armos hall: [d6 2F armos chest, feather]
-d6 spinner north: [enter d6, magnet gloves, break crystal,
+d6 spinner north: [enter d6, break crystal, or: [magnet gloves, [hard, cane]],
     or: [feather, hard], or: [
         [kill normal, count: [3, d6 small key]], # TODO: Why is "kill normal" needed?
         [bombs, feather, count: [2, d6 small key]]]]
@@ -212,7 +214,8 @@ d7 pot room: [enter d7, bracelet, or: [
     [hard, bombs, feather, pegasus satchel]]]
 d7 zol button: [d7 pot room, feather]
 d7 armos puzzle: [d7 pot room, or: [jump 3, magnet gloves]]
-d7 magunesu chest: [d7 armos puzzle, jump 3, kill magunesu, magnet gloves]
+d7 magunesu chest: [d7 armos puzzle,
+    or: [cane, [jump 3, kill magunesu, magnet gloves]]]
 
 # 2 keys
 d7 quicksand chest: [d7 pot room, feather, count: [2, d7 small key]]
@@ -227,7 +230,8 @@ d7 spike chest: [d7 water stairs,
         [feather, magnet gloves]]]
 
 # 4 keys
-d7 maze chest: [d7 water stairs, kill poe sister, bomb jump 3,
+d7 maze chest: [d7 water stairs, kill poe sister, jump 3,
+    or: [switch hook, [kill moldorm, bomb jump 3]],
     count: [4, d7 small key]]
 d7 B2F drop: [d7 maze chest, or: [magnet gloves, [hard, jump 6]]]
 shining blue owl: [mystery seeds, d7 stalfos chest]
@@ -280,7 +284,8 @@ d8 ghost armos drop: [d8 crystal room, bombs]
 d8 NE crystal: [d8 crystal room, bracelet, hit lever]
 d8 SE crystal: [d8 crystal room, bracelet]
 d8 SE lava chest: [d8 SE crystal]
-d8 spark chest: [d8 SE crystal, d8 NE crystal, break pot]
+d8 spark chest: [d8 ice puzzle room, count: [4, d8 small key],
+    or: [switch hook, [d8 SE crystal, d8 NE crystal, break pot]]]
 d8 SW lava chest: [d8 crystal room]
 
 # 6 keys

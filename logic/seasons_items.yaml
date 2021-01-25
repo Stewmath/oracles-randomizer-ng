@@ -62,6 +62,9 @@ seed ranged: {or: [ember ranged, mystery ranged,
 any hyper slingshot: [hyper slingshot, or: [harvest ember seeds,
     harvest mystery seeds, harvest scent seeds, harvest pegasus seeds,
     harvest gale seeds]]
+any seed shooter: [seed shooter, or: [harvest ember seeds,
+    harvest mystery seeds, harvest scent seeds, harvest pegasus seeds,
+    harvest gale seeds]]
 
 ember seeds: [harvest ember seeds, seed item]
 mystery seeds: [harvest mystery seeds, seed item]
