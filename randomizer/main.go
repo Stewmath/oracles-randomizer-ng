@@ -238,7 +238,6 @@ func Main() {
 		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
 	case "stats", "hardstats":
 		// do stats instead of randomizing
-		game := reverseLookupOrPanic(gameNames, flag.Arg(0)).(int)
 		numTrials, err := strconv.Atoi(flag.Arg(1))
 		if err != nil {
 			fatal(err, printErrf)
@@ -251,7 +250,7 @@ func Main() {
 		if flagDevCmd == "hardstats" {
 			statFunc = logHardStats
 		}
-		statFunc(game, numTrials, *optsList[0],
+		statFunc(numTrials, flag.Arg(0), *optsList[0],
 			func(s string, a ...interface{}) {
 				fmt.Printf(s, a...)
 				fmt.Println()

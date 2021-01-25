@@ -10,9 +10,15 @@ import (
 )
 
 // generate a bunch of seeds.
-func generateSeeds(n, game int, ropts randomizerOptions) []*routeInfo {
+func generateSeeds(n int, filename string, ropts randomizerOptions) []*routeInfo {
 	threads := runtime.NumCPU()
 	dummyLogf := func(string, ...interface{}) {}
+
+	b, sym, game, err := readGivenRom(filename)
+	if err != nil {
+		fatal(err, printErrf)
+		return nil
+	}
 
 	// search for routes
 	routeChan := make(chan *routeInfo)
@@ -25,7 +31,7 @@ func generateSeeds(n, game int, ropts randomizerOptions) []*routeInfo {
 					// created for each iteration.
 					seed := uint32(rand.Int())
 					src := rand.New(rand.NewSource(int64(seed)))
-					rom := newRomState(nil, nil, game, 1)
+					rom := newRomState(b, sym, game, 1)
 					route, _ := findRoute(rom, seed, src, ropts, false, dummyLogf)
 					if route != nil {
 						attempts += route.attemptCount
@@ -50,9 +56,11 @@ func generateSeeds(n, game int, ropts randomizerOptions) []*routeInfo {
 }
 
 // generate a bunch of seeds and print item configurations in YAML format.
-func logStats(game, trials int, ropts randomizerOptions, logf logFunc) {
+func logStats(trials int, filename string, ropts randomizerOptions,  logf logFunc) {
+	_, _, game, _ := readGivenRom(filename)
+
 	// get `trials` routes
-	routes := generateSeeds(trials, game, ropts)
+	routes := generateSeeds(trials, filename, ropts)
 
 	// make a YAML-serializable slice of check maps
 	stringChecks := make([]map[string]string, len(routes))
