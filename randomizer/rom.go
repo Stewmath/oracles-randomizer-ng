@@ -89,7 +89,7 @@ func newRomState(data []byte, symbols map[string]*address, game, player int, cro
 		player:    player,
 		data:      data,
 		symbols:   symbols,
-		treasures: loadTreasures(data, *symbols["treasureObjectData"], game),
+		treasures: loadTreasures(data, symbols["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots(crossitems)
 	rom.initializeMutables()

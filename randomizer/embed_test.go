@@ -9,7 +9,7 @@ import (
 
 func TestLoadYaml(t *testing.T) {
 	// make sure all yaml files are well-formed.
-	dirnames := []string{"asm", "hints", "logic", "romdata"}
+	dirnames := []string{"hints", "logic", "romdata"}
 	for _, dirname := range dirnames {
 		// get list of files in directory
 		dir, err := FS(false).Open("/" + dirname + "/")

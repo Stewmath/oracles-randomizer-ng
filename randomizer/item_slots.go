@@ -140,23 +140,25 @@ func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 				slot.mapTile = tile
 			} else if slot.group < 2 { // Overworld / Subrosia
 				slot.mapTile = raw.Room
-			} else {
+			} else if rom.game != gameAges {
 				panic(fmt.Sprintf("need a maptile for %s", name))
 			}
 		}
 
-		if raw.Label != "" {
-			slot.label = raw.Label
-			if val, ok := rom.symbols[slot.label]; ok {
-				slot.addr = val
-				slot.hasAddr = true
+		if rom.data != nil {
+			if raw.Label != "" {
+				slot.label = raw.Label
+				if val, ok := rom.symbols[slot.label]; ok {
+					slot.addr = val
+					slot.hasAddr = true
+				} else {
+					panic(fmt.Sprintf("label \"%s\" not found for slot \"%s\".", slot.label, name))
+				}
+			} else if raw.Tree {
+			} else if raw.Dummy {
 			} else {
-				panic(fmt.Sprintf("label \"%s\" not found for slot \"%s\".", slot.label, name))
+				panic(fmt.Sprintf("invalid raw slot: %s: %#v", name, raw))
 			}
-		} else if raw.Tree {
-		} else if raw.Dummy {
-		} else {
-			panic(fmt.Sprintf("invalid raw slot: %s: %#v", name, raw))
 		}
 
 		m[name] = slot
@@ -174,7 +176,7 @@ func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 				"bracelet",
 			}
 		} else {
-			panic("ages crossitems not implemented")
+			// TODO
 		}
 
 		for _, item := range itemsToInsert {

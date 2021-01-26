@@ -66,7 +66,6 @@ hit very far lever: {or: [magic boomerang, seed ranged]}
 kill gohma: [or: [seed ranged, hard], or: [scent seeds, ember seeds]]
 kill syger: [or: [kill armored, switch hook]]
 break mushroom: {or: [magic boomerang, bracelet]}
-kill armored (pit): {or: [kill armored, shield]}
 break crystal: {or: [sword, bombs, bracelet, expert's ring]}
 kill hardhat (magnet): {or: [magnet gloves,
     [or: [seed ranged, hard], gale seeds]]}

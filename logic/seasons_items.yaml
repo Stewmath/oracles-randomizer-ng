@@ -24,8 +24,8 @@ magic boomerang: {count: [2, boomerang]}
 hyper slingshot: {count: [2, slingshot]}
 cape: {count: [2, feather]}
 long hook: {count: [2, switch hook]}
-power glove: {count: [2, bracelet]}
-mermaid suit: {count: [2, flippers]}
+#power glove: {count: [2, bracelet]}
+#mermaid suit: {count: [2, flippers]}
 
 # this of course doesn't apply to all trees, but trees won't have any seeds
 # attached to them unless they can be harvested. so it works out.
