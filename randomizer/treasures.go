@@ -55,7 +55,7 @@ func (t treasure) check(b []byte) error {
 }
 
 // returns the full offset of the treasure's four-byte entry in the rom.
-func getTreasureAddr(b []byte, tableAddr *address, id, subid byte) *address {
+func getTreasureAddr(b []byte, tableAddr address, id, subid byte) address {
 	ptr := tableAddr
 
 	ptr.offset += uint16(id) * 4
@@ -94,7 +94,7 @@ func loadTreasures(b []byte, tableAddr *address, game int) map[string]*treasure 
 		}
 
 		if b != nil {
-			t.addr = *getTreasureAddr(b, tableAddr, t.id, t.subid)
+			t.addr = getTreasureAddr(b, *tableAddr, t.id, t.subid)
 			t.mode = b[t.addr.fullOffset()]
 			t.param = b[t.addr.fullOffset()+1]
 			t.text = b[t.addr.fullOffset()+2]
