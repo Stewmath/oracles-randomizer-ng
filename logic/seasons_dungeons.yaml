@@ -174,7 +174,8 @@ enter d6: {or: []}
 # 0 keys
 d6 1F east: [enter d6, or: [hard, feather, sword, bombs, expert's ring]]
 d6 rupee room: [d6 1F east, bombs]
-d6 1F terrace: {or: [d6 1F east, [or: [magnet gloves, cane], count: [2, d6 small key]]]}
+d6 1F terrace: {or: [d6 1F east,
+    [enter d6, or: [magnet gloves, cane], count: [2, d6 small key]]]}
 d6 magnet ball drop: [d6 1F terrace, or: [[magnet gloves, feather], cape, [hard, cane]]]
 d6 crystal trap room: [d6 1F terrace]
 d6 U-room: [d6 1F terrace, break crystal,
