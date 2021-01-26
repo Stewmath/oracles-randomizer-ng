@@ -88,7 +88,7 @@ func initFlags() {
 	flag.StringVar(&flagCpuProf, "cpuprofile", "",
 		"write CPU profile to file")
 	flag.StringVar(&flagDevCmd, "devcmd", "",
-		"subcommands are 'findaddr', 'stats', and 'hardstats'")
+		"subcommands are 'findaddr', 'stats', 'nodestats', and 'hardstats'")
 	flag.BoolVar(&flagDungeons, "dungeons", false,
 		"shuffle dungeon entrances")
 	flag.BoolVar(&flagHard, "hard", false,
@@ -236,7 +236,7 @@ func Main() {
 		}
 
 		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
-	case "stats", "hardstats":
+	case "stats", "hardstats", "nodestats":
 		// do stats instead of randomizing
 		numTrials, err := strconv.Atoi(flag.Arg(1))
 		if err != nil {
@@ -246,15 +246,19 @@ func Main() {
 
 		rand.Seed(time.Now().UnixNano())
 
-		statFunc := logStats
-		if flagDevCmd == "hardstats" {
-			statFunc = logHardStats
+		if flagDevCmd == "nodestats" {
+			logNodeStats(numTrials, flag.Arg(0), flag.Arg(2), *optsList[0])
+		} else {
+			statFunc := logStats
+			if flagDevCmd == "hardstats" {
+				statFunc = logHardStats
+			}
+			statFunc(numTrials, flag.Arg(0), *optsList[0],
+				func(s string, a ...interface{}) {
+					fmt.Printf(s, a...)
+					fmt.Println()
+				})
 		}
-		statFunc(numTrials, flag.Arg(0), *optsList[0],
-			func(s string, a ...interface{}) {
-				fmt.Printf(s, a...)
-				fmt.Println()
-			})
 	case "":
 		// no devcmd, run randomizer normally
 		if flagMulti != "" ||

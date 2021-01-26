@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"runtime"
+	"io"
 
 	"gopkg.in/yaml.v2"
 )
@@ -85,4 +86,51 @@ func logStats(trials int, filename string, ropts randomizerOptions,  logf logFun
 	if err := yaml.NewEncoder(os.Stdout).Encode(stringChecks); err != nil {
 		panic(err)
 	}
+}
+
+func printStatPercentage(w io.Writer, success, trials int, name string) {
+	fmt.Printf("%.1f%%\t%s\n", 100*float64(success)/float64(trials), name)
+}
+
+// generate a bunch of seeds and print how often a node is required
+func logNodeStats(trials int, filename string, nodeName string, ropts randomizerOptions) {
+	// get `trials` routes
+	routes := generateSeeds(trials, filename, ropts)
+	printStatPercentage(os.Stdout, getNodeStats(routes, nodeName), trials, nodeName)
+}
+
+// returns count of how often a node is required
+func getNodeStats(routes []*routeInfo, nodeName string) int {
+	count := 0
+
+	for _, r := range routes {
+		if !r.graph["done"].reached {
+			fmt.Printf("NOT REACHED")
+			continue
+		}
+		// create a "null" node that is never true, add it as a parent to our
+		// node of interest, and make that node type "and" to ensure it's not
+		// reachable.
+		item := r.graph[nodeName]
+		oldType := item.ntype
+		item.ntype = andNode
+
+		null := newNode("null", orNode)
+		r.graph["null"] = null
+
+		item.addParent(null)
+		r.graph.reset()
+		r.graph["start"].explore()
+
+		if !r.graph["done"].reached {
+			count++
+		}
+
+		item.removeParent(null)
+		item.ntype = oldType
+		r.graph.reset()
+		r.graph["start"].explore()
+	}
+
+	return count
 }
