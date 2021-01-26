@@ -54,32 +54,34 @@ func printErrf(s string, a ...interface{}) {
 
 // options specified on the command line or via the TUI
 var (
-	flagCpuProf   string
-	flagDevCmd    string
-	flagDungeons  bool
-	flagHard      bool
-	flagKeysanity bool
-	flagNoUI      bool
-	flagPlan      string
-	flagMulti     string
-	flagPortals   bool
-	flagSeed      string
-	flagRace      bool
-	flagTreewarp  bool
-	flagVerbose   bool
+	flagCpuProf    string
+	flagDevCmd     string
+	flagDungeons   bool
+	flagHard       bool
+	flagKeysanity  bool
+	flagCrossitems bool
+	flagNoUI       bool
+	flagPlan       string
+	flagMulti      string
+	flagPortals    bool
+	flagSeed       string
+	flagRace       bool
+	flagTreewarp   bool
+	flagVerbose    bool
 )
 
 type randomizerOptions struct {
-	treewarp  bool
-	hard      bool
-	dungeons  bool
-	portals   bool
-	keysanity bool
-	plan      *plan
-	race      bool
-	seed      string
-	game      int
-	players   int
+	treewarp   bool
+	hard       bool
+	dungeons   bool
+	portals    bool
+	keysanity  bool
+	crossitems bool
+	plan       *plan
+	race       bool
+	seed       string
+	game       int
+	players    int
 }
 
 // initFlags initializes the CLI/TUI option values and variables.
@@ -95,6 +97,8 @@ func initFlags() {
 		"enable more difficult logic")
 	flag.BoolVar(&flagKeysanity, "keysanity", false,
 		"shuffle dungeon keys, maps, compasses, and slates outside their dungeons")
+	flag.BoolVar(&flagCrossitems, "crossitems", false,
+		"add Ages items to Seasons, and vice-versa")
 	flag.BoolVar(&flagNoUI, "noui", false,
 		"use command line without prompts if input file is given")
 	flag.StringVar(&flagPlan, "plan", "",
@@ -181,13 +185,14 @@ func Main() {
 		}
 	} else {
 		optsList = append(optsList, &randomizerOptions{
-			race:      flagRace,
-			seed:      flagSeed,
-			treewarp:  flagTreewarp,
-			hard:      flagHard,
-			dungeons:  flagDungeons,
-			portals:   flagPortals,
-			keysanity: flagKeysanity,
+			race:       flagRace,
+			seed:       flagSeed,
+			treewarp:   flagTreewarp,
+			hard:       flagHard,
+			dungeons:   flagDungeons,
+			portals:    flagPortals,
+			keysanity:  flagKeysanity,
+			crossitems: flagCrossitems,
 		})
 	}
 	for _, ropts := range optsList {
@@ -219,7 +224,7 @@ func Main() {
 		// i forget why or whether this is useful.
 		var rom *romState
 		if flag.Arg(1) == "" {
-			rom = newRomState(nil, nil, game, 1)
+			rom = newRomState(nil, nil, game, 1, false)
 		} else {
 			f, err := os.Open(flag.Arg(1))
 			if err != nil {
@@ -232,7 +237,7 @@ func Main() {
 				fatal(err, printErrf)
 				return
 			}
-			rom = newRomState(b, nil, game, 1)
+			rom = newRomState(b, nil, game, 1, false)
 		}
 
 		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
@@ -320,7 +325,7 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 				fatal(err, logf)
 				return
 			} else {
-				roms[i] = newRomState(b, sym, game, i+1)
+				roms[i] = newRomState(b, sym, game, i+1, ropts.crossitems)
 			}
 
 			// sanity check beforehand
@@ -550,6 +555,11 @@ func getAndLogOptions(game int, ui *uiInstance, ropts *randomizerOptions,
 		ropts.keysanity = ui.doPrompt("enable keysanity? (y/n)") == 'y'
 	}
 	logf("keysanity %s.", ternary(ropts.keysanity, "on", "off"))
+
+	if ui != nil {
+		ropts.crossitems = ui.doPrompt("enable crossitems? (y/n)") == 'y'
+	}
+	logf("crossitems %s.", ternary(ropts.crossitems, "on", "off"))
 }
 
 // attempt to write rom data to a file and print summary info.
@@ -780,7 +790,7 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		s += fmt.Sprintf("%08x", seed)
 	}
 
-	if ropts.treewarp || ropts.hard || ropts.dungeons || ropts.portals {
+	if ropts.treewarp || ropts.hard || ropts.dungeons || ropts.portals || ropts.keysanity || ropts.crossitems {
 		// these are in chronological order of introduction, for no particular
 		// reason.
 		s += flagSep
@@ -798,6 +808,9 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		}
 		if ropts.keysanity {
 			s += "k"
+		}
+		if ropts.crossitems {
+			s += "c"
 		}
 	}
 

@@ -32,7 +32,7 @@ func generateSeeds(n int, filename string, ropts randomizerOptions) []*routeInfo
 					// created for each iteration.
 					seed := uint32(rand.Int())
 					src := rand.New(rand.NewSource(int64(seed)))
-					rom := newRomState(b, sym, game, 1)
+					rom := newRomState(b, sym, game, 1, ropts.crossitems)
 					route, _ := findRoute(rom, seed, src, ropts, false, dummyLogf)
 					if route != nil {
 						attempts += route.attemptCount

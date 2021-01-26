@@ -83,7 +83,7 @@ type romState struct {
 	symbols      map[string]*address
 }
 
-func newRomState(data []byte, symbols map[string]*address, game, player int) *romState {
+func newRomState(data []byte, symbols map[string]*address, game, player int, crossitems bool) *romState {
 	rom := &romState{
 		game:      game,
 		player:    player,
@@ -91,7 +91,7 @@ func newRomState(data []byte, symbols map[string]*address, game, player int) *ro
 		symbols:   symbols,
 		treasures: loadTreasures(data, *symbols["treasureObjectData"], game),
 	}
-	rom.itemSlots = rom.loadSlots()
+	rom.itemSlots = rom.loadSlots(crossitems)
 	rom.initializeMutables()
 	return rom
 }

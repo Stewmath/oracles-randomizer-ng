@@ -107,7 +107,7 @@ var agesDungeonMapTiles = map[string]uint16 {
 
 // return a map of slot names to slot data. if romState.data is nil, only
 // "static" data is loaded.
-func (rom *romState) loadSlots() map[string]*itemSlot {
+func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 	raws := make(map[string]*rawSlot)
 
 	filename := fmt.Sprintf("/romdata/%s_slots.yaml", gameNames[rom.game])
@@ -160,6 +160,36 @@ func (rom *romState) loadSlots() map[string]*itemSlot {
 		}
 
 		m[name] = slot
+	}
+
+	if crossitems {
+		itemsToInsert := []string(nil)
+		if rom.game == gameSeasons {
+			itemsToInsert = []string {
+				"switch hook",
+				"switch hook",
+				"cane",
+				"seed shooter",
+				"flippers",
+				"bracelet",
+			}
+		} else {
+			panic("ages crossitems not implemented")
+		}
+
+		for _, item := range itemsToInsert {
+			inserted := false
+			for _, slot := range m {
+				if slot.treasure.displayName == "gasha seed" {
+					slot.treasure = rom.treasures[item]
+					inserted = true
+					break
+				}
+			}
+			if !inserted {
+				panic(fmt.Sprintf("couldn't insert item %s into item slots", item))
+			}
+		}
 	}
 
 	return m
