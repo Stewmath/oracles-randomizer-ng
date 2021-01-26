@@ -30,7 +30,7 @@ long hook: {count: [2, switch hook]}
 # this of course doesn't apply to all trees, but trees won't have any seeds
 # attached to them unless they can be harvested. so it works out.
 refill seeds: {or: [harvest tree, dimitri's flute, dimitri,
-    [hard, or: [sword, flute, magic boomerang, switch hook]]]}
+    [hard, or: [sword, flute, magic boomerang]]]}
 
 harvest ember seeds: [seed item, or: [
     [ember tree seeds, refill seeds], [hard, d5 armos chest],
