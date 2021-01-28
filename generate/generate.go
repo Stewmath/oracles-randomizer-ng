@@ -18,7 +18,7 @@ const (
 
 // Code generated - DO NOT EDIT.
 
-import "github.com/{{username}}/oracles-randomizer/randomizer"
+import "github.com/{{username}}/oracles-randomizer-ng/randomizer"
 
 func main() {
 	randomizer.Main()
@@ -34,7 +34,7 @@ const version = {{version}}
 
 var (
 	usernamePattern = strings.ReplaceAll(
-		filepath.FromSlash(`github.com/(.+)/oracles-randomizer`), `\`, `\\`)
+		filepath.FromSlash(`github.com/(.+)/oracles-randomizer-ng`), `\`, `\\`)
 	usernameRegexp = regexp.MustCompile(usernamePattern)
 	versionRegexp  = regexp.MustCompile(`/(.+)-\d+-g(.+)`)
 )

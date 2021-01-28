@@ -294,7 +294,6 @@ func (rom *romState) getDungeonPropertiesAddr(group, room byte) *address {
 
 // randomizes the types of rings in the item pool, returning a map of vanilla
 // ring names to the randomized ones.
-// TODO: Make sure this works
 func (rom *romState) randomizeRingPool(src *rand.Rand,
 	planValues []string) (map[string]string, error) {
 	nameMap := make(map[string]string)
