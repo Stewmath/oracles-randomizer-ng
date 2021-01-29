@@ -508,17 +508,20 @@ func changeTreasureMapTiles(slots map[string]*itemSlot,
 // set the string to display on the file select screen.
 func (rom *romState) setFileSelectText(row2 string) {
 	// construct tiles from strings
-	version := strings.Replace(version, "beta", "bet", 1) // full won't fit
-	fileSelectRow1 := stringToTiles(strings.ToUpper(ternary(len(version) == 5,
-		fmt.Sprintf("rando-ng %s", version),
-		fmt.Sprintf("ng %13s", version)[:16]).(string)))
+	fileSelectRow1 := stringToTiles(strings.ToUpper(ternary(len(version) <= 16,
+		fmt.Sprintf("%s", version),
+		fmt.Sprintf("%16s", version)[:16]).(string)))
 	fileSelectRow2 := stringToTiles(
 		strings.ToUpper(strings.ReplaceAll(row2, "-", " ")))
 
+	writeLine := func(row []byte, addr int) {
+		padding := 16 - len(row)
+		copy(rom.data[addr+padding/2:addr+padding/2+32], row)
+	}
+
 	tileAddr := rom.lookupSymbol("randoFileSelectStringTiles").fullOffset() + 2
-	copy(rom.data[tileAddr:tileAddr+len(fileSelectRow1)], fileSelectRow1)
-	padding := 16 - len(fileSelectRow2) // bias toward right padding
-	copy(rom.data[tileAddr+32+padding/2:tileAddr+32+padding/2+32], fileSelectRow2)
+	writeLine(fileSelectRow1, tileAddr)
+	writeLine(fileSelectRow2, tileAddr+32)
 }
 
 // returns a conversion of the string to file select screen tile indexes, using
