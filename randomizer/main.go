@@ -266,8 +266,7 @@ func Main() {
 		}
 	case "":
 		// no devcmd, run randomizer normally
-		if flagMulti != "" ||
-			(flag.NArg() > 0 && flag.NArg()+flag.NFlag() > 1) { // CLI used
+		if flagMulti != "" || flag.NArg() > 0 { // CLI used
 			// run randomizer on main goroutine
 			runRandomizer(nil, optsList, func(s string, a ...interface{}) {
 				fmt.Printf(s, a...)
