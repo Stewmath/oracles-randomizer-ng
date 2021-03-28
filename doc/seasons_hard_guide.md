@@ -83,6 +83,7 @@ for a list of things that are out of logic even in hard.
 - Hit the lever in the floodgate keeper's house by throwing a pot. The
   horizontal position of the throw is precise.
   [[Video]](https://clips.twitch.tv/ExpensiveAbnegateMoonFUNgineer)
+- Use the switch hook to get across water to reach Goron Mountain. (TODO: video)
 
 ## Subrosia
 
