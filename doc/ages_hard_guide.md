@@ -105,10 +105,13 @@ for a list of things that are out of logic even in hard.
   changes the floor tile pattern.
   [[Video]](https://clips.twitch.tv/CrunchyBlushingHummingbirdMingLee)
 
-## Not in logic because you could softlock but still cool
+## Not in logic but still cool
 
 - Pass through the rock on the west side of Lynna City by switching with the
   Octorok. Clipping slightly into the fence tiles makes it slightly easier,
-  using scent seeds to attract the Octorok makes it faster.
+  using scent seeds to attract the Octorok makes it faster. Not in logic because
+  you could softlock.
   [[Video]](https://imgur.com/vqk16pi)
 - Get scent seeds from D7 miniboss.
+- Hit the switch to nuun highlands with the magical boomerang. Requires "corner
+  clipping" with the boomerang.
