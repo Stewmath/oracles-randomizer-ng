@@ -23,9 +23,16 @@ sword: a Sword
 wooden shield: a Shield
 bracelet: a Power Bracelet
 feather: a Roc's Feather
+
+# From ages, shared with cross-items
 cane: the Cane of Somaria
 seed shooter: the Seed Shooter
 switch hook: a Switch Hook
+
+# From seasons' shared with cross-items
+magnet gloves: the Magnetic Gloves
+slingshot: a Slingshot
+fool's ore: the Fool's Ore
 
 # dungeon items
 d0 small key: a D0 small key
