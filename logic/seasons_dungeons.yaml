@@ -240,8 +240,8 @@ d7 boss: [d7 maze chest, d7 boss key, kill gleeok]
 
 # 5 keys
 d7 right of entrance: [enter d7, count: [5, d7 small key]]
-d7 stalfos chest: [d7 maze chest, or: [pegasus satchel, hard],
-    count: [5, d7 small key]]
+d7 stalfos chest: [d7 maze chest, count: [5, d7 small key],
+    or: [[pegasus satchel, cape], [hard, feather]]]
 
 # d8
 # HSS skip is out of logic and can lead to key-locks.
