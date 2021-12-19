@@ -109,7 +109,7 @@ symmetry city brother: [symmetry past]
 tokkey's composition: [symmetry past, flippers]
 talus peaks owl: [mystery seeds, symmetry past]
 restoration wall: {or: [ages, [symmetry past, currents, bracelet, flippers]]}
-patch: [restoration wall, or: [sword,
+patch: [restoration wall, or: [sword, rod,
     [hard, or: [shield, boomerang, switch hook, scent seeds, shovel]]]]
 talus peaks chest: {or: [restoration wall]}
 d4 entrance: [symmetry present, tuni nut, patch]

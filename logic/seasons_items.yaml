@@ -24,6 +24,7 @@ magic boomerang: {count: [2, boomerang]}
 hyper slingshot: {count: [2, slingshot]}
 cape: {count: [2, feather]}
 long hook: {count: [2, switch hook]}
+# These can exist but are never needed for anything
 #power glove: {count: [2, bracelet]}
 #mermaid suit: {count: [2, flippers]}
 
