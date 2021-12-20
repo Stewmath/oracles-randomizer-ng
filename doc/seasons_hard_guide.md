@@ -122,3 +122,9 @@ for a list of things that are out of logic even in hard.
   [[Video]](https://imgur.com/gFFV97x)
 - D8: Activate the bridge switch without L-2 boomerang or seeds + cape.
   [[Video]](https://imgur.com/IpnfKtE)
+
+## Not in logic but still cool
+
+- D6: Seed Shooter can be used to hit the orbs on the path to Vire, without the
+  magic boomerang. This requires using pegasus seeds to wall-clip into
+  a specific pixel, and furthermore, may be subpixel dependent. (TODO: video)

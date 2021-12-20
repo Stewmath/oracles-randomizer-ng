@@ -21,5 +21,7 @@ Logic:
   (because you can't see the pots). Also, it is actually impossible to use the
   switch hook without pegasus seeds to reach the pots. Updated logic to reflect
   this.
+- D6: Removed seed shooter logic for hitting the orb without the magic boomerang
+  to reach the miniboss. It's too much even for hard logic.
 - D7: Fixed a loophole causing jumping on button edges without hitting the
   buttons to be in normal logic.
