@@ -90,7 +90,8 @@ for a list of things that are out of logic even in hard.
 - D2: Throw pots to access the vanilla bracelet chest and blade trap room.
   [[Video]](https://imgur.com/TwtKSWS)
 - D3: Use the long hook (or switch hook + pegasus seeds) to reach the miniboss
-  without the feather. (TODO: video)
+  without the feather. It is quite precise when using switch hook + pegasus
+  seeds. (TODO: video)
 - D4: Hit minecart levers by dropping pots while passing by. This works for both
   1F minecarts.
   [[Video]](https://clips.twitch.tv/LaconicYawningPresidentFUNgineer)
