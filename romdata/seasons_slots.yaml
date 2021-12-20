@@ -227,20 +227,7 @@ member's shop 3:
   label: seasonsSlot_membersShop3
 
 # subrosia
-#
-# since treasure map sparkles only display on the holodrum map, the location of
-# the subrosia portal "nearest" to the check is used. "nearest" is defined as:
-# fewest screen transitions, with ties broken by earliest portal in the vanilla
-# game sequence.
-#
-# vanilla holodrum portal locations are:
-# - 0x04: temple ruins, upper
-# - 0x1e: mt. cucco
-# - 0x25: temple ruins, lower
-# - 0x9a: rosa
-# - 0xb0: spool swamp
-# - 0xb9: eyeglass lake
-# - 0xf7: horon village
+
 tower of winter:
   treasure: winter
   room: 0x05f2
