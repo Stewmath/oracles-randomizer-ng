@@ -1,0 +1,25 @@
+Changelog for Oracles-Randomizer-NG
+
+================================================================================
+Alpha 1 (2021-01-28)
+================================================================================
+
+- Initial release based on original randomizer; seasons only.
+
+================================================================================
+Alpha 2
+================================================================================
+
+Bugfixes:
+- Fixed room layout changes not always being applied (goron mountain water room,
+  spool swamp portal).
+
+Logic:
+- OW: Using the switch hook to cross goron mountain is now in hard logic (even
+  with long hook, because you can't see the bushes from the top side).
+- D3: Using switch hook or long hook to reach D3 miniboss is in hard logic
+  (because you can't see the pots). Also, it is actually impossible to use the
+  switch hook without pegasus seeds to reach the pots. Updated logic to reflect
+  this.
+- D7: Fixed a loophole causing jumping on button edges without hitting the
+  buttons to be in normal logic.
