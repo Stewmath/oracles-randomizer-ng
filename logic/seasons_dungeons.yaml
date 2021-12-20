@@ -93,7 +93,8 @@ d3 zol chest: [d3 center, feather]
 
 # 2 keys
 d3 mimic chest: [d3 water room, kill normal, count: [2, d3 small key]]
-d3 omuai stairs: [d3 mimic stairs, or: [feather, switch hook], kill omuai,
+d3 omuai stairs: [d3 mimic stairs, kill omuai,
+    or: [feather, [hard, or: [long hook, [switch hook, pegasus satchel]]]],
     count: [2, d3 small key]]
 d3 giant blade room: [d3 omuai stairs]
 d3 boss: [d3 omuai stairs, d3 boss key]
