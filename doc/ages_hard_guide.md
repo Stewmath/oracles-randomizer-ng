@@ -57,19 +57,19 @@ for a list of things that are out of logic even in hard.
 
 ## Dungeons
 
-- Reach the item on a "shelf" in the D2 sidescroller by placing a block with
-  the cane, riding the Thwomp, and using seeds or a bomb boost to cross the
+- D2: Reach the item on a "shelf" in the sidescroller room by placing a block
+  with the cane, riding the Thwomp, and using seeds or a bomb boost to cross the
   gap. [[Video (seed)]](https://imgur.com/WvhLkeV)
   [[Video (bomb)]](https://www.youtube.com/watch?v=2BwkmYC3mt0)
-- Clip through a shutter door in D2 by standing on the button that opens the
-  door, pushing a Moblin into the doorway, and switching with the Moblin. You
-  need to screen transition immediately after landing; otherwise you'll be
-  treated as if falling into a pit. [[Video]](https://imgur.com/MlG2BsD)
-- Break the northwest crystal in D3 using the switch hook.
+- D2: Clip through a shutter door by standing on the button that opens the door,
+  pushing a Moblin into the doorway, and switching with the Moblin. You need to
+  screen transition immediately after landing; otherwise you'll be treated as if
+  falling into a pit. [[Video]](https://imgur.com/MlG2BsD)
+- D3: Break the northwest crystal using the switch hook.
   [[Video]](https://imgur.com/Npbaxgl)
-- Hit the lever for the vanilla D3 boss key chest using a spin slash through
+- D3: Hit the lever for the vanilla boss key chest using a spin slash through
   the wall. [[Video]](https://imgur.com/z33pbqo)
-- Hit levers for the bridges in D3 by:
+- D3: Hit levers for the bridges by:
 	1. Using boomerang + seeds or feather in the first room.
 	2. Using a bush + bracelet + toss ring + seeds or feather + a pot in the
 	   first room.
@@ -81,27 +81,27 @@ for a list of things that are out of logic even in hard.
   [[Video (1, 2)]](https://imgur.com/UlsnuZk)
   [[Video (3, 4, 5 w/o bomb boost)]](https://imgur.com/NQqydo1)
   [[Video (5 w/ bomb boost)]](https://clips.twitch.tv/LazyImpartialLadiesMVGame)
-- Get two chests in D4 by hitting switches with feather + boomerang instead of
+- D4: Get two chests by hitting switches with feather + boomerang instead of
   seed shooter. [[Video]](https://imgur.com/6VwIghQ)
-- Skip switch hook in D4 by taking the miniboss portal, bomb jumping to the
-  bridge from the first minecart track, using cane to press the button
-  downstairs, and breaking the pot using noble sword.
-- Hit two switches in D5 from a distance by throwing pots. The second throw
+- D4: Skip switch hook by taking the miniboss portal, bomb jumping to the bridge
+  from the first minecart track, using cane to press the button downstairs, and
+  breaking the pot using noble sword.
+- D5: Hit two switches from a distance by throwing pots. The second throw
   requires the toss ring, plus feather (+ seeds?) to cross the next barrier.
   [[Video]](https://imgur.com/WECGE2Q)
-- Hit the second switch in D5 (from above video) using ember/scent/mystery
-  seeds + satchel, using feather and cane to clip through the red pegs.
+- D5: Hit the second switch (from above video) using ember/scent/mystery seeds
+  + satchel, using feather and cane to clip through the red pegs.
   [[Video]](https://clips.twitch.tv/RefinedBlightedPuffinPupper)
-- Hit the three eye statues in D5 by using pegasus seeds, feather, and
-  mystery seeds from satchel. [[Video]](https://imgur.com/qm40r17)
-- Hit the switch in D5 before the two-statue puzzle using bomb jump + satchel +
-  ember/scent/mystery seeds.
-- Cross the bridge in D5 with seed + feather jumps, or by RNG manipulating the
+- D5: Hit the three eye statues by using pegasus seeds, feather, and mystery
+  seeds from satchel. [[Video]](https://imgur.com/qm40r17)
+- D5: Hit the switch before the two-statue puzzle using bomb jump + satchel
+  + ember/scent/mystery seeds.
+- D5: Cross the bridge with seed + feather jumps, or by RNG manipulating the
   Darknut across the bridge using sword, then switch hooking it. The last two
   sword slashes before transitioning to the bridge room should be high pitch,
   then mid pitch. [[Video]](https://imgur.com/GFhmX7G)
-- Walk diagonally across the corners of pits in the D6 present cube puzzle.
-- Use feather + sword to traverse the D6 present room with the switch that
+- D6: Walk diagonally across the corners of pits in the present cube puzzle.
+- D6: Use feather + sword to traverse the D6 present room with the switch that
   changes the floor tile pattern.
   [[Video]](https://clips.twitch.tv/CrunchyBlushingHummingbirdMingLee)
 
@@ -112,6 +112,6 @@ for a list of things that are out of logic even in hard.
   using scent seeds to attract the Octorok makes it faster. Not in logic because
   you could softlock.
   [[Video]](https://imgur.com/vqk16pi)
-- Get scent seeds from D7 miniboss.
 - Hit the switch to nuun highlands with the magical boomerang. Requires "corner
   clipping" with the boomerang.
+- D7: Get scent seeds from miniboss.

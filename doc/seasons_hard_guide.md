@@ -35,19 +35,12 @@ for a list of things that are out of logic even in hard.
   Specific multi-directional bomb jumps are detailed later in this document,
   with video examples.
 
-## Cross-game items
+### Cross-game items: general uses
 
 - Cane of Somaria can be used to push hardhat beetles into holes (ie.
-  map chest room in D2)
+  map chest room in D2).
 - Cane of Somaria can be used to kill water tektites by creating the
-  block by the edge of the water, then pushing it into the water
-- Use Cane of Somaria through a wall in multiple rooms in D6. (TODO:
-  video)
-- Seed Shooter can be used to hit the orbs in D6 on the path to Vire.
-  This requires using pegasus seeds to wall-clip into a specific pixel,
-  and furthermore, may be subpixel dependent. (TODO: video)
-- Use the long hook in D5 to reach some pots off-screen and access
-  a chest. (TODO: video)
+  block by the edge of the water, then pushing it into the water (ie. in D4).
 
 ## Overworld
 
@@ -92,34 +85,40 @@ for a list of things that are out of logic even in hard.
 
 ## Dungeons
 
-- Throw bushes in D1 to kill Goriya and hit the minecart lever.
+- D1: Throw bushes to kill Goriya and hit the minecart lever.
   [[Video]](https://imgur.com/mrFmfkq)
-- Throw pots in D2 to access the vanilla bracelet chest and blade trap room.
+- D2: Throw pots to access the vanilla bracelet chest and blade trap room.
   [[Video]](https://imgur.com/TwtKSWS)
-- Hit minecart levers in D4 by dropping pots while passing by. This works for
-  both 1F minecarts.
+- D3: Use the long hook (or switch hook + pegasus seeds) to reach the miniboss
+  without the feather. (TODO: video)
+- D4: Hit minecart levers by dropping pots while passing by. This works for both
+  1F minecarts.
   [[Video]](https://clips.twitch.tv/LaconicYawningPresidentFUNgineer)
-- Pegasus + feather jump to reach the left chest in D5 (no bomb boost
-  required). [[Video]](https://clips.twitch.tv/CredulousTemperedMulePicoMause)
-- Bomb + feather jump across the water to get to the minecarts in D5.
+- D5: Pegasus + feather jump to reach the left chest (no bomb boost required).
+  [[Video]](https://clips.twitch.tv/CredulousTemperedMulePicoMause)
+- D5: Bomb + feather jump across the water to get to the minecarts.
   [[Video]](https://imgur.com/iwOlNER)
-- Damage boost off enemies to cross D5 sidescroller gaps without feather.
+- D5: Damage boost off enemies to cross the sidescroller gaps without feather.
   [[Video]](https://imgur.com/LO7HqWf)
-- Jump through the "wall" of fire traps in D5.
+- D5: Jump through the "wall" of fire traps.
   [[Video]](https://imgur.com/MV7RBH4)
-- Corner-walk around the first crystal in D6, or just run through the blade
-  traps, obviating feather or a means to break the crystal.
-- Poe skip: skip fighting the first Poe in D7.
+- D5: Use the long hook to reach some pots off-screen and access a chest. (TODO:
+  video)
+- D6: Corner-walk around the first crystal, or just run through the blade traps,
+  obviating feather or a means to break the crystal.
+- D6: Can use the Cane of Somaria through a wall in multiple rooms in D6. (TODO:
+  video)
+- D7: Poe skip: skip fighting the first Poe.
   [[Video]](https://imgur.com/NC1AVV2)
-- Bomb jump capeless to the button before the D7 miniboss.
+- D7: Bomb jump capeless to the button before the miniboss.
   [[Video]](https://clips.twitch.tv/CloudyGoodReubenOneHand)
-- Hit the three buttons in D7 in the correct order without pegasus seeds, by
+- D7: Hit the three buttons in the correct order without pegasus seeds, by
   jumping on the edges of the tiles.
   [[Video]](https://imgur.com/8PvpNlV)
-- Hit the first eye statue in D8 with seeds + feather + satchel.
+- D8: Hit the first eye statue with seeds + feather + satchel.
   [[Video]](https://imgur.com/yJnKZ18)
-- Hit sets of three eye statues in D8 with feather + satchel/slingshot instead
-  of HSS. Only ember and scent seeds are in logic with the slingshot.
+- D8: Hit sets of three eye statues with feather + satchel/slingshot instead of
+  HSS. Only ember and scent seeds are in logic with the slingshot.
   [[Video]](https://imgur.com/gFFV97x)
-- Activate the D8 bridge switch without L-2 boomerang or seeds + cape.
+- D8: Activate the bridge switch without L-2 boomerang or seeds + cape.
   [[Video]](https://imgur.com/IpnfKtE)
