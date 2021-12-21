@@ -13,6 +13,8 @@ Alpha 2
 Bugfixes:
 - Fixed room layout changes not always being applied (goron mountain water room,
   spool swamp portal).
+- Fixed non-crossitems logic being totally messed up by thinking that you have
+  all of the ages items immediately
 
 Logic:
 - OW: Using the switch hook to cross goron mountain is now in hard logic (even
