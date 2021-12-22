@@ -18,7 +18,7 @@ mkdir -p "dist/$version"
 
 function buildfor() {
 	echo "building for $1/$2"
-	GOOS=$1 GOARCH=$2 go build
+	GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build
 	apack -q "dist/$version/$appname"_$3_"$version.zip" "$appname$4" \
 		Oracles.lua README*.txt checklist/ tracker/
 }
