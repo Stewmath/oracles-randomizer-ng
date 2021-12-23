@@ -25,13 +25,13 @@ Here are some of the differences you *will* encounter:
 ## Usage
 
 At this time, this version of the randomizer only works on the commandline, and
-you must be able to build the disassembly first. A way for non-technical users
-to use this will come in the future.
+you must be able to build the disassembly first. Non-technical users can use the
+[web interface](http://oosarando.zeldahacking.net/) instead.
 
-You must first build oracles-disasm from the submodule in this project, which
-produces modified oracles ROMs. Then, run `./oracles-randomizer
-oracles-disasm/seasons.gbc <output rom>`. Only Seasons is supported at the
-moment.
+To run it locally: You must first build oracles-disasm from the submodule in
+this project, which produces modified oracles ROMs. Then, run
+`./oracles-randomizer-ng oracles-disasm/seasons.gbc <output rom>`. Only Seasons
+is supported at the moment.
 
 When building the disassembly, there will be a file named `seasons.sym` created
 along with `seasons.gbc`. It is very important that this file is in the same
