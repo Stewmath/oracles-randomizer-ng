@@ -609,13 +609,13 @@ func (rom *romState) setConfigData(ropts *randomizerOptions) {
 	var config byte = 0
 
 	if ropts.keysanity {
-		config |= 1
+		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_KEYSANITY")
 	}
 	if ropts.treewarp {
-		config |= 2
+		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_TREEWARP")
 	}
 	if ropts.dungeons {
-		config |= 4
+		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_DUNGEON_ENTRANCES")
 	}
 
 	addr := rom.lookupSymbol("randoConfig").fullOffset()
