@@ -80,16 +80,18 @@ type romState struct {
 	itemSlots    map[string]*itemSlot
 	codeMutables map[string]*mutableRange
 	bankEnds     []uint16 // bus offset of free space in each bank
-	symbols      map[string]*address
+	labels       map[string]*address
+	definitions  map[string]uint32
 }
 
-func newRomState(data []byte, symbols map[string]*address, game, player int, crossitems bool) *romState {
+func newRomState(data []byte, labels map[string]*address, definitions map[string]uint32, game, player int, crossitems bool) *romState {
 	rom := &romState{
-		game:      game,
-		player:    player,
-		data:      data,
-		symbols:   symbols,
-		treasures: loadTreasures(data, symbols["treasureObjectData"], game),
+		game:        game,
+		player:      player,
+		data:        data,
+		labels:      labels,
+		definitions: definitions,
+		treasures:   loadTreasures(data, labels["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots(crossitems)
 	rom.initializeMutables()
@@ -148,10 +150,18 @@ func (rom *romState) verify() []error {
 	return nil
 }
 
-func (rom *romState) lookupSymbol(name string) *address {
-	val, ok := rom.symbols[name]
+func (rom *romState) lookupLabel(name string) *address {
+	val, ok := rom.labels[name]
 	if !ok {
-		panic(fmt.Sprintf("Symbol \"%s\" not found!", name))
+		panic(fmt.Sprintf("Label \"%s\" not found!", name))
+	}
+	return val
+}
+
+func (rom *romState) lookupDefinition(name string) uint32 {
+	val, ok := rom.definitions[name]
+	if !ok {
+		panic(fmt.Sprintf("Definition \"%s\" not found!", name))
 	}
 	return val
 }
@@ -164,7 +174,7 @@ func (rom *romState) setSeedData() {
 	initialSeedType := rom.itemSlots[treeName].treasure.id
 
 	if rom.game == gameSeasons {
-		rom.data[rom.symbols["randovar_initialSeedType"].fullOffset()] = initialSeedType
+		rom.data[rom.lookupLabel("randovar_initialSeedType").fullOffset()] = initialSeedType
 
 		for i, names := range [][]string{
 			{"horon village tree",  "5"},
@@ -176,12 +186,12 @@ func (rom *romState) setSeedData() {
 		} {
 			// Set seed type
 			id := rom.itemSlots[names[0]].treasure.id
-			addr := rom.lookupSymbol("enemyCode5a@treeDataTable")
+			addr := rom.lookupLabel("enemyCode5a@treeDataTable")
 			rom.data[addr.fullOffset() + i * 3] = id
 
 			// Set map popup (order is different)
 			popupIndex, _ := strconv.ParseInt(names[1], 10, 64)
-			addr = rom.lookupSymbol("treeWarps")
+			addr = rom.lookupLabel("treeWarps")
 			rom.data[addr.fullOffset() + int(popupIndex) * 3 + 2] = 0x15 + id
 		}
 	} else {
@@ -248,7 +258,7 @@ func setTreeNybble(subid *mutableRange, slot *itemSlot) {
 // set the locations of the sparkles for the jewels on the treasure map.
 func (rom *romState) setTreasureMapData() {
 	for i, name := range []string{"round", "pyramid", "square", "x-shaped"} {
-		addr := rom.symbols["_mapMenu_drawJewelLocations@jewelLocations"].fullOffset() + i * 2
+		addr := rom.lookupLabel("_mapMenu_drawJewelLocations@jewelLocations").fullOffset() + i * 2
 		rom.data[addr+0] = 0x00
 		rom.data[addr+1] = 0x63 // default to tarm gate
 		for _, slot := range rom.lookupAllItemSlots(name + " jewel") {
@@ -283,7 +293,7 @@ func (rom *romState) lookupAllItemSlots(itemName string) []*itemSlot {
 
 // get the location of the dungeon properties byte for a specific room.
 func (rom *romState) getDungeonPropertiesAddr(group, room byte) *address {
-	baseAddr := rom.symbols["dungeonRoomPropertiesGroup4Data"]
+	baseAddr := rom.lookupLabel("dungeonRoomPropertiesGroup4Data")
 	offset := uint16(room)
 	offset += baseAddr.offset
 	if group%2 != 0 {
@@ -384,7 +394,7 @@ type warpData struct {
 
 func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 	lookupWarpSource := func(label string, index byte) int {
-		return rom.lookupSymbol(label).fullOffset() + int(index) * 4
+		return rom.lookupLabel(label).fullOffset() + int(index) * 4
 	}
 
 	// load yaml data
@@ -519,7 +529,7 @@ func (rom *romState) setFileSelectText(row2 string) {
 		copy(rom.data[addr+padding/2:addr+padding/2+32], row)
 	}
 
-	tileAddr := rom.lookupSymbol("randoFileSelectStringTiles").fullOffset() + 2
+	tileAddr := rom.lookupLabel("randoFileSelectStringTiles").fullOffset() + 2
 	writeLine(fileSelectRow1, tileAddr)
 	writeLine(fileSelectRow2, tileAddr+32)
 }
@@ -567,7 +577,7 @@ func (rom *romState) attachText() {
 		shopMap["randoText_subrosiaMarket5thItem"] = "subrosia market, 5th item"
 	}
 	for codeName, slotName := range shopMap {
-		addr := rom.lookupSymbol(codeName).fullOffset()
+		addr := rom.lookupLabel(codeName).fullOffset()
 		itemName := shopNames[rom.itemSlots[slotName].treasure.displayName]
 		for _, c := range []byte(itemName) {
 			rom.data[addr] = c
@@ -609,15 +619,15 @@ func (rom *romState) setConfigData(ropts *randomizerOptions) {
 	var config byte = 0
 
 	if ropts.keysanity {
-		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_KEYSANITY")
+		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_KEYSANITY")
 	}
 	if ropts.treewarp {
-		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_TREEWARP")
+		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_TREEWARP")
 	}
 	if ropts.dungeons {
-		config |= 1 << rom.lookupSymbol("RANDO_CONFIG_DUNGEON_ENTRANCES")
+		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_DUNGEON_ENTRANCES")
 	}
 
-	addr := rom.lookupSymbol("randoConfig").fullOffset()
+	addr := rom.lookupLabel("randoConfig").fullOffset()
 	rom.data[addr] = config
 }

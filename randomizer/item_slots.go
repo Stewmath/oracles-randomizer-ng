@@ -148,12 +148,8 @@ func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 		if rom.data != nil {
 			if raw.Label != "" {
 				slot.label = raw.Label
-				if val, ok := rom.symbols[slot.label]; ok {
-					slot.addr = val
-					slot.hasAddr = true
-				} else {
-					panic(fmt.Sprintf("label \"%s\" not found for slot \"%s\".", slot.label, name))
-				}
+				slot.addr = rom.lookupLabel(slot.label)
+				slot.hasAddr = true
 			} else if raw.Tree {
 			} else if raw.Dummy {
 			} else {

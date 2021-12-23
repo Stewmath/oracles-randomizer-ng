@@ -41,7 +41,7 @@ func (rom *romState) addMutableRange(symbol string, old []byte, new []byte) {
 	if rom.data == nil {
 		return
 	}
-	addr := rom.lookupSymbol(symbol)
+	addr := rom.lookupLabel(symbol)
 	if _, ok := rom.codeMutables[symbol]; ok {
 		panic(fmt.Sprintf("Tried to add mutable \"%s\" to rom multiple times", symbol))
 	}

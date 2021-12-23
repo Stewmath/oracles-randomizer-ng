@@ -224,7 +224,7 @@ func Main() {
 		// i forget why or whether this is useful.
 		var rom *romState
 		if flag.Arg(1) == "" {
-			rom = newRomState(nil, nil, game, 1, false)
+			rom = newRomState(nil, nil, nil, game, 1, false)
 		} else {
 			f, err := os.Open(flag.Arg(1))
 			if err != nil {
@@ -237,7 +237,7 @@ func Main() {
 				fatal(err, printErrf)
 				return
 			}
-			rom = newRomState(b, nil, game, 1, false)
+			rom = newRomState(b, nil, nil, game, 1, false)
 		}
 
 		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
@@ -319,12 +319,12 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 		for i, infile := range infiles {
 			ropts := optsList[i]
 
-			b, sym, game, err := readGivenRom(filepath.Join(dirName, infile))
+			b, labels, defs, game, err := readGivenRom(filepath.Join(dirName, infile))
 			if err != nil {
 				fatal(err, logf)
 				return
 			} else {
-				roms[i] = newRomState(b, sym, game, i+1, ropts.crossitems)
+				roms[i] = newRomState(b, labels, defs, game, i+1, ropts.crossitems)
 			}
 
 			// sanity check beforehand
@@ -651,29 +651,29 @@ func findVanillaRoms(
 // read the specified file into a slice of bytes, returning an error if the
 // read fails or if the file is an invalid rom. also returns the game as an
 // int.
-func readGivenRom(filename string) ([]byte, map[string]*address, int, error) {
+func readGivenRom(filename string) ([]byte, map[string]*address, map[string]uint32, int, error) {
 	// read file
 	f, err := os.Open(filename)
 	if err != nil {
-		return nil, nil, gameNil, err
+		return nil, nil, nil, gameNil, err
 	}
 	defer f.Close()
 	b, err := ioutil.ReadAll(f)
 	if err != nil {
-		return nil, nil, gameNil, err
+		return nil, nil, nil, gameNil, err
 	}
 
 	// check file data
 	if !romIsAges(b) && !romIsSeasons(b) {
-		return nil, nil, gameNil,
+		return nil, nil, nil, gameNil,
 			fmt.Errorf("%s is not an oracles ROM", filename)
 	}
 
 	symbolFilename := filename[:strings.LastIndex(filename, ".")] + ".sym"
-	symbols := readSymbolFile(symbolFilename)
+	labels, definitions := readSymbolFile(symbolFilename)
 
 	game := ternary(romIsSeasons(b), gameSeasons, gameAges).(int)
-	return b, symbols, game, nil
+	return b, labels, definitions, game, nil
 }
 
 // setRandomSeed sets a 32-bit unsigned random seed based on a hexstring, if
