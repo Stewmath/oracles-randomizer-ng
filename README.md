@@ -8,19 +8,10 @@ so the dungeons and other checks can be done in any order that the randomized
 items facilitate. However, you do need to collect all 8 essences to get the Maku
 Seed and finish the game.
 
-## Differences from the original
+This is a fork of jangler's [original
+randomizer](https://github.com/jangler/oracles-randomizer). See
+[ng\_differences.md](doc/ng_differences.md) for a list of differences.
 
-The NG version of the randomizer is an overhaul of Jangler's original randomizer
-which is built on top of the oracles disassembly. The base features of the
-randomizer are generally the same, and if the new features aren't enabled, you
-shouldn't see much difference.
-
-Here are some of the differences you *will* encounter:
-
-- The treasure map works in Subrosia.
-- The Advance Shop is always open (not that anything in it is randomized).
-- Animal companions can spawn into rooms on stairs (ie. seasons D1 entrance
-  screen).
 
 ## Usage
 
