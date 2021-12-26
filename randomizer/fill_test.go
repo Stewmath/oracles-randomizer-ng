@@ -76,15 +76,15 @@ func testAgesGraph(t *testing.T) {
 
 	// test basic start item
 	checkReach(t, g, map[string]string{
-		"starting chest": "feather",
+		"starting item": "feather",
 	}, "black tower worker", false)
 	checkReach(t, g, map[string]string{
-		"starting chest": "sword",
+		"starting item": "sword",
 	}, "black tower worker", true)
 
 	// test hard logic via d2 thwomp shelf
 	testMap := map[string]string{
-		"starting chest":        "bombs, 10",
+		"starting item":         "bombs, 10",
 		"nayru's house":         "bracelet",
 		"black tower worker":    "shovel",
 		"deku forest cave east": "switch hook",
@@ -99,7 +99,7 @@ func testAgesGraph(t *testing.T) {
 
 	// test key counting
 	testMap = map[string]string{
-		"starting chest":      "sword",
+		"starting item":       "sword",
 		"nayru's house":       "bombs, 10",
 		"black tower worker":  "dimitri's flute",
 		"d3 entrance":         "enter d3",
@@ -112,7 +112,7 @@ func testAgesGraph(t *testing.T) {
 
 	// test rupee counting
 	testMap = map[string]string{
-		"starting chest":     "sword",
+		"starting item":      "sword",
 		"nayru's house":      "satchel",
 		"south lynna tree":   "ember tree seeds",
 		"grave under tree":   "graveyard key",
@@ -126,7 +126,7 @@ func testAgesGraph(t *testing.T) {
 
 	// test bombs from head thwomp in hard logic
 	headThwompBombMap := map[string]string{
-		"starting chest":        "bracelet",
+		"starting item":         "bracelet",
 		"nayru's house":         "harp",
 		"black tower worker":    "harp",
 		"lynna city chest":      "switch hook",

@@ -1,7 +1,7 @@
 # see seasons_slots.yaml for more info.
 
 # overworld present
-starting chest:
+starting item:
   treasure: sword
   room: 0x0039
   reverseaddr: {bank: 0x00, addr: 0x10f7}

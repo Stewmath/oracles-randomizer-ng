@@ -5,7 +5,7 @@ start: [] # parent for nodes reachable by default
 hard: {or: []}
 
 # forest of time
-starting chest: [start]
+starting item: [start]
 nayru's house: [start]
 
 # lynna / south shore / palace
