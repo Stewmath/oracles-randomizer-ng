@@ -94,7 +94,7 @@ func newRomState(data []byte, labels map[string]*address, definitions map[string
 		treasures:   loadTreasures(data, labels["treasureObjectData"], game),
 	}
 	rom.itemSlots = rom.loadSlots(crossitems)
-	rom.initializeMutables()
+	rom.initializeMutables(game)
 	return rom
 }
 
@@ -195,6 +195,8 @@ func (rom *romState) setSeedData() {
 			rom.data[addr.fullOffset() + int(popupIndex) * 3 + 2] = 0x15 + id
 		}
 	} else {
+		// TODO
+		/*
 		// set high nybbles (seed types) of seed tree interactions
 		setTreeNybble(rom.codeMutables["symmetryCityTreeSubId"],
 			rom.itemSlots["symmetry city tree"])
@@ -241,6 +243,7 @@ func (rom *romState) setSeedData() {
 					0x15 + rom.itemSlots[name].treasure.id
 			}
 		}
+		*/
 	}
 }
 
@@ -575,6 +578,8 @@ func (rom *romState) attachText() {
 		shopMap["randoText_subrosiaMarket1stItem"] = "subrosia market, 1st item"
 		shopMap["randoText_subrosiaMarket2ndItem"] = "subrosia market, 2nd item"
 		shopMap["randoText_subrosiaMarket5thItem"] = "subrosia market, 5th item"
+	} else { // Ages
+		shopMap["randoText_wildTokayGame"] = "wild tokay game" // TODO: test
 	}
 	for codeName, slotName := range shopMap {
 		addr := rom.lookupLabel(codeName).fullOffset()

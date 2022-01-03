@@ -24,6 +24,11 @@ common:
   switch hook: 0x0a00
   seed shooter: 0x0f00
 
+  # seasons items, available in ages with crossitems mode
+  magnet gloves: 0x0800
+  slingshot: 0x1300
+  fool's ore: 0x1e00
+
   # rupees
   rupees, 10: 0x2802
   rupees, 20: 0x2803
@@ -40,7 +45,6 @@ common:
   power ring L-1: 0x2d0e
 
   # dungeon items
-  d0 small key: 0x3000
   d1 small key: 0x3001
   d2 small key: 0x3002
   d3 small key: 0x3003
@@ -81,9 +85,6 @@ seasons:
   summer: 0x0703
   autumn: 0x0704
   winter: 0x0705
-  magnet gloves: 0x0800
-  slingshot: 0x1300
-  fool's ore: 0x1e00
 
   # rupees
   rupees, 1: 0x2800
@@ -93,6 +94,7 @@ seasons:
   rare peach stone: 0x2b03 # New SubID created for this (originally had none)
 
   # dungeon items
+  d0 small key: 0x3000
   d6 small key: 0x3006
   d6 compass: 0x3206
   d6 dungeon map: 0x3306
@@ -152,12 +154,13 @@ ages:
   like-like ring: 0x2d28
 
   # dungeon items
-  d6 present small key: 0x300c # TODO: Is 0x0c right?
-  d6 past small key: 0x3006
-  d6 present compass: 0x320c
-  d6 past compass: 0x3206
-  d6 present dungeon map: 0x330c
-  d6 past dungeon map: 0x3306
+  d0 small key: 0x300d # maku path is technically dungeon 0x0d
+  d6 present small key: 0x3006
+  d6 past small key: 0x300c
+  d6 present compass: 0x3206
+  d6 past compass: 0x320c
+  d6 present dungeon map: 0x3306
+  d6 past dungeon map: 0x330c
 
   # page 2
   graveyard key: 0x4200
