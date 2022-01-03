@@ -85,7 +85,7 @@ target carts 2:
   maptile: 0x1d
   collect: target carts
   local: true
-goron dance present:
+first goron dance:
   treasure: brother emblem
   room: 0x02ed
   maptile: 0x3d
