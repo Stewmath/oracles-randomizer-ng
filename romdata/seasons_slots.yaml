@@ -334,7 +334,6 @@ d0 rupee chest:
 d1 stalfos drop:
   treasure: d1 small key
   room: 0x041b
-  keydrop: true
   label: seasonsSlot_d1_stalfosDrop
 d1 basement:
   treasure: satchel
@@ -377,7 +376,6 @@ d1 boss:
 d2 rope drop:
   treasure: d2 small key
   room: 0x0434
-  keydrop: true
   label: seasonsSlot_d2_ropeDrop
 d2 moblin chest:
   treasure: bracelet
@@ -462,7 +460,6 @@ d3 boss:
 d4 pot puzzle:
   treasure: d4 small key
   room: 0x047b
-  keydrop: true
   label: seasonsSlot_d4_potPuzzle
 d4 cracked floor room:
   treasure: slingshot
@@ -556,7 +553,6 @@ d5 boss:
 d6 magnet ball drop:
   treasure: d6 small key
   room: 0x04ab
-  keydrop: true
   label: seasonsSlot_d6_magnetBallDrop
 d6 spinner north:
   treasure: d6 small key
@@ -627,7 +623,6 @@ d7 bombed wall chest:
 d7 zol button:
   treasure: d7 small key
   room: 0x0545
-  keydrop: true
   label: seasonsSlot_d7_zolButton
 d7 armos puzzle:
   treasure: d7 small key
@@ -644,7 +639,6 @@ d7 quicksand chest:
 d7 B2F drop:
   treasure: d7 small key
   room: 0x053d
-  keydrop: true
   label: seasonsSlot_d7_b2fDrop
 d7 stalfos chest:
   treasure: d7 boss key
@@ -659,7 +653,6 @@ d7 boss:
 d8 eye drop:
   treasure: d8 small key
   room: 0x0582
-  keydrop: true
   label: seasonsSlot_d8_eyeDrop
 d8 armos chest:
   treasure: slingshot
@@ -676,7 +669,6 @@ d8 three eyes chest:
 d8 hardhat drop:
   treasure: d8 small key
   room: 0x0575
-  keydrop: true
   label: seasonsSlot_d8_hardhatDrop
 d8 spike room:
   treasure: d8 compass
@@ -697,7 +689,6 @@ d8 darknut chest:
 d8 ghost armos drop:
   treasure: d8 small key
   room: 0x057f
-  keydrop: true
   label: seasonsSlot_d8_ghostArmosDrop
 d8 pols voice chest:
   treasure: d8 boss key
