@@ -27,3 +27,11 @@ Logic:
   to reach the miniboss. It's too much even for hard logic.
 - D7: Fixed a loophole causing jumping on button edges without hitting the
   buttons to be in normal logic.
+
+================================================================================
+????
+================================================================================
+
+Bugfixes:
+- Seasons: Fixed seed shooter graphic being corrupted in shops & some other
+  places

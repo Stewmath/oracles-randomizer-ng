@@ -132,6 +132,7 @@ seasons:
 
 ages:
   harp: 0x2500 # actually tune of echoes, which gives harp as well
+  rod: 0x0700 # "ages-exclusive" because seasons has "winter", "spring" etc. instead
 
   # rupees
   rupees, 200: 0x2808
