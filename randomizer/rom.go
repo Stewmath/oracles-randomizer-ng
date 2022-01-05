@@ -170,13 +170,12 @@ func (rom *romState) lookupDefinition(name string) uint32 {
 // grows on the horon village tree, and set the map icon for each tree to match
 // the seed type.
 func (rom *romState) setSeedData() {
-	treeName := sora(rom.game, "horon village tree", "south lynna tree").(string)
-	initialSeedType := rom.itemSlots[treeName].treasure.id
+	initialTreeName := sora(rom.game, "horon village tree", "south lynna tree").(string)
+	initialSeedType := rom.itemSlots[initialTreeName].treasure.id
+	rom.data[rom.lookupLabel("randovar_initialSeedType").fullOffset()] = initialSeedType
 
 	if rom.game == gameSeasons {
-		rom.data[rom.lookupLabel("randovar_initialSeedType").fullOffset()] = initialSeedType
-
-		for i, names := range [][]string{
+		for i, treeData := range [][]string{
 			{"horon village tree",  "5"},
 			{"woods of winter tree","4"},
 			{"north horon tree",    "2"},
@@ -185,77 +184,58 @@ func (rom *romState) setSeedData() {
 			{"tarm ruins tree",     "0"},
 		} {
 			// Set seed type
-			id := rom.itemSlots[names[0]].treasure.id
+			id := rom.itemSlots[treeData[0]].treasure.id
 			addr := rom.lookupLabel("enemyCode5a@treeDataTable")
 			rom.data[addr.fullOffset() + i * 3] = id
 
 			// Set map popup (order is different)
-			popupIndex, _ := strconv.ParseInt(names[1], 10, 64)
+			popupIndex, _ := strconv.ParseInt(treeData[1], 10, 64)
 			addr = rom.lookupLabel("treeWarps")
 			rom.data[addr.fullOffset() + int(popupIndex) * 3 + 2] = 0x15 + id
 		}
 	} else {
-		// TODO
-		/*
-		// set high nybbles (seed types) of seed tree interactions
-		setTreeNybble(rom.codeMutables["symmetryCityTreeSubId"],
-			rom.itemSlots["symmetry city tree"])
-		setTreeNybble(rom.codeMutables["southLynnaPresentTreeSubId"],
-			rom.itemSlots["south lynna tree"])
-		setTreeNybble(rom.codeMutables["crescentIslandTreeSubId"],
-			rom.itemSlots["crescent island tree"])
-		setTreeNybble(rom.codeMutables["zoraVillagePresentTreeSubId"],
-			rom.itemSlots["zora village tree"])
-		setTreeNybble(rom.codeMutables["rollingRidgeWestTreeSubId"],
-			rom.itemSlots["rolling ridge west tree"])
-		setTreeNybble(rom.codeMutables["ambisPalaceTreeSubId"],
-			rom.itemSlots["ambi's palace tree"])
-		setTreeNybble(rom.codeMutables["rollingRidgeEastTreeSubId"],
-			rom.itemSlots["rolling ridge east tree"])
-		setTreeNybble(rom.codeMutables["southLynnaPastTreeSubId"],
-			rom.itemSlots["south lynna tree"])
-		setTreeNybble(rom.codeMutables["dekuForestTreeSubId"],
-			rom.itemSlots["deku forest tree"])
-		setTreeNybble(rom.codeMutables["zoraVillagePastTreeSubId"],
-			rom.itemSlots["zora village tree"])
+		for _, treeData := range [][]string{
+			{"crescent island tree",    "0ac", "present", "0"},
+			{"symmetry city tree",      "013", "present", "1"},
+			{"south lynna tree",        "078", "present", "2"},
+			{"zora village tree",       "0c1", "present", "3"},
+			{"rolling ridge west tree", "108", "past",    "0"},
+			{"ambi's palace tree",      "125", "past",    "1"},
+			{"rolling ridge east tree", "12d", "past",    "2"},
+			{"south lynna tree",        "178", "past",    "3"},
+			{"deku forest tree",        "180", "past",    "4"},
+			{"zora village tree",       "1c1", "past",    "5"},
+		} {
+			// Set seed type
+			id := rom.itemSlots[treeData[0]].treasure.id
+			group := treeData[1][0:1]
+			room := treeData[1][1:3]
+			labelName := fmt.Sprintf("group%sMap%sObjectData", group, room)
+			addr := rom.lookupLabel(labelName).fullOffset()
 
-		// satchel and shooter come with south lynna tree seeds
-		rom.codeMutables["satchelInitialSeeds"].new[0] = 0x20 + initialSeedType
-		rom.codeMutables["seedShooterGiveSeeds"].new[6] = 0x20 + initialSeedType
-		for _, name := range []string{"satchelInitialSelection",
-			"shooterInitialSelection"} {
-			rom.codeMutables[name].new[1] = initialSeedType
-		}
-
-		// set map icons
-		for _, name := range []string{"crescent island tree",
-			"symmetry city tree", "south lynna tree", "zora village tree",
-			"rolling ridge west tree", "ambi's palace tree",
-			"rolling ridge east tree", "deku forest tree"} {
-			codeName := inflictCamelCase(name) + "MapIcon"
-			if name == "south lynna tree" || name == "zora village tree" {
-				for _, n := range []string{"1", "2"} {
-					rom.codeMutables[codeName+n].new[0] =
-						0x15 + rom.itemSlots[name].treasure.id
+			for {
+				// Check for seed object to change the seed type. I was too lazy
+				// to write code to parse object data properly; so this is
+				// simply looking for byte 0xf7 (obj_SpecificEnemyA)
+				// corresponding to the seed object. I mean, hey, it works.
+				if rom.data[addr] == 0xf7 && rom.data[addr + 2] == 0x5a {
+					subid := rom.data[addr + 3]
+					subid &= 0x0f // lower nybble is something else, must preserve
+					subid |= id << 4
+					rom.data[addr + 3] = subid
+					break
+				} else {
+					addr += 1
+					continue
 				}
-			} else {
-				rom.codeMutables[codeName].new[0] =
-					0x15 + rom.itemSlots[name].treasure.id
 			}
+
+			// Set map popup
+			addr = rom.lookupLabel(treeData[2] + "TreeWarps").fullOffset()
+			popupIndex, _ := strconv.ParseInt(treeData[3], 10, 64)
+			rom.data[addr + int(popupIndex) * 3 + 2] = 0x15 + id
 		}
-		*/
 	}
-}
-
-// converts e.g. "hello world" to "helloWorld". disgusting tbh
-func inflictCamelCase(s string) string {
-	return fmt.Sprintf("%c%s", s[0], strings.ReplaceAll(
-		strings.Title(strings.ReplaceAll(s, "'", "")), " ", "")[1:])
-}
-
-// sets the high nybble (seed type) of a seed tree interaction in ages.
-func setTreeNybble(subid *mutableRange, slot *itemSlot) {
-	subid.new[0] = (subid.new[0] & 0x0f) | (slot.treasure.id << 4)
 }
 
 // set the locations of the sparkles for the jewels on the treasure map.
