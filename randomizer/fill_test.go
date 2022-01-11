@@ -89,7 +89,7 @@ func testAgesGraph(t *testing.T) {
 		"black tower worker":    "shovel",
 		"deku forest cave east": "switch hook",
 		"deku forest cave west": "cane",
-		"d2 entrance":           "enter d2",
+		"d2 past entrance":      "enter d2",
 		"d2 bombed terrace":     "d2 small key",
 		"d2 moblin drop":        "d2 small key",
 	}
@@ -132,7 +132,7 @@ func testAgesGraph(t *testing.T) {
 		"lynna city chest":      "switch hook",
 		"fairies' woods chest":  "iron shield",
 		"symmetry city brother": "sword",
-		"d2 entrance":           "enter d2",
+		"d2 past entrance":      "enter d2",
 		"d2 moblin drop":        "feather",
 		"d2 basement drop":      "d2 small key",
 		"d2 thwomp tunnel":      "d2 small key",

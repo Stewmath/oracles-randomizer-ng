@@ -52,6 +52,11 @@ func printErrf(s string, a ...interface{}) {
 	fmt.Fprintf(os.Stderr, s+"\n", a...)
 }
 
+func fatalErr(s string) {
+	printErrf("fatal: %s.", s)
+	os.Exit(1)
+}
+
 // options specified on the command line or via the TUI
 var (
 	flagCpuProf    string

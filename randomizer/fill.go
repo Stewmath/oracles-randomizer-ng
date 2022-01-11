@@ -27,7 +27,7 @@ var dungeonNames = map[int][]string{
 	gameSeasons: []string{
 		"d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8"},
 	gameAges: []string{
-		"d1", "d2", "d3", "d4", "d5", "d6 present", "d6 past", "d7", "d8"},
+		"d0", "d1", "d2", "d3", "d4", "d5", "d6 present", "d6 past", "d7", "d8"},
 }
 
 // adds nodes to the map based on default contents of item slots.
@@ -203,30 +203,61 @@ func rollSeasons(src *rand.Rand, g graph) map[string]byte {
 // connect dungeon entrances, randomly or vanilla-ly.
 func setDungeonEntrances(
 	src *rand.Rand, g graph, game int, shuffle bool) map[string]string {
+	var dungeonConnections = map[int][][]string{
+		gameSeasons: [][]string{
+			{"d1","d1"},
+			{"d2","d2"},
+			{"d3","d3"},
+			{"d4","d4"},
+			{"d5","d5"},
+			{"d6","d6"},
+			{"d7","d7"},
+			{"d8","d8"},
+		},
+		gameAges: [][]string{
+			{"d1","d1"},
+			{"d2 present","d2"}, // 2 entrances but only 1 destination
+			{"d2 past",   "d2"},
+			{"d3","d3"},
+			{"d4","d4"},
+			{"d5","d5"},
+			{"d6 present","d6 present"},
+			{"d6 past",   "d6 past"},
+			{"d7","d7"},
+			{"d8","d8"},
+		},
+	}
+
 	dungeonEntranceMap := make(map[string]string)
-	dungeons := make([]string, len(dungeonNames[game]))
-	copy(dungeons, dungeonNames[game])
-	if game == gameSeasons {
-		dungeons = dungeons[1:]
+
+	entrances    := make([]string, len(dungeonConnections[game]))
+	destinations := make([]string, len(dungeonConnections[game]))
+
+	for i := 0; i < len(entrances); i++ {
+		entrances[i]    = dungeonConnections[game][i][0]
+		destinations[i] = dungeonConnections[game][i][1]
 	}
 
 	if game == gameSeasons && !shuffle {
 		g["d2 alt entrances enabled"].addParent(g["start"])
 	}
 
-	entrances := make([]string, len(dungeons))
-	copy(entrances, dungeons)
-
 	if shuffle {
-		src.Shuffle(len(entrances), func(i, j int) {
-			entrances[i], entrances[j] = entrances[j], entrances[i]
+		if game == gameAges {
+			// Randomize where d2 present leads before shuffling it
+			dungeonList := dungeonNames[game][1:] // Exclude maku path
+			destinations[1] = dungeonList[src.Intn(len(dungeonList))]
+		}
+		src.Shuffle(len(destinations), func(i, j int) {
+			destinations[i], destinations[j] = destinations[j], destinations[i]
 		})
 	}
 
-	for i := 0; i < len(dungeons); i++ {
-		entranceName := fmt.Sprintf("%s entrance", entrances[i])
-		dungeonEntranceMap[entrances[i]] = dungeons[i]
-		g[fmt.Sprintf("enter %s", dungeons[i])].addParent(g[entranceName])
+	for i := 0; i < len(entrances); i++ {
+		enterName := fmt.Sprintf("%s entrance", entrances[i])
+		destName  := fmt.Sprintf("enter %s", destinations[i])
+		dungeonEntranceMap[entrances[i]] = destinations[i]
+		g[destName].addParent(g[enterName])
 	}
 
 	return dungeonEntranceMap

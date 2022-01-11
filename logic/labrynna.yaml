@@ -71,7 +71,8 @@ deku forest tree: [deku forest, or: [sword, punch object], seed item,
 deku forest owl: [mystery seeds, deku forest tree]
 deku forest soldier: [deku forest, mystery seeds,
     or: [feather, ember seeds, ages, [bracelet, or: [switch hook, gale satchel]]]]
-d2 entrance: [deku forest, or: [bombs, currents]]
+d2 past entrance: [deku forest, bombs]
+d2 present entrance: [deku forest, currents]
 
 # crescent island
 # the western present portal responds to currents only, in order to prevent

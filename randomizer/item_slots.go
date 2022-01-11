@@ -92,9 +92,12 @@ var seasonsDungeonMapTiles = map[string]uint16 {
 	"d8": 0x100,
 }
 
+// NOTE: Past & present entrances for d2 will work weird with this. But map
+// tiles are not currently needed in ages anyway (only for the seasons treasure
+// map).
 var agesDungeonMapTiles = map[string]uint16 {
 	"d1": 0x08d,
-	"d2": 0x183, // TODO: Past & present entrances
+	"d2": 0x183,
 	"d3": 0x0ba,
 	"d4": 0x003,
 	"d5": 0x00a,

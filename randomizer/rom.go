@@ -17,7 +17,7 @@ const bankSize = 0x4000
 var rings []string
 
 // only applies to seasons! used for warps
-var dungeonNameRegexp = regexp.MustCompile(`^d[1-8]$`)
+var dungeonEntranceNameRegexp = regexp.MustCompile(`^d[1-8] entrance$`)
 
 // a fully-specified memory address. "offset" isn't true offset from the start
 // of the bank (except for bank 0); it's bus address.
@@ -364,15 +364,15 @@ func (rom *romState) randomizeRingPool(src *rand.Rand,
 
 type warpData struct {
 	// loaded from yaml
-	EntryLabel, ExitLabel string
-	EntryIndex, ExitIndex byte
-	MapTile               uint16
+	Label     string
+	Index     byte
+	MapTile   uint16
 
 	// set after loading
-	vanillaMapTile               uint16
-	len, entryOffset, exitOffset int
+	vanillaMapTile uint16
+	len, romOffset int
 
-	vanillaEntryData, vanillaExitData []byte // read from rom
+	vanillaData []byte // read from rom
 }
 
 func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
@@ -398,50 +398,127 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 	for name, warp := range warps {
 		if strings.HasSuffix(name, "essence") {
 			warp.len = 4
-			warp.entryOffset = -1
-			warp.exitOffset = lookupWarpSource(warp.ExitLabel, warp.ExitIndex)
+			warp.romOffset = lookupWarpSource(warp.Label, warp.Index)
 		} else {
 			warp.len = 2
-			warp.entryOffset = lookupWarpSource(warp.EntryLabel, warp.EntryIndex) + 2
-			warp.exitOffset = lookupWarpSource(warp.ExitLabel, warp.ExitIndex) + 2
-
-			warp.vanillaEntryData = make([]byte, warp.len)
-			copy(warp.vanillaEntryData,
-				rom.data[warp.entryOffset:warp.entryOffset+warp.len])
+			warp.romOffset = lookupWarpSource(warp.Label, warp.Index) + 2
 		}
 
-		warp.vanillaExitData = make([]byte, warp.len)
-		copy(warp.vanillaExitData,
-			rom.data[warp.exitOffset:warp.exitOffset+warp.len])
+		warp.vanillaData = make([]byte, warp.len)
+		copy(warp.vanillaData, rom.data[warp.romOffset:warp.romOffset+warp.len])
+
+		if warp.len == 2 {
+			// Unset special-case "alt entrance" bit used for newly added
+			// present d2 warp
+			warp.vanillaData[1] &= 0x7f
+		}
 
 		warp.vanillaMapTile = warp.MapTile
 	}
 
-	// ages needs essence warp data to d6 present entrance, even though it
-	// doesn't exist in vanilla. (TODO)
-	/*
+	// Ages needs essence warp data to d2 & d6 present entrances, even though it
+	// doesn't exist in vanilla.
 	if rom.game == gameAges {
+		warps["d2 present essence"] = &warpData{
+			vanillaData: []byte{0x80, 0x83, 0x25, 0x01},
+		}
 		warps["d6 present essence"] = &warpData{
-			vanillaExitData: []byte{0x81, 0x0e, 0x16, 0x01},
+			vanillaData: []byte{0x81, 0x0e, 0x16, 0x01},
 		}
 	}
-	*/
 
 	// set randomized data
+	exitCount := make(map[string]int)
+	addedExtraExit := false
 	for srcName, destName := range warpMap {
-		src, dest := warps[srcName], warps[destName]
-		for i := 0; i < src.len; i++ {
-			rom.data[src.entryOffset+i] = dest.vanillaEntryData[i]
-			rom.data[dest.exitOffset+i] = src.vanillaExitData[i]
-		}
-		dest.MapTile = src.vanillaMapTile
+		enterWarp           := warps[srcName  + " entrance"]
+		exitWarp            := warps[destName + " exit"]
+		origEssenceWarp     := warps[srcName  + " essence"]
+		changingEssenceWarp := warps[destName + " essence"]
 
-		destEssence := warps[destName+" essence"]
-		if destEssence != nil && destEssence.exitOffset != 0 {
-			srcEssence := warps[srcName+" essence"]
-			for i := 0; i < destEssence.len; i++ {
-				rom.data[destEssence.exitOffset+i] = srcEssence.vanillaExitData[i]
+		origEnter, origExit := destName + " entrance", srcName + " exit"
+
+		var entranceWarpData* []byte
+		var exitWarpData*     []byte
+
+		// Ages D2 has multiple entrances but only 1 exit. Must do some
+		// shenanigans to make it work properly.
+		if rom.game == gameAges {
+			if origEnter == "d2 entrance" {
+				// Read the warp data for entering d2 from "d2 past entrance"
+				// (either is fine)
+				origEnter = "d2 past entrance"
+				// Change the d2 past essence warp (d2 present essence doesn't exist)
+				changingEssenceWarp = warps["d2 past essence"]
 			}
+
+			if origExit == "d2 past exit" {
+				origExit = "d2 exit" // Original exit warp leads to past overworld
+			} else if origExit == "d2 present exit" {
+				// 0x4d = Dest warp index added in disassembly for d2 present
+				// exit warp. 0x03 = group (0) + transition type (3).
+				exitWarpData = &[]byte { 0x4d, 0x03 }
+			}
+		}
+
+		if entranceWarpData == nil {
+			entranceWarpData = &[]byte { 0, 0 }
+			copy(*entranceWarpData, warps[origEnter].vanillaData)
+		}
+		if exitWarpData == nil {
+			exitWarpData = &[]byte { 0, 0 }
+			copy(*exitWarpData, warps[origExit].vanillaData)
+		}
+
+		exitCount[destName] += 1
+		numExits, _ := exitCount[destName];
+		if rom.game == gameAges && numExits > 1 {
+			if addedExtraExit {
+				fatalErr("More than 1 extra dungeon exit created")
+			}
+			// This is the 2nd entrance linked to this dungeon. Use the essence
+			// warp data to tell the disassembly's special-case code where to
+			// send Link when it detects that he's exiting from this entrance.
+			duplicateExitOffset := rom.lookupLabel("randoAltDungeonEntranceRoom").fullOffset()
+			rom.data[duplicateExitOffset + 0] = origEssenceWarp.vanillaData[0]
+			rom.data[duplicateExitOffset + 1] = origEssenceWarp.vanillaData[1]
+			rom.data[duplicateExitOffset + 2] = origEssenceWarp.vanillaData[2]
+			rom.data[duplicateExitOffset + 3] = origEssenceWarp.vanillaData[3]
+
+			// Also set a bit in the entrance warp's "group" variable which will
+			// trigger the special-case
+			(*entranceWarpData)[1] |= 0x80
+
+			addedExtraExit = true
+		} else if rom.game == gameSeasons && numExits > 1 {
+			fatalErr("More than 1 entrance leads to same dungeon")
+		}
+
+		// Write the warp data for entering/exiting the dungeon
+		for i := 0; i < enterWarp.len; i++ {
+			rom.data[enterWarp.romOffset+i] = (*entranceWarpData)[i]
+
+			// If this is the 2nd warp to this dungeon, don't write the exit
+			// warp data here, rely on the special-case code to handle exiting
+			// the dungeon instead
+			if numExits == 1 {
+				rom.data[exitWarp.romOffset+i]  = (*exitWarpData)[i]
+			}
+		}
+
+		// Make the dungeon's essence warp to the same destination
+		if numExits == 1 && !strings.HasSuffix(destName, "portal") && destName != "d6 present" {
+			if changingEssenceWarp.romOffset == 0 {
+				fatalErr("Bad rom offset for essence warp '" + destName + "'.")
+			}
+			for i := 0; i < changingEssenceWarp.len; i++ {
+				rom.data[changingEssenceWarp.romOffset+i] = origEssenceWarp.vanillaData[i]
+			}
+		}
+
+		// Update maptile for jewels
+		if rom.game == gameSeasons {
+			enterWarp.MapTile = warps[origEnter].vanillaMapTile
 		}
 	}
 
@@ -449,7 +526,7 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 		// shuffle treasure map data along with dungeons.
 		changeTreasureMapTiles(rom.itemSlots, func(c chan tileChange) {
 			for name, warp := range warps {
-				if dungeonNameRegexp.MatchString(name) {
+				if dungeonEntranceNameRegexp.MatchString(name) {
 					c <- tileChange{warp.vanillaMapTile, warp.MapTile}
 				}
 			}
@@ -457,13 +534,16 @@ func (rom *romState) setWarps(warpMap map[string]string, dungeons bool) {
 		})
 
 		if dungeons {
-			// remove alternate d2 entrances and connect d2 stairs exits
-			// directly to each other
-			src, dest := warps["d2 alt left"], warps["d2 alt right"]
-			rom.data[src.exitOffset] = dest.vanillaEntryData[0]
-			rom.data[src.exitOffset+1] = dest.vanillaEntryData[1]
-			rom.data[dest.exitOffset] = src.vanillaEntryData[0]
-			rom.data[dest.exitOffset+1] = src.vanillaEntryData[1]
+			// Connect d2 stairs exits directly to each other
+			enter1 := warps["d2 alt left entrance"]
+			enter2 := warps["d2 alt right entrance"]
+			exit1 := warps["d2 alt left exit"]
+			exit2 := warps["d2 alt right exit"]
+
+			rom.data[exit1.romOffset+0] = enter2.vanillaData[0]
+			rom.data[exit1.romOffset+1] = enter2.vanillaData[1]
+			rom.data[exit2.romOffset+0] = enter1.vanillaData[0]
+			rom.data[exit2.romOffset+1] = enter1.vanillaData[1]
 
 			// the alternate entrance stair tiles will also be removed (handled
 			// in the disassembly)
