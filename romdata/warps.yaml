@@ -114,28 +114,28 @@ seasons:
 
 common:
   d1 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 0
   d2 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 1
   d3 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 2
   d4 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 3
   d5 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 4
   d6 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 5
   d7 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 6
   d8 essence:
-    exitlabel: "_interaction7f_subid00@essenceWarps"
+    exitlabel: "interaction7f_subid00@essenceWarps"
     exitindex: 7
 
 # TODO: Ages

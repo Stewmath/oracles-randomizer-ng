@@ -258,7 +258,7 @@ func setTreeNybble(subid *mutableRange, slot *itemSlot) {
 // set the locations of the sparkles for the jewels on the treasure map.
 func (rom *romState) setTreasureMapData() {
 	for i, name := range []string{"round", "pyramid", "square", "x-shaped"} {
-		addr := rom.lookupLabel("_mapMenu_drawJewelLocations@jewelLocations").fullOffset() + i * 2
+		addr := rom.lookupLabel("mapMenu_drawJewelLocations@jewelLocations").fullOffset() + i * 2
 		rom.data[addr+0] = 0x00
 		rom.data[addr+1] = 0x63 // default to tarm gate
 		for _, slot := range rom.lookupAllItemSlots(name + " jewel") {
