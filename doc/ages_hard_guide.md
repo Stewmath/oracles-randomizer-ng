@@ -2,7 +2,7 @@
 
 This document details tricks and obscurities that are in Ages hard logic.
 See
-[ages_notes.md.md](https://github.com/jangler/oracles-randomizer/blob/doc/ages_notes.md)
+[ages_notes.md](https://github.com/jangler/oracles-randomizer/blob/doc/ages_notes.md)
 for a list of things that are out of logic even in hard.
 
 ## General
@@ -36,6 +36,14 @@ for a list of things that are out of logic even in hard.
   bit if you're on the correct pixel and the seed is breaking on one of the
   green tiles.
   [[Image]](https://cdn.discordapp.com/attachments/523574765160628245/692422509236060200/unknown.png)
+- Hit the switch in the cave under Tingle from the staircase by falling into
+  a hole while using the hyper slingshot.
+  [[Video]](https://i.imgur.com/Red8h9q.mp4)
+- Hit the switch in the cave under Tingle from the other side using the hyper
+  slingshot + feather + pegasus seeds + bombs.
+  [[Video]](https://i.imgur.com/pBTTsFz.mp4)
+- Jump across the cave under Tingle using the roc's cape without any pegasus
+  seeds (bomb damage boost not required).
 - Reach the Crescent Island seed tree by visiting the map tile underwater, then
   warping to it with gale seeds. [[Video]](https://imgur.com/aIYSznK)
 
@@ -86,6 +94,8 @@ for a list of things that are out of logic even in hard.
 - D4: Skip switch hook by taking the miniboss portal, bomb jumping to the bridge
   from the first minecart track, using cane to press the button downstairs, and
   breaking the pot using noble sword.
+- D4: Hit the second crystal switch by jumping and using the hyper slingshot
+  just before falling into the lava. [[Video]](https://i.imgur.com/PUCIBjO.mp4)
 - D5: Hit two switches from a distance by throwing pots. The second throw
   requires the toss ring, plus feather (+ seeds?) to cross the next barrier.
   [[Video]](https://imgur.com/WECGE2Q)
@@ -94,16 +104,30 @@ for a list of things that are out of logic even in hard.
   [[Video]](https://clips.twitch.tv/RefinedBlightedPuffinPupper)
 - D5: Hit the three eye statues by using pegasus seeds, feather, and mystery
   seeds from satchel. [[Video]](https://imgur.com/qm40r17)
+- D5: Hit the three eye statues with the L-1 slingshot using scent seeds,
+  pegasus seeds, or mystery seeds (not ember or gale seeds). Using the Hyper
+  Slingshot with any seed type is in normal logic.
+  [[Video]](https://i.imgur.com/dTf8LyD.mp4)
 - D5: Hit the switch before the two-statue puzzle using bomb jump + satchel
-  + ember/scent/mystery seeds.
+  + ember/scent/mystery seeds. Alternatively, use a normal jump plus
+  slingshot/sword/rod/fool's ore.
+- D5: Jump across the gap just before the two-statue puzzle using pegasus seeds
+  + bombs + cape.
+  [[Video]](https://i.imgur.com/8cbWuiH.mp4)
 - D5: Cross the bridge with seed + feather jumps, or by RNG manipulating the
   Darknut across the bridge using sword, then switch hooking it. The last two
   sword slashes before transitioning to the bridge room should be high pitch,
   then mid pitch. [[Video]](https://imgur.com/GFhmX7G)
+- D5: Navigate the dark room without the cane or switch hook.
 - D6: Walk diagonally across the corners of pits in the present cube puzzle.
-- D6: Use feather + sword to traverse the D6 present room with the switch that
-  changes the floor tile pattern.
-  [[Video]](https://clips.twitch.tv/CrunchyBlushingHummingbirdMingLee)
+- D6: Traverse the D6 present room with the switch that changes the floor tile
+  pattern by:
+    1. Using feather + sword. [[Video]](https://clips.twitch.tv/CrunchyBlushingHummingbirdMingLee)
+	2. Using feather + bombs/pegasus seeds + rod/fool's ore. (TODO: video)
+	3. Using feather + slingshot. [[Video]](https://i.imgur.com/P7oj9Zr.mp4)
+	4. Using the hyper slingshot. (TODO: video)
+- D6: Light the torches across the water using the roc's cape + ember satchel or
+  slingshot. Use of hyper slingshot is in normal logic.
 
 ## Not in logic but still cool
 

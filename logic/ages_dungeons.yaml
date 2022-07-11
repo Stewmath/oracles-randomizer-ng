@@ -20,12 +20,12 @@ d1 pot chest: [enter d1, break pot]
 d1 wide room: [d1 ghini drop, count: [2, d1 small key]]
 d1 two-button chest: [d1 wide room]
 d1 one-button chest: [d1 wide room]
-d1 boss: [d1 wide room, break bush safe, d1 boss key, kill pumpkin head]
+d1 boss: [d1 wide room, break bush, d1 boss key, kill pumpkin head]
 
 # potentially 3 keys w/ vanilla route
 d1 U-room: {or: [
     d1 west terrace,
-    [d1 wide room, break bush safe, kill giant ghini,
+    [d1 wide room, break bush, kill giant ghini,
         count: [3, d1 small key]]]}
 d1 basement: [d1 U-room, ember seeds]
 
@@ -80,23 +80,23 @@ d3 seeds from bridge room: [enter d3, d3 small key, seed item, or: [sword, bombs
 # you can clip into the blocks enough to hit this crystal with switch hook
 d3 W crystal: [enter d3, d3 small key]
 d3 N crystal: [d3 W crystal,
-    or: [any seed shooter, boomerang, [hard, switch hook]]]
+    or: [any seed shooter, any hyper slingshot, boomerang, [hard, switch hook]]]
 stone soldiers owl: [mystery seeds, d3 small key]
 d3 armos drop: [d3 W crystal]
 d3 six-block drop: [d3 W crystal]
 break crystal switch: {or: [sword, switch hook, boomerang, ember satchel,
-    scent satchel, mystery satchel, any seed shooter, punch object]}
+    scent satchel, mystery satchel, seed ranged, punch object]}
 d3 B1F spinner: [d3 S crystal, d3 E crystal, d3 N crystal, d3 W crystal,
     break crystal switch]
 d3 crossroads: [d3 B1F spinner]
 d3 conveyor belt room: [d3 W crystal]
-d3 torch chest: [d3 B1F spinner, or: [ember shooter, [hard, mystery shooter]]]
+d3 torch chest: [d3 B1F spinner, or: [ember shooter, [hard, mystery shooter]]] # TODO: cape, hyper
 d3 bridge chest: [d3 W crystal,
-    or: [any seed shooter, jump 3,
-        [hard, d3 post-subterror, count: [4, d3 small key], feather],
+    or: [any seed shooter, jump 3, magic boomerang,
+        [d3 post-subterror, count: [4, d3 small key], or: [jump 3, [hard, feather]]],
         [hard, or: [boomerang, [bracelet, toss ring]],
             or: [feather, pegasus satchel]]]]
-d3 B1F east: [d3 B1F spinner, kill subterror,
+d3 B1F east: [d3 B1F spinner, kill subterror, # TODO: magic boomerang
     or: [any seed shooter, [hard, sword]]] # spin slash through corner
 # post-subterror and boss door do not reference each other
 d3 post-subterror: {or: [
@@ -113,9 +113,9 @@ d3 boss door: {or: [
                 or: [jump 3, switch hook,
                     [bracelet, count: [4, d3 small key]]]]]],
     [d3 bridge chest, count: [4, d3 small key],
-        or: [any seed shooter, boomerang]]]}
+        or: [any seed shooter, cape, boomerang]]]}
 d3 moldorm drop: [kill moldorm, d3 post-subterror]
-d3 boss: [d3 boss door, d3 boss key,
+d3 boss: [d3 boss door, d3 boss key, # TODO: check hyper slingshot effectiveness
     or: [ember shooter, scent shooter, ember satchel, [hard, scent satchel]]]
 
 # 3 keys
@@ -136,25 +136,25 @@ d4 cube chest: [d4 first chest, feather]
 # 1 key
 d4 minecart A: [enter d4, feather, d4 small key]
 d4 first crystal switch: [d4 minecart A,
-    or: [any seed shooter, [hard, boomerang]]]
+    or: [any seed shooter, magic boomerang, [hard, boomerang]]]
 d4 minecart chest: [d4 minecart A, hit lever]
 
 # 2 keys
 d4 minecart B: [d4 minecart A, hit lever from minecart, bracelet, kill normal,
     count: [2, d4 small key]]
 d4 second crystal switch: [d4 minecart B,
-    or: [any seed shooter, [hard, boomerang]]]
+    or: [any seed shooter, magic boomerang, [cape, hit switch],
+        [hard, or: [boomerang, any hyper slingshot]]]]
 
 # 3 keys
 d4 minecart C: [d4 minecart B, count: [3, d4 small key]]
 d4 color tile drop: [d4 minecart C,
-    or: [sword, ember seeds, scent shooter, gale shooter,
-        [hard, scent satchel]]]
+    or: [sword, fool's ore, rod, ranged seed weapon]]
 
 # 4 keys
 d4 minecart D: [d4 color tile drop, count: [4, d4 small key]]
 d4 miniboss: [d4 minecart D,
-    or: [sword, switch hook, scent shooter, punch enemy]]
+    or: [sword, fool's ore, switch hook, scent ranged, punch enemy]]
 d4 small floor puzzle: [d4 miniboss, bombs]
 d4 large floor puzzle: {or: [
     [d4 minecart D, switch hook],
@@ -173,16 +173,23 @@ enter d5: {or: []}
 d5 switch A: [enter d5, kill normal, or: [hit switch, [hard, bracelet]]]
 d5 blue peg chest: [d5 switch A]
 d5 dark room: [d5 switch A, hit switch, # can't use pots here
-    or: [cane, switch hook, [hard, or: [kill normal, push enemy]]]]
+    or: [cane, switch hook, [hard, or: [kill normal, push enemy, boomerang, pegasus ranged]],
+        [cape, or: [hard, pegasus satchel]]]]
 d5 like-like chest: [d5 switch A,
     or: [hit switch ranged, [hard, bracelet],
         [hard, feather, cane, or: [ember seeds, scent seeds, mystery seeds]]]]
-d5 eyes chest: [d5 switch A, or: [any seed shooter,
-    [hard, pegasus satchel, feather, mystery seeds,
-        or: [hit switch ranged, [bracelet, toss ring], cane]]]]
+d5 eyes chest: [d5 switch A,
+    or: [any seed shooter, any hyper slingshot,
+        [hard, slingshot, or: [scent seeds, pegasus seeds, mystery seeds]],
+        # Use pegasus seeds + feather + mystery seeds to hit the 3 eyes
+        [hard, pegasus satchel, feather, mystery seeds,
+            # Can get through the room with red & blue pegs
+            or: [hit switch ranged, cape, [bracelet, toss ring], cane]]]]
 d5 two-statue puzzle: [d5 switch A, break pot, cane, feather,
-    or: [any seed shooter, boomerang, [hard, sword],
-        [hard, bomb jump 2, or: [ember seeds, scent seeds, mystery seeds]]]]
+    or: [any seed shooter, any hyper slingshot, boomerang,
+        [hard, pegasus satchel, bombs, cape],
+        [hard, or: [sword, rod, fool's ore, any slingshot]],
+        [hard, bomb jump 2, or: [ember satchel, scent satchel, mystery satchel]]]]
 d5 boss: [d5 switch A, d5 boss key, cane, sword]
 
 # 2 keys
@@ -206,7 +213,9 @@ enter d6 past: {or: []}
 d6 past color room: [enter d6 past, feather, kill switch hook]
 d6 past wizzrobe chest: [enter d6 past, bombs, kill wizzrobe]
 d6 past pool chest: [enter d6 past, bombs, ember seeds, flippers]
-d6 open wall: [enter d6 past, bombs, ember shooter]
+d6 open wall: [enter d6 past, bombs, ember seeds,
+    or: [seed shooter, hyper slingshot,
+        [hard, cape, or: [slingshot, satchel]]]]
 deep waters owl: [mystery seeds, d6 open wall]
 d6 past stalfos chest: [enter d6 past, ember seeds,
     or: [kill normal ranged, scent satchel, feather, hard]]
@@ -219,15 +228,20 @@ d6 past spear chest: [d6 past spinner, mermaid suit]
 d6 past diamond chest: [d6 past spinner, mermaid suit,
     switch hook]
 
-# past, 3 keys
-d6 boss: [d6 past spinner, d6 boss key, mermaid suit, any seed shooter,
-    count: [3, d6 past small key]]
+# past, 2-3 keys
+d6 boss: [d6 past spinner, d6 boss key, mermaid suit, count: [2, d6 past small key],
+    or: [cape, [count: [3, d6 past small key], or: [any seed shooter, magic boomerang]]]]
 
 # present, 0 keys
 d6 present diamond chest: [enter d6 present, switch hook]
-d6 present rope room: [enter d6 present,
-    or: [flippers, bomb jump 3, switch hook],
-    or: [any seed shooter, boomerang, jump 3, [hard, feather, sword]]]
+d6 present rope room: [enter d6 present, # TODO: videos & logic for left side
+    # Can get past the water in the previous room
+    or: [flippers, jump 3, [hard, feather], switch hook],
+    # Can cross the orb room with all the pits
+    or: [any seed shooter, boomerang, jump 3,
+        [hard, any hyper slingshot],
+        [hard, feather, or: [sword, any slingshot]],
+        [hard, or: [bombs, pegasus satchel], or: [fool's ore, rod]]]]
 scent seduction owl: [mystery seeds, d6 present rope room]
 d6 present rope chest: [d6 present rope room, scent satchel]
 d6 present hand room: [enter d6 present,

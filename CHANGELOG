@@ -35,3 +35,11 @@ Logic:
 Bugfixes:
 - Seasons: Fixed seed shooter graphic being corrupted in shops & some other
   places
+
+Ages logic changes (non-crossitems related):
+- D4 minecart room with stalfos: Using the seed satchel to kill the stalfos
+  through the wall is no longer in logic, even hard logic. (Using
+  sword/rod/fool's ore remains in normal logic, though.)
+- D6 present: The water leading to the orb room full of pits is considered
+  passable with only pegasus seeds + feather (bomb jump not needed). In hard
+  logic, it's considered passible with only the feather, no pegasus seeds.

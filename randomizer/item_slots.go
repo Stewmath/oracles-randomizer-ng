@@ -175,7 +175,15 @@ func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 				"bracelet",
 			}
 		} else {
-			// TODO
+			itemsToInsert = []string {
+				"feather",
+				"rod",
+				"slingshot",
+				"slingshot",
+				"magnet gloves",
+				"boomerang",
+				"fool's ore",
+			}
 		}
 
 		for _, item := range itemsToInsert {

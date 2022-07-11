@@ -48,8 +48,9 @@ this document apply.
 In logic:
 
 - Jumping over 2 tiles with feather, 3 tiles with feather + pegasus seeds, 4
-  tiles with cape, or 6 tiles with cape + pegasus seeds (subtract 1 tile if the
-  jump is over water or lava instead of a pit)
+  tiles with cape, or 6 tiles with cape + pegasus seeds. Subtract 1 tile if the
+  jump is over water or lava instead of a pit. These rules apply to jumps
+  directly up/down/left/right, while diagonal jumps depend on the situation.
 - Using only ember seeds from the seed satchel as a weapon
 - Using only ember, scent, or gale seeds from the slingshot as a weapon
 - Using expert's ring as a weapon

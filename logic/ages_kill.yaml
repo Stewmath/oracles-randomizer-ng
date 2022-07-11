@@ -2,51 +2,51 @@ break crystal: {or: [sword, bombs, bracelet, ember seeds, expert's ring]}
 break pot: {or: [bracelet, switch hook, noble sword]}
 
 # obviously this only works on standard enemies
-push enemy: {or: [shield, [shovel, or: [boomerang, pegasus shooter]]]}
+push enemy: {or: [shield, rod, [shovel, or: [boomerang, pegasus ranged]]]}
 
 # unlike in seasons, shovel doesn't hit levers.
-hit lever: {or: [sword, ember seeds, scent seeds, mystery seeds,
-    any seed shooter, switch hook, boomerang, punch object]}
-hit lever from minecart: {or: [sword, ember seeds, scent seeds,
-    mystery seeds, any seed shooter, boomerang, punch object]}
+hit lever: {or: [sword, rod, fool's ore, ember seeds, scent seeds, mystery seeds,
+    seed ranged, switch hook, boomerang, punch object]}
+hit lever from minecart: {or: [sword, rod, fool's ore, ember seeds, scent seeds,
+    mystery seeds, seed ranged, boomerang, punch object]}
 # and seeds from minecart don't hit levers if they're below the minecart.
-hit lever from minecart above: {or: [sword, any seed shooter, boomerang]}
-hit switch: {or: [sword, bombs, punch object, ember seeds, scent seeds,
-    mystery seeds, any seed shooter, switch hook, boomerang]}
-hit switch ranged: {or: [bombs, any seed shooter, switch hook, boomerang,
+hit lever from minecart above: {or: [sword, rod, fool's ore, seed ranged, boomerang]}
+
+# red/blue orbs
+hit switch: {or: [sword, rod, fool's ore, bombs, punch object, ember seeds, scent seeds,
+    mystery seeds, seed ranged, switch hook, boomerang]}
+hit switch ranged: {or: [bombs, seed ranged, switch hook, boomerang,
     [sword, energy ring]]}
 
 # flute isn't included here since it's only available in some places.
-break bush safe: {or: [
-    sword, switch hook, bracelet, bombs, ember seeds, gale shooter]}
 break bush: {or: [
-    sword, switch hook, bracelet, [gale satchel, break bush safe]]}
+    sword, switch hook, magic boomerang, bracelet, ember seeds, gale ranged, bombs]}
 
 satchel weapon: [satchel,
     or: [ember seeds, [hard, or: [scent seeds, gale seeds]]]]
-shooter weapon: [seed shooter, or: [ember seeds, scent seeds, gale seeds]]
+ranged seed weapon: [or: [slingshot, seed shooter], or: [ember seeds, scent seeds, gale seeds]]
 
 # most enemies are vulnerable to these items
-kill normal: {or: [sword, satchel weapon, shooter weapon, cane, punch enemy]}
-kill normal ranged: {or: [shooter weapon, [cane, bracelet]]}
-kill underwater: {or: [sword, shooter weapon, punch enemy]}
+kill normal: {or: [sword, fool's ore, satchel weapon, ranged seed weapon, cane, punch enemy]}
+kill normal ranged: {or: [ranged seed weapon, [cane, bracelet]]}
+kill underwater: {or: [sword, fool's ore, ranged seed weapon, punch enemy]} # TODO: Test
 kill switch hook: {or: [kill normal, switch hook]}
 
 kill giant ghini: {or: [
-    sword, scent shooter, switch hook, punch enemy, [hard, scent satchel]]}
+    sword, rod, fool's ore, scent ranged, switch hook, punch enemy, [hard, scent satchel]]}
 kill pumpkin head: [bracelet,
-    or: [sword, ember seeds, scent shooter, punch enemy, [hard, scent satchel]]]
+    or: [sword, rod, fool's ore, ember seeds, scent ranged, punch enemy, [hard, scent satchel]]]
 
 # spiked beetles can't be punched for some reason
 kill spiked beetle: {or: [
-    gale shooter, [hard, gale satchel],
+    gale ranged, [hard, gale satchel],
     [or: [shield, shovel], or: [
-        sword, satchel weapon, shooter weapon, cane, switch hook]]]}
+        sword, fool's ore, satchel weapon, ranged seed weapon, cane, switch hook]]]}
 kill swoop: {or: [
-    sword, scent shooter, switch hook, punch enemy, [hard, scent satchel]]}
+    sword, fool's ore, scent ranged, switch hook, punch enemy, [hard, scent satchel]]}
 
-kill moldorm: {or: [sword, scent shooter, cane, switch hook, punch enemy,
+kill moldorm: {or: [sword, fool's ore, scent ranged, cane, switch hook, punch enemy,
     [hard, scent satchel]]}
-kill subterror: [shovel, or: [sword, switch hook, scent seeds, punch enemy]]
+kill subterror: [shovel, or: [sword, fool's ore, switch hook, scent seeds, punch enemy]]
 
-kill wizzrobe: {or: [sword, satchel weapon, shooter weapon, punch enemy]}
+kill wizzrobe: {or: [sword, fool's ore, satchel weapon, ranged seed weapon, punch enemy]}

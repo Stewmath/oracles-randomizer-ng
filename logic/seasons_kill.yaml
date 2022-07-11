@@ -21,7 +21,7 @@ kill armored: {or: [sword, fool's ore, punch enemy,
 
 # the safe version is for areas where you can't possibly get stuck from being
 # on the wrong side of a bush.
-break bush safe: {or: [
+break bush safe: {or: [ # TODO: Remove this
     sword, switch hook, magic boomerang, bracelet, ember seeds, gale ranged, bombs]}
 break bush: {or: [
     sword, switch hook, magic boomerang, bracelet, [gale satchel, break bush safe]]}
@@ -58,7 +58,7 @@ kill darknut (pit): [or: [kill darknut, shield]]
 
 kill goriya bros: [or: [kill armored, switch hook, cane]]
 kill omuai: [or: [kill armored, switch hook], bracelet]
-break flower safe: {or: [
+break flower safe: {or: [ # TODO: Remove this
     sword, magic boomerang, bombs, ember seeds, gale ranged]}
 break flower: {or: [sword, magic boomerang, [gale satchel, break flower safe]]}
 kill agunima: [ember seeds, or: [kill armored, switch hook]]

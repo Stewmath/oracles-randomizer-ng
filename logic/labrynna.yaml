@@ -14,16 +14,20 @@ lynna village: {or: [lynna city, echoes]}
 black tower worker: [lynna village]
 maku tree: {or: [rescue nayru, [maku path basement, kill normal]]}
 south lynna tree: [lynna city, seed item,
-    or: [sword, punch object, dimitri's flute, [hard, break bush]]]
+    or: [harvest tree, dimitri's flute, [hard, break bush]]]
 lynna city chest: {or: [ember seeds, currents]}
 shore present: {or: [flute, ricky's gloves, [break bush, feather],
     [ages, break bush], [lynna city, {or: [bracelet, mermaid suit]}],
-    [currents, or: [feather, flippers, raft, [hard, seed shooter]]]]}
+    [currents, or: [feather, flippers, raft, magic boomerang,
+                   [hard, or: [any seed shooter, any hyper slingshot]]]]]}
 south shore dirt: [shore present, or: [shovel, flute]]
-balloon guy: [feather, or: [sword, boomerang],
+balloon guy: [feather, or: [sword, boomerang, rod, fool's ore],
     or: [currents, ricky's gloves, ricky's flute,
-        [shore present, or: [any seed shooter,
-            [hard, or: [pegasus satchel, bombs], boomerang]]]]]
+        # Enter from cave
+        [shore present, or: [any seed shooter, magic boomerang,
+            [cape, or: [hard, pegasus satchel]],
+            [hard, or: [pegasus satchel, bombs], boomerang]],
+            [hard, pegasus satchel, bombs, any hyper slingshot]]]]
 balloon guy's gift: [balloon guy]
 seed type: {
     or: [ember seeds, scent seeds, pegasus seeds, gale seeds, mystery seeds]}
@@ -31,10 +35,10 @@ balloon guy's upgrade: [balloon guy, count: [3, seed type]]
 raft: [lynna village, cheval rope, island chart]
 shop, 30 rupees: [lynna city, or: [count: [30, fixed rupees], [hard, shovel]]]
 shop, 150 rupees: [lynna city, or: [count: [180, fixed rupees], [hard, shovel]]]
-ambi's palace tree: [lynna village, or: [sword, punch object], seed item]
+ambi's palace tree: [lynna village, harvest tree, seed item]
 ambi's palace chest: [lynna village, or: [ages,
     [hard, satchel, scent seeds, pegasus seeds],
-    [break bush safe, mermaid suit]]]
+    [break bush, mermaid suit]]]
 rescue nayru: [ambi's palace chest, mystery seeds, switch hook,
     or: [sword, punch enemy]]
 mayor plen's house: [long hook]
@@ -66,7 +70,7 @@ deku forest: {or: [bracelet, ages]}
 deku forest cave east: [deku forest]
 deku forest cave west: [deku forest, bracelet,
     or: [feather, switch hook, ember seeds, ages, gale satchel]]
-deku forest tree: [deku forest, or: [sword, punch object], seed item,
+deku forest tree: [deku forest, harvest tree, seed item,
     or: [ember seeds, ages, switch hook, gale satchel, feather]]
 deku forest owl: [mystery seeds, deku forest tree]
 deku forest soldier: [deku forest, mystery seeds,
@@ -85,7 +89,7 @@ wild tokay game: [crescent past, bombs, bracelet]
 # can get the warp point by swimming under crescent island, but that's pretty
 # unintuitive.
 crescent island tree: [crescent past, scent seedling,
-    or: [sword, punch object], seed item, or: [ages, [bracelet,
+    harvest tree, seed item, or: [ages, [bracelet,
         or: [echoes, [hard, gale satchel, mermaid suit]]]]]
 crescent present west: {or: [dimitri's flute, [lynna city, mermaid suit],
     [crescent past, or: [currents, [shovel, echoes]]]]}
@@ -98,15 +102,15 @@ tokay pot cave: [crescent past, long hook]
 ricky nuun: {or: []}
 dimitri nuun: {or: []}
 moosh nuun: {or: []}
-nuun: [lynna city, or: [currents, [fairies' woods, ember shooter]]]
+nuun: [lynna city, or: [currents, [fairies' woods, ember ranged]]]
 nuun highlands cave: [nuun, or: [
     dimitri's flute,
     [ricky nuun, or: [flute, currents]],
     [moosh nuun, or: [flute, currents, [break bush, jump 3]]]]]
 symmetry present: [nuun, or: [currents, flute]]
 symmetry city tree: [seed item, symmetry present,
-    or: [sword, punch object, [dimitri's flute, d4 entrance]]]
-symmetry past: [symmetry present, or: [ages, [break bush safe, echoes]]]
+    or: [harvest tree, [dimitri's flute, d4 entrance]]]
+symmetry past: [symmetry present, or: [ages, [break bush, echoes]]]
 symmetry city brother: [symmetry past]
 tokkey's composition: [symmetry past, flippers]
 talus peaks owl: [mystery seeds, symmetry past]
@@ -128,7 +132,7 @@ ridge west present: {or: [
     [switch hook, currents, or: [feather, ages]],
     [currents, ridge west past]]}
 ridge west cave: [ridge west present]
-rolling ridge west tree: [or: [sword, punch object], seed item, ridge west past]
+rolling ridge west tree: [harvest tree, seed item, ridge west past]
 under moblin keep: [ridge west present, feather, flippers]
 defeat great moblin: [ridge west present, pegasus satchel, bracelet]
 rolling ridge owl: [mystery seeds,
@@ -158,7 +162,7 @@ target carts 1: [target carts]
 target carts 2: [target carts]
 goron gallery entrance: [target carts, or: [ages, [bracelet, echoes]]]
 goron shooting gallery: [goron gallery entrance, sword]
-rolling ridge east tree: [or: [sword, punch object], seed item,
+rolling ridge east tree: [harvest tree, seed item,
     or: [goron gallery entrance,
         [ridge mid present, ages],
         [ridge mid past, gale satchel]]]
@@ -170,7 +174,7 @@ ridge base past east: {or: [
     [ridge base present, ages],
     [ridge base past west, or: [flippers, [hard, jump 3]]]]}
 ridge base past west: {or: [
-    [ridge base present, or: [ages, [break bush safe, echoes]]],
+    [ridge base present, or: [ages, [break bush, echoes]]],
     [ridge base past east, or: [flippers, [hard, bomb jump 2]]],
     ridge mid past]} # ledge added to prevent softlocks
 rolling ridge past old man: [ridge base past west, ember seeds]
@@ -195,7 +199,7 @@ ridge bush cave: [ridge mid past, switch hook]
 # distinctions between past and present are necessary.
 zora village: [mermaid suit, ages, switch hook]
 zora village tree: [zora village, seed item,
-    or: [sword, punch object, [dimitri's flute, clean seas]]]
+    or: [harvest tree, [dimitri's flute, clean seas]]]
 zora village present: [zora village]
 zora palace chest: [zora village]
 zora NW cave: [zora village, bombs, power glove]
