@@ -13,20 +13,26 @@ var commonNiceNames = map[string]string{
 	// items
 	"sword":   "wooden/noble sword",
 	"satchel": "seed satchel",
+
+	// items from seasons (or upgrades from seasons)
+	"boomerang":     "(magic) boomerang",
+	"magnet gloves": "magnetic gloves",
+	"slingshot":     "(hyper) slingshot",
+	"feather":       "roc's feather/cape",
+
+	// items from ages (or upgrades from ages)
+	"cane":         "cane of somaria",
+	"switch hook":  "switch/long hook",
+	"bracelet":     "power bracelet/glove",
+	"flippers":     "zora's flippers / mermaid suit",
 }
 
 var seasonsNiceNames = map[string]string{
 	// items
-	"boomerang":     "(magic) boomerang",
 	"spring":        "rod of spring",
 	"summer":        "rod of summer",
 	"autumn":        "rod of autumn",
 	"winter":        "rod of winter",
-	"magnet gloves": "magnetic gloves",
-	"slingshot":     "(hyper) slingshot",
-	"bracelet":      "power bracelet",
-	"feather":       "roc's feather/cape",
-	"flippers":      "zora's flippers",
 	"star ore":      "star-shaped ore",
 
 	// checks
@@ -38,13 +44,9 @@ var seasonsNiceNames = map[string]string{
 
 var agesNiceNames = map[string]string{
 	// items
-	"cane":         "cane of somaria",
 	"harp":         "tune of echoes/currents/ages",
-	"switch hook":  "switch/long hook",
-	"bracelet":     "power bracelet/glove",
-	"feather":      "roc's feather",
-	"flippers":     "zora's flippers / mermaid suit",
 	"goron letter": "letter of introduction",
+	"rod":          "rod of seasons", // unlike seasons we only have one rod
 
 	// checks
 	"ridge base chest":    "ridge west top present",
