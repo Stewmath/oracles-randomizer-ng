@@ -274,36 +274,39 @@ d6 present vire chest: [d6 present spinner chest,
 # this is necessary to make keys work out, since otherwise you can drain the
 # water level without getting enough keys to refill it! there just aren't
 # enough chests otherwise.
-# now that dungeon entrances are randomized, mermaid suit can't be assumed
-# anymore. the current functionality is that being in underwater rooms without
-# mermaid suit is ok (the game acts like you have it anyway), but you aren't
-# allowed to surface, since you would just die if you did.
+# Now that dungeon entrances are randomized, mermaid suit can't be assumed
+# anymore. The OG randomizer would allow you to enter jabu without the mermaid
+# suit but would prevent you from surfacing a level up, since you would
+# instantly drown then. This was changed in NG; now you're prevented from
+# entering the dungeon without the mermaid suit.
+# Be careful never to use the "enter d7" node for the purpose of logic, always
+# use "enter d7 with suit".
 enter d7: {or: []}
+enter d7 with suit: [enter d7, mermaid suit]
 
 # 0 keys
-d7 spike chest: [enter d7, or: [mermaid suit, flood d7]]
-d7 crab chest: [enter d7, or: [kill underwater, [drain d7, kill normal]]]
-d7 diamond puzzle: [enter d7, switch hook]
-d7 flower room: [enter d7, flippers, long hook, feather]
-golden isle owl: [mystery seeds, enter d7, or: [mermaid suit, flood d7]]
-d7 stairway chest: [enter d7,
-    or: [long hook, [drain d7, flippers, cane, switch hook]]]
-d7 right wing: [d7 stairway chest, kill moldorm,
-    or: [mermaid suit, flood d7]]
+d7 spike chest: [enter d7 with suit]
+d7 crab chest: [enter d7 with suit, or: [kill underwater, [drain d7, kill normal]]]
+d7 diamond puzzle: [enter d7 with suit, switch hook]
+d7 flower room: [enter d7 with suit, long hook, feather]
+golden isle owl: [mystery seeds, enter d7 with suit]
+d7 stairway chest: [enter d7 with suit,
+    or: [long hook, [drain d7, cane, switch hook]]]
+d7 right wing: [d7 stairway chest, kill moldorm]
 
 # 3 keys - enough to drain dungeon
-drain d7: [enter d7,
-    or: [flood d7, [mermaid suit, count: [3, d7 small key]]]]
+drain d7: [enter d7 with suit,
+    or: [flood d7, count: [3, d7 small key]]]
 jabu switch room owl: [mystery seeds, drain d7]
 d7 boxed chest: [drain d7]
 d7 cane/diamond puzzle: [drain d7, long hook, cane]
 
 # 4 keys - enough to choose any water level
-flood d7: [enter d7, long hook, count: [4, d7 small key]]
+flood d7: [enter d7 with suit, long hook, count: [4, d7 small key]]
 d7 3F terrace: [flood d7]
 d7 left wing: [flood d7]
-plasmarine owl: [mermaid suit, mystery shooter, flood d7]
-d7 boss: [mermaid suit, d7 boss key, flood d7]
+plasmarine owl: [mystery shooter, flood d7]
+d7 boss: [d7 boss key, flood d7]
 
 # 5 keys
 d7 hallway chest: [flood d7, count: [5, d7 small key]]

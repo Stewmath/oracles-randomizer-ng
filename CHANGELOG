@@ -32,6 +32,9 @@ Logic:
 ????
 ================================================================================
 
+Features:
+- Ages support complete with cross-items!
+
 Bugfixes:
 - Seasons: Fixed seed shooter graphic being corrupted in shops & some other
   places
@@ -43,3 +46,8 @@ Ages logic changes (non-crossitems related):
 - D6 present: The water leading to the orb room full of pits is considered
   passable with only pegasus seeds + feather (bomb jump not needed). In hard
   logic, it's considered passible with only the feather, no pegasus seeds.
+
+Other stuff:
+- Attempting to enter Jabu-Jabu's Belly without the mermaid suit causes Link to
+  drown. This may look a bit funny if Jabu-Jabu's belly is randomized to be
+  somewhere entirely different.

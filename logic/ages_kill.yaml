@@ -29,7 +29,7 @@ ranged seed weapon: [or: [slingshot, seed shooter], or: [ember seeds, scent seed
 # most enemies are vulnerable to these items
 kill normal: {or: [sword, fool's ore, satchel weapon, ranged seed weapon, cane, punch enemy]}
 kill normal ranged: {or: [ranged seed weapon, [cane, bracelet]]}
-kill underwater: {or: [sword, fool's ore, ranged seed weapon, punch enemy]} # TODO: Test
+kill underwater: {or: [sword, fool's ore, ranged seed weapon, punch enemy]}
 kill switch hook: {or: [kill normal, switch hook]}
 
 kill giant ghini: {or: [
