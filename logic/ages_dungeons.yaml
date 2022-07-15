@@ -290,9 +290,10 @@ d7 crab chest: [enter d7 with suit, or: [kill underwater, [drain d7, kill normal
 d7 diamond puzzle: [enter d7 with suit, switch hook]
 d7 flower room: [enter d7 with suit, long hook, feather]
 golden isle owl: [mystery seeds, enter d7 with suit]
-d7 stairway chest: [enter d7 with suit,
+d7 stairway chest: [enter d7 with suit, # drain water, then fill again & drop down ledge
     or: [long hook, [drain d7, cane, switch hook]]]
-d7 right wing: [d7 stairway chest, kill moldorm]
+d7 right wing: [enter d7 with suit, kill moldorm,
+    or: [d7 stairway chest, [drain d7, cane, cape, pegasus satchel]]]
 
 # 3 keys - enough to drain dungeon
 drain d7: [enter d7 with suit,
@@ -305,15 +306,15 @@ d7 cane/diamond puzzle: [drain d7, long hook, cane]
 flood d7: [enter d7 with suit, long hook, count: [4, d7 small key]]
 d7 3F terrace: [flood d7]
 d7 left wing: [flood d7]
-plasmarine owl: [mystery shooter, flood d7]
+plasmarine owl: [mystery ranged, flood d7]
 d7 boss: [d7 boss key, flood d7]
 
 # 5 keys
 d7 hallway chest: [flood d7, count: [5, d7 small key]]
 
 # 7 keys
-d7 miniboss chest: [d7 stairway chest, flippers, feather,
-    or: [sword, boomerang, scent shooter], count: [7, d7 small key]]
+d7 miniboss chest: [d7 stairway chest, feather,
+    or: [sword, fool's ore, boomerang, scent ranged], count: [7, d7 small key]]
 d7 post-hallway chest: [flood d7, count: [7, d7 small key]]
 d7 pot island chest: [drain d7, switch hook, count: [7, d7 small key]]
 
