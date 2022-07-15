@@ -81,14 +81,18 @@ for a list of things that are out of logic even in hard.
 	1. Using boomerang + seeds or feather in the first room.
 	2. Using a bush + bracelet + toss ring + seeds or feather + a pot in the
 	   first room.
-	3. Using feather + sword + switch hook in the second room.
-	4. Using feather + sword + a pot + bracelet in the second room.
+	3. Using feather + sword/rod/ore + switch hook/slingshot in the second room.
+	4. Using feather + sword/rod/ore + a pot + bracelet in the second room.
 	5. Using seeds/bombs + feather + ember/scent/mystery seeds from satchel in
 	   the second room.
 
   [[Video (1, 2)]](https://imgur.com/UlsnuZk)
   [[Video (3, 4, 5 w/o bomb boost)]](https://imgur.com/NQqydo1)
   [[Video (5 w/ bomb boost)]](https://clips.twitch.tv/LazyImpartialLadiesMVGame)
+- D3: Light the two torches in the basement using the cape + satchel or
+  slingshot. (TODO: video)
+- D3: Fight Shadow Hag with Hyper Slingshot. (Regular slingshot also seems
+  technically possible but isn't in logic due to being really precise.)
 - D4: Get two chests by hitting switches with feather + boomerang instead of
   seed shooter. [[Video]](https://imgur.com/6VwIghQ)
 - D4: Skip switch hook by taking the miniboss portal, bomb jumping to the bridge

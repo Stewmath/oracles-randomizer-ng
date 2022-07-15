@@ -72,6 +72,9 @@ mystery shooter: [mystery seeds, seed shooter]
 any seed shooter: [seed shooter,
     or: [ember seeds, scent seeds, pegasus seeds, gale seeds, mystery seeds]]
 
+any slingshot: [slingshot,
+    or: [ember seeds, scent seeds, pegasus seeds, gale seeds, mystery seeds]]
+
 ember ranged:   [ember seeds,   or: [slingshot, seed shooter]]
 mystery ranged: [mystery seeds, or: [slingshot, seed shooter]]
 scent ranged:   [scent seeds,   or: [slingshot, seed shooter]]
@@ -79,6 +82,11 @@ pegasus ranged: [pegasus seeds, or: [slingshot, seed shooter]]
 gale ranged:    [gale seeds,    or: [slingshot, seed shooter]]
 seed ranged: {or: [ember ranged, mystery ranged, scent ranged, pegasus ranged, gale ranged]}
 
+ember hyper slingshot: [ember seeds, hyper slingshot]
+scent hyper slingshot: [scent seeds, hyper slingshot]
+pegasus hyper slingshot: [pegasus seeds, hyper slingshot]
+gale hyper slingshot: [gale seeds, hyper slingshot]
+mystery hyper slingshot: [mystery seeds, hyper slingshot]
 any hyper slingshot: [hyper slingshot, or: [ember seeds,
     mystery seeds, scent seeds, pegasus seeds, gale seeds]]
 
