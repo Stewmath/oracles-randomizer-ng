@@ -20,7 +20,9 @@ function buildfor() {
 	echo "building for $1/$2"
 	GOOS=$1 GOARCH=$2 CGO_ENABLED=0 go build
 	apack -q "dist/$version/$appname"_$3_"$version.zip" "$appname$4" \
-		Oracles.lua README*.txt checklist/ tracker/
+		Oracles.lua README*.txt checklist/ tracker/ \
+        oracles-disasm/seasons.gbc oracles-disasm/seasons.sym \
+        oracles-disasm/ages.gbc oracles-disasm/ages.sym
 }
 
 buildfor windows amd64 win64 .exe
