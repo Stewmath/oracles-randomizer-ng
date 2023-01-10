@@ -1,5 +1,5 @@
-oracles-randomizer
-oracles-randomizer.exe
+oracles-randomizer-ng
+oracles-randomizer-ng.exe
 embed.go
 main.go
 version.go
@@ -10,6 +10,9 @@ notes/
 ref/
 untracked/
 *.gbc
+*.sav
+*.sym
+*.sn[0-9]
 *.out
 *.prof
 *log*.txt
