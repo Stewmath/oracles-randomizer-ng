@@ -68,7 +68,8 @@ d2 boss: [d2 color room, d2 boss key, or: [bombs, hard]]
 enter d3: {or: []}
 
 # 0 keys
-d3 pols voice chest: [enter d3, bombs]
+d3 pols voice chest: [enter d3, or: [bombs,
+    [d3 six-block drop, break bush, kill pols voice]]]
 d3 1F spinner: [enter d3, or: [kill moldorm, bracelet]]
 d3 S crystal: [d3 1F spinner]
 four crystals owl: [mystery seeds, d3 1F spinner]
@@ -78,45 +79,55 @@ d3 statue drop: [d3 E crystal]
 # 1 key
 d3 seeds from bridge room: [enter d3, d3 small key, seed item,
                             or: [sword, fool's ore, bombs]]
+d3 W crystal: [enter d3, d3 small key, kill pols voice ranged]
 # you can clip into the blocks enough to hit this crystal with switch hook
-d3 W crystal: [enter d3, d3 small key]
-d3 N crystal: [d3 W crystal,
+d3 N crystal: [enter d3, d3 small key,
     or: [any seed shooter, any hyper slingshot, boomerang, [hard, switch hook]]]
-stone soldiers owl: [mystery seeds, d3 small key]
-d3 armos drop: [d3 W crystal]
-d3 six-block drop: [d3 W crystal]
+stone soldiers owl: [enter d3, d3 small key, mystery seeds]
+d3 armos drop: [enter d3, d3 small key,
+    or: [bombs, cane, scent ranged, magic boomerang, [hard, scent satchel]]]
+d3 six-block drop: [d3 W crystal,
+    or: [bombs, scent ranged, switch hook, [cane, bracelet]], # kill moldorm
+    or: [bombs, any seed shooter, any hyper slingshot, magic boomerang,
+        [hard, or: [switch hook, boomerang]]]] # hit orb
+d3 conveyor belt room: [d3 six-block drop,
+    or: [bombs, cane, scent ranged, magic boomerang, [hard, scent satchel]]]
 break crystal switch: {or: [sword, switch hook, boomerang, ember satchel,
     scent satchel, mystery satchel, seed ranged, punch object, fool's ore]}
 d3 B1F spinner: [d3 S crystal, d3 E crystal, d3 N crystal, d3 W crystal,
     break crystal switch]
 d3 crossroads: [d3 B1F spinner]
-d3 conveyor belt room: [d3 W crystal]
 d3 torch chest: [d3 B1F spinner, or: [
     [ember seeds, or: [seed shooter, hyper slingshot, [hard, cape, satchel]]],
-    [hard, mystery shooter]]]
-d3 bridge chest: [d3 W crystal,
-    or: [any seed shooter, jump 3, magic boomerang,
-        [d3 post-subterror, count: [4, d3 small key], or: [jump 3, [hard, feather]]],
-        [hard, or: [boomerang, [bracelet, toss ring]],
-            or: [feather, pegasus satchel]]]]
-d3 B1F east: [d3 B1F spinner, kill subterror, magic boomerang,
-    or: [any seed shooter, [hard, sword]]] # spin slash through corner
-# post-subterror and boss door do not reference each other
+    [hard, or: [mystery shooter, mystery hyper slingshot]]]]
+# Have the ability to traverse the first switch room from the bottom to the
+# door. TODO: HSS + seeds + feather?
+traverse d3 switch room 1: {or: [any seed shooter, jump 3, magic boomerang,
+    [hard, or: [boomerang, [bracelet, toss ring]], or: [feather, pegasus satchel]]]}
+# Have the ability to traverse the second switch room from the bottom to the
+# boss door area (TODO: boomerang logic should be hard?)
+traverse d3 switch room 2: {or: [any seed shooter, any hyper slingshot, cape, boomerang,
+    [hard, feather,
+        or: [sword, rod, fool's ore, [bomb jump 2,
+            or: [ember seeds, scent seeds, mystery seeds]]],
+        or: [jump 3, switch hook, any slingshot,
+            [bracelet, count: [4, d3 small key]]]]]}
+d3 bridge chest: [enter d3, d3 small key,
+    or: [traverse d3 switch room 1,
+        [d3 post-subterror, count: [4, d3 small key], or: [jump 3, [hard, feather]]]]]
+d3 B1F east: [d3 B1F spinner, kill subterror,
+    or: [d3 W crystal, [count: [4, d3 small key], # Can navigate through spinner
+        traverse d3 switch room 1, or: [traverse d3 switch room 2, jump 3, [hard, feather]]]],
+    or: [magic boomerang, any seed shooter, [hard, sword]]] # spin slash through corner
 d3 post-subterror: {or: [
     d3 boss door,
     [d3 B1F spinner, kill subterror],
-    [d3 bridge chest, count: [4, d3 small key],
-        or: [jump 3, [hard, feather]]]]}
+    [enter d3, traverse d3 switch room 1,
+     count: [4, d3 small key], or: [jump 3, [hard, feather]]]]}
 d3 boss door: {or: [
-    [d3 post-subterror, or: [jump 3, [hard, feather]],
-        or: [any seed shooter, any hyper slingshot, cape, boomerang,
-            [hard,
-                or: [sword, rod, fool's ore, [bomb jump 2,
-                    or: [ember seeds, scent seeds, mystery seeds]]],
-                or: [jump 3, switch hook, any slingshot,
-                    [bracelet, count: [4, d3 small key]]]]]],
-    [d3 bridge chest, count: [4, d3 small key],
-        or: [any seed shooter, cape, boomerang]]]}
+    [d3 post-subterror, or: [jump 3, [hard, feather]], traverse d3 switch room 2],
+    [enter d3, count: [4, d3 small key],
+        traverse d3 switch room 1, traverse d3 switch room 2]]}
 d3 moldorm drop: [kill moldorm, d3 post-subterror]
 d3 boss: [d3 boss door, d3 boss key,
     or: [ember shooter, scent shooter, ember satchel,
@@ -167,7 +178,7 @@ d4 boss: [d4 large floor puzzle, d4 boss key, switch hook,
     or: [sword, boomerang, punch enemy]]
 
 # 5 keys
-d4 lava pot chest: [d4 large floor puzzle, switch hook,
+d4 lava pot chest: [d4 large floor puzzle, bracelet, switch hook,
     count: [5, d4 small key]]
 
 # d5

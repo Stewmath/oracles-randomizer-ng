@@ -50,3 +50,6 @@ kill moldorm: {or: [sword, fool's ore, scent ranged, cane, switch hook, punch en
 kill subterror: [shovel, or: [sword, fool's ore, switch hook, scent seeds, punch enemy]]
 
 kill wizzrobe: {or: [sword, fool's ore, satchel weapon, ranged seed weapon, punch enemy]}
+
+kill pols voice ranged: {or: [harp, flute, bombs, gale ranged]}
+kill pols voice: {or: [kill pols voice ranged, [hard, gale satchel]]}

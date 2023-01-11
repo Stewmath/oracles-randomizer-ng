@@ -73,6 +73,9 @@ for a list of things that are out of logic even in hard.
   pushing a Moblin into the doorway, and switching with the Moblin. You need to
   screen transition immediately after landing; otherwise you'll be treated as if
   falling into a pit. [[Video]](https://imgur.com/MlG2BsD)
+- D3: Kills Pols Voices with gale seeds from the seed satchel.
+- D3: Hit the blue orb in the basement (the one that activates the armos) with
+  the switch hook or L-1 boomerang (requires precise positioning).
 - D3: Break the northwest crystal using the switch hook.
   [[Video]](https://imgur.com/Npbaxgl)
 - D3: Hit the lever for the vanilla boss key chest using a spin slash through
