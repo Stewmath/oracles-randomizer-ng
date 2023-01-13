@@ -148,34 +148,41 @@ d4 first chest: [enter d4,
     or: [feather, switch hook]]
 d4 cube chest: [d4 first chest, feather]
 
-# 1 key
-d4 minecart A: [enter d4, feather, d4 small key]
+# No checks require 1 key since cape was introduced (can now open last keydoor
+# before the others, effectively adding +1 key requirement to most checks)
+
+# 2 keys
+d4 minecart A: [enter d4, feather, count: [2, d4 small key]]
 d4 first crystal switch: [d4 minecart A,
     or: [any seed shooter, magic boomerang, [hard, boomerang]]]
 d4 minecart chest: [d4 minecart A, hit lever]
 
-# 2 keys
+# 3 keys
 d4 minecart B: [d4 minecart A, hit lever from minecart, bracelet, kill normal,
-    count: [2, d4 small key]]
+    count: [3, d4 small key]]
 d4 second crystal switch: [d4 minecart B,
     or: [any seed shooter, magic boomerang, [cape, hit switch],
         [hard, or: [boomerang, any hyper slingshot]]]]
 
-# 3 keys
-d4 minecart C: [d4 minecart B, count: [3, d4 small key]]
+# 4 keys
+d4 minecart C: [d4 minecart B, count: [4, d4 small key]]
 d4 color tile drop: [d4 minecart C,
     or: [sword, fool's ore, rod, ranged seed weapon]]
 
-# 4 keys
-d4 minecart D: [d4 color tile drop, count: [4, d4 small key]]
-d4 miniboss: [d4 minecart D,
-    or: [sword, fool's ore, switch hook, scent ranged, punch enemy]]
-d4 small floor puzzle: [d4 miniboss, bombs]
+# 5 keys
+d4 minecart D: [d4 color tile drop, count: [5, d4 small key]]
+
+# 0 (with cape) or 5 keys
+d4 pre-miniboss: {or: [d4 minecart D, [d4 post-miniboss, kill armos warrior]]}
+d4 post-miniboss: {or: [
+    [enter d4, cape, or: [pegasus satchel, [hard, bombs]]],
+    [d4 minecart D, kill armos warrior]]}
+d4 small floor puzzle: [d4 post-miniboss, bombs]
 d4 large floor puzzle: {or: [
-    [d4 minecart D, switch hook],
-    [hard, d4 miniboss, bomb jump 3, cane, noble sword]]}
+    [d4 pre-miniboss, feather, switch hook],
+    [hard, d4 minecart D, kill armos warrior, bomb jump 3, cane, noble sword]]}
 d4 boss: [d4 large floor puzzle, d4 boss key, switch hook,
-    or: [sword, boomerang, punch enemy]]
+    or: [sword, fool's ore, boomerang, punch enemy]]
 
 # 5 keys
 d4 lava pot chest: [d4 large floor puzzle, bracelet, switch hook,
