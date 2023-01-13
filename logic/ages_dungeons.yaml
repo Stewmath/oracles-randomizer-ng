@@ -212,11 +212,11 @@ d5 two-statue puzzle: [d5 switch A, break pot, cane, feather,
         [hard, pegasus satchel, bombs, cape],
         [hard, or: [sword, rod, fool's ore, any slingshot]],
         [hard, bomb jump 2, or: [ember satchel, scent satchel, mystery satchel]]]]
-d5 boss: [d5 switch A, d5 boss key, cane, sword]
+d5 boss: [d5 switch A, d5 boss key, cane, or: [sword, fool's ore]]
 
 # 2 keys
-d5 crossroads: [d5 switch A, feather, bracelet, count: [2, d5 small key],
-    or: [cane, [hard, jump 3], [hard, sword, switch hook]]]
+d5 crossroads: [enter d5, kill normal, feather, bracelet, count: [2, d5 small key],
+    or: [cane, [pegasus satchel, cape], [hard, jump 3], [hard, sword, switch hook]]]
 d5 diamond chest: [d5 crossroads, switch hook]
 
 # 5 keys
@@ -225,7 +225,7 @@ d5 six-statue puzzle: [d5 switch A, ember shooter, feather,
     count: [5, d5 small key]]
 d5 red peg chest: [d5 crossroads, hit switch ranged, count: [5, d5 small key]]
 crown dungeon owl: [mystery seeds, d5 red peg chest]
-d5 owl puzzle: [d5 red peg chest]
+d5 owl puzzle: [d5 red peg chest, or: [hard, cane]]
 
 # d6
 enter d6 present: {or: []}
