@@ -37,6 +37,7 @@ kill giant ghini: {or: [
 kill pumpkin head: [bracelet,
     or: [sword, rod, fool's ore, ember seeds, scent ranged, punch enemy, [hard, scent satchel]]]
 kill armos warrior: {or: [sword, fool's ore, switch hook, scent ranged, punch enemy]}
+kill octogon: {or: [sword, fool's ore, ember ranged, scent ranged, punch enemy]}
 
 # spiked beetles can't be punched for some reason
 kill spiked beetle: {or: [

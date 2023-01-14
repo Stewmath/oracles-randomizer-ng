@@ -242,7 +242,7 @@ d6 open wall: [enter d6 past, bombs, ember seeds,
 deep waters owl: [mystery seeds, d6 open wall]
 d6 past stalfos chest: [enter d6 past, ember seeds,
     or: [kill normal ranged, scent satchel, feather, hard]]
-d6 past rope chest: [d6 open wall, mermaid suit]
+d6 past rope chest: [d6 open wall, mermaid suit, or: [kill underwater, switch hook]]
 
 # past, 1 key
 d6 past spinner: [
@@ -252,26 +252,29 @@ d6 past diamond chest: [d6 past spinner, mermaid suit,
     switch hook]
 
 # past, 2-3 keys
-d6 boss: [d6 past spinner, d6 boss key, mermaid suit, count: [2, d6 past small key],
+d6 boss: [d6 past spinner, d6 boss key, mermaid suit, kill octogon, count: [2, d6 past small key],
     or: [cape, [count: [3, d6 past small key], or: [any seed shooter, magic boomerang]]]]
 
 # present, 0 keys
 d6 present diamond chest: [enter d6 present, switch hook]
-d6 present rope room: [enter d6 present, # TODO: videos & logic for left side
-    # Can get past the water in the previous room
-    or: [flippers, jump 3, [hard, feather], switch hook],
-    # Can cross the orb room with all the pits
-    or: [any seed shooter, boomerang, jump 3,
-        [hard, any hyper slingshot],
-        [hard, feather, or: [sword, any slingshot]],
-        [hard, or: [bombs, pegasus satchel], or: [fool's ore, rod]]]]
+d6 present orb room: [enter d6 present, or: [flippers, jump 3, [hard, feather], switch hook]]
+# This node checks if you can hit the orb in the hole room from the bottom.
+# (Don't bother with cape logic on this node, simpler to account for it later.)
+d6 present hit orb: [d6 present orb room,
+    or: [any seed shooter, boomerang,
+        [hard, any hyper slingshot], # fall into hole
+        [hard, feather, or: [sword, any slingshot]], # jump into hole
+        [hard, feather, bombs, or: [fool's ore, rod]], # boost jump into hole
+        [hard, jump 3, or: [switch hook, ember satchel, scent satchel, mystery satchel, fool's ore, rod]]]]
+d6 present rope room: [d6 present orb room, or: [jump 3,
+    [d6 present hit orb, or: [any seed shooter, any slingshot, boomerang, bombs,
+    [hard, feather, or: [sword, fool's ore, rod, ember satchel, scent satchel, mystery satchel]]]]]]
 scent seduction owl: [mystery seeds, d6 present rope room]
 d6 present rope chest: [d6 present rope room, scent satchel]
-d6 present hand room: [enter d6 present,
-    or: [flippers, bomb jump 3, switch hook],
-    or: [any seed shooter, boomerang, [hard, feather, sword],
-        [jump 3, or: [switch hook, ember seeds,
-            scent seeds, mystery seeds, [hard, bombs]]]]]
+# Logic for this node could get quite complicated. But we need bombs in order to
+# do anything past here, and bombs are a good method to hit the orb the 2nd
+# time; so the checks here can be simplified.
+d6 present hand room: [d6 present orb room, or: [cape, [d6 present hit orb, bombs]]]
 d6 present cube chest: [d6 present hand room, bombs, switch hook,
     or: [feather, hard]]
 d6 present spinner chest: [d6 past spinner, d6 present hand room,
@@ -284,13 +287,13 @@ luck test owl: [mystery seeds, d6 present beamos chest,
     count: [3, d6 present small key]]
 # only sustainable weapons count for killing the ropes
 d6 present RNG chest: [d6 present beamos chest, bracelet,
-    or: [sword, cane, switch hook, punch enemy],
+    or: [sword, fool's ore, cane, switch hook, punch enemy],
     count: [3, d6 present small key]]
 d6 present channel chest: [enter d6 present, d6 open wall, switch hook,
     count: [3, d6 present small key]]
 d6 present vire chest: [d6 present spinner chest,
     count: [3, d6 present small key],
-    or: [sword, expert's ring, hard], switch hook]
+    or: [sword, fool's ore, expert's ring, hard], switch hook]
 
 # d7
 # leaving/entering the dungeon (but not loading a file) resets the water level.
