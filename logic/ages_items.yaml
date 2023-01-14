@@ -18,7 +18,7 @@ moosh's flute: {or: []}
 flute: {or: [ricky's flute, dimitri's flute, moosh's flute]}
 
 farm rupees: {or: [ # only in logic for minigames. so almost never matters
-    sword, shovel, bracelet, boomerang, cane, switch hook, flute]}
+    sword, fool's ore, shovel, bracelet, boomerang, cane, switch hook, flute]}
 fixed rupees: {rupees: [
     "rupees, 10", "rupees, 20", "rupees, 30", "rupees, 50", "rupees, 100",
     "rupees, 200", rolling ridge past old man]}
