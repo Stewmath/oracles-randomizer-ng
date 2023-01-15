@@ -23,16 +23,12 @@ These notes apply specifically to Ages, alongside the game-neutral ones in
 
 ## Other notable changes
 
-- The intro sequence is removed. A chest replaces Impa on the screen where she
-  normally gives the sword.
+- The intro sequence is removed. Your first item is found on the screen where
+  Impa normally gives you the sword.
 - The time portals on the screens adjacent to the Maku Tree are active
   permanently.
 - The Tokays on Crescent Island do not steal your items, and the raft does not
   encounter a storm in the Sea of Storms.
-- Dormant time portals are added to Nuun Highlands and Symmetry Village past in
-  order to prevent softlocks.
-- The dormant portal on the west side of Crescent Island present only responds
-  to Currents, not Echoes, in order to prevent softlocks. The sign says so.
 - Playing the Tune of Currents triggers reentry into a return portal Link is
   standing on. This is useful if you warp into a patch of bushes without a
   bush-breaking item.
@@ -100,3 +96,21 @@ exception of:
 See
 [ages_hard_guide.md](https://github.com/jangler/oracles-randomizer/blob/master/doc/ages_hard_guide.md)
 for more information on specific tricks in hard logic.
+
+
+### Crossitems
+
+When porting Ages items into Seasons, it was sometimes necessary to arbitrarily
+decide which items can damage which enemies. This is mainly the case with bosses
+which tend to have their own unique damage tables.
+
+Fool's Ore: Should work on anything that a normal sword slash works on,
+including Blue Stalfos (D8 miniboss).
+
+Magic Boomerang: Can damage gibdos as in Seasons. It should not damage any
+bosses beyond what the L-1 boomerang already does. (It works on Angler Fish for
+example.)
+
+Rod of Seasons:
+- Damages the same undead enemies as in seasons (stalfos, ghini, gibdos).
+- Also damages D1 bosses Giant Ghini and Pumpkin Head, as they're also undead.

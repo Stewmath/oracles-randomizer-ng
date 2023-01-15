@@ -44,8 +44,16 @@ for a list of things that are out of logic even in hard.
   [[Video]](https://i.imgur.com/pBTTsFz.mp4)
 - Jump across the cave under Tingle using the roc's cape without any pegasus
   seeds (bomb damage boost not required).
+- Traverse Moosh's Nuun Highlands with just the cape and something to break
+  bushes; no pegasus seeds. (There is a 5-hole jump to one worker which is
+  fairly tight.)
 - Reach the Crescent Island seed tree by visiting the map tile underwater, then
   warping to it with gale seeds. [[Video]](https://imgur.com/aIYSznK)
+- Jump across the water in Talus Peaks with the cape + a bomb. (Technically it's
+  possible to cross even without bombs, but it's not in logic for now...)
+- Get across the falling floor in King Moblin's keep with the roc's cape and no
+  pegasus seeds. Holding a bomb to boost you can make this easier, but isn't
+  a requirement. [[Video]](https://imgur.com/7JpW3Zw)
 
 ## Overworld Past
 
@@ -53,9 +61,11 @@ for a list of things that are out of logic even in hard.
   then use shield, shovel, scent seeds, switch hook, or boomerang.
   [[Video]](https://imgur.com/EQ5sKXQ)
 - Enter D6 past and cross the main waterway in Rolling Ridge Base by jumping
-  into and out of the waterfall. Entering from either direction and exiting to
-  the left only require a bomb jump, but exiting to the right requires pegasus
-  seeds. [[Video]](https://imgur.com/VOFhLXo)
+  into and out of the waterfall. Entering from either direction can be done with
+  only the roc's feather. Exiting to the left requires a bomb jump, and exiting
+  to the right requires pegasus seeds. (There are easier methods to do this,
+  such as with cape, but all are considered hard logic.)
+  [[Video]](https://imgur.com/VOFhLXo)
 - Guard skip: Enter Ambi's palace by using pegasus seeds, dropping a scent seed
   on the ground to alert the guards at the entrance, waiting a moment, then
   running past them. Some people use a sword slash to time the duration of the
@@ -96,6 +106,8 @@ for a list of things that are out of logic even in hard.
   slingshot. (TODO: video)
 - D3: Fight Shadow Hag with Hyper Slingshot. (Regular slingshot also seems
   technically possible but isn't in logic due to being really precise.)
+- D4: Jump across the 5-tile lava gap to the miniboss area with cape + bombs (no
+  pegasus seeds). With pegasus seeds, this is in normal logic. (TODO: video)
 - D4: Get two chests by hitting switches with feather + boomerang instead of
   seed shooter. [[Video]](https://imgur.com/6VwIghQ)
 - D4: Skip switch hook by taking the miniboss portal, bomb jumping to the bridge
@@ -127,12 +139,13 @@ for a list of things that are out of logic even in hard.
   then mid pitch. [[Video]](https://imgur.com/GFhmX7G)
 - D5: Navigate the dark room without the cane or switch hook.
 - D6: Walk diagonally across the corners of pits in the present cube puzzle.
-- D6: Traverse the D6 present room with the switch that changes the floor tile
-  pattern by:
+- D6: Traverse the D6 present room with the switch that changes the floor tile pattern by:
     1. Using feather + sword. [[Video]](https://clips.twitch.tv/CrunchyBlushingHummingbirdMingLee)
-	2. Using feather + bombs/pegasus seeds + rod/fool's ore. (TODO: video)
-	3. Using feather + slingshot. [[Video]](https://i.imgur.com/P7oj9Zr.mp4)
-	4. Using the hyper slingshot. (TODO: video)
+    2. Using feather + slingshot. [[Video]](https://i.imgur.com/P7oj9Zr.mp4)
+    3. Using feather + bombs + rod/fool's ore. (TODO: video)
+    4. Using pegasus seeds + feather + rod/fool's ore/satchel seeds. (TODO:
+       video)
+    5. Using the hyper slingshot. (TODO: video)
 - D6: Light the torches across the water using the roc's cape + ember satchel or
   slingshot. Use of hyper slingshot is in normal logic.
 

@@ -33,21 +33,58 @@ Logic:
 ================================================================================
 
 Features:
-- Ages support complete with cross-items!
+- Ages support complete with cross-items and keysanity!
+- NEW MENU accessible by pressing the select button twice quickly while in-game.
+  Contains two submenus: "Dungeon Items" (view keys/maps/compasses for all
+  dungeons), and "Warp To Start" (replaces treewarp, always on).
+- Auto Mermaid Suit: Hold the direction button to keep moving in a direction
+  (optional)
 
 Bugfixes:
 - Seasons: Fixed seed shooter graphic being corrupted in shops & some other
   places
 
 Ages logic changes (non-crossitems related):
+- Use the long hook to cross from rolling ridge base present to the upper area
+  near d5 (crossing through d2 skip room). Hard logic only as the bushes you
+  must use are not visible on-screen. (Not sure if this scenario can come up in
+  the first place.)
+- Fixed "rolling ridge past old man" node to be based on "ridge base past east"
+  instead of "ridge base past west".
+- D3: Various new logical rules involving not having bombs (only possible with
+  keysanity).
+- D4: Logic changes to account for cape jumping across lava to reach the vanilla
+  switch hook chest. Affects key logic in particular, even if you don't have
+  the cape, due to softlock potential. (Much of D4 could be inaccessible!)
 - D4 minecart room with stalfos: Using the seed satchel to kill the stalfos
   through the wall is no longer in logic, even hard logic. (Using
   sword/rod/fool's ore remains in normal logic, though.)
 - D6 present: The water leading to the orb room full of pits is considered
   passable with only pegasus seeds + feather (bomb jump not needed). In hard
   logic, it's considered passible with only the feather, no pegasus seeds.
+- D6 present: Changes to the orb/hole room logic. Jumping into a hole to use
+  a seed on the orb is now hard logic. Some other changes that mostly only
+  affect hard logic.
+- D8: Using switch hook, rod, boomerang, or ranged pegasus seeds to combat the
+  floormasters to get the first chest is now in logic.
 
-Other stuff:
+Other changes:
+- You can talk to King Zora immediately after getting his item to get permission
+  to enter Jabu, as long as the seas have been cleaned, without needing to exit
+  and re-enter the room.
 - Attempting to enter Jabu-Jabu's Belly without the mermaid suit causes Link to
   drown. This may look a bit funny if Jabu-Jabu's belly is randomized to be
-  somewhere entirely different.
+  somewhere entirely different. Don't panic, it's not a bug! (However it is
+  still possible to enter the D8 underwater section without the mermaid suit,
+  for now.)
+- As in Jangler's randomizer, there are 9 dungeon entrances and 8 dungeons, due
+  to present D2 being used as an alternate entrance. However, when dungeons are
+  shuffled, one dungeon is now randomly selected to have a second entrance,
+  instead of it always being D2.
+- Red soldier who wants mystery seeds has been moved (TODO)
+- A number of softlock prevention-related changes have been reverted due to the
+  always-on "warp to start" feature:
+  - The timeportal in crescent island present west now responds to the tune of
+	echoes again as normal.
+  - Seasons softlock prevention features are still in place until I get around
+	to removing them and updating the logic.
