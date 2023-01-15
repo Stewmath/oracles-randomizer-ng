@@ -144,7 +144,7 @@ enter d4: {or: []}
 
 # 0 keys
 d4 first chest: [enter d4,
-    or: [kill normal, push enemy],
+    or: [kill stalfos, push enemy],
     or: [feather, switch hook]]
 d4 cube chest: [d4 first chest, feather]
 
@@ -158,7 +158,7 @@ d4 first crystal switch: [d4 minecart A,
 d4 minecart chest: [d4 minecart A, hit lever]
 
 # 3 keys
-d4 minecart B: [d4 minecart A, hit lever from minecart, bracelet, kill normal,
+d4 minecart B: [d4 minecart A, hit lever from minecart, bracelet, kill stalfos,
     count: [3, d4 small key]]
 d4 second crystal switch: [d4 minecart B,
     or: [any seed shooter, magic boomerang, [cape, hit switch],

@@ -31,6 +31,7 @@ kill normal: {or: [sword, fool's ore, satchel weapon, ranged seed weapon, cane, 
 kill normal ranged: {or: [ranged seed weapon, [cane, bracelet]]}
 kill underwater: {or: [sword, fool's ore, ranged seed weapon, punch enemy]}
 kill switch hook: {or: [kill normal, switch hook]}
+kill stalfos: {or: [kill normal, rod]}
 
 kill giant ghini: {or: [
     sword, rod, fool's ore, scent ranged, switch hook, punch enemy, [hard, scent satchel]]}
