@@ -135,7 +135,7 @@ ridge west cave: [ridge west present]
 rolling ridge west tree: [harvest tree, seed item, ridge west past]
 under moblin keep: [ridge west present, feather,
     or: [flippers, [cape, or: [pegasus satchel, [hard, bombs]]]]]
-defeat great moblin: [ridge west present, pegasus satchel, bracelet]
+defeat great moblin: [ridge west present, bracelet, or: [pegasus satchel, [hard, cape]]]
 rolling ridge owl: [mystery seeds,
     or: [defeat great moblin, [ridge upper present, feather]]]
 ridge upper present: {or: [
