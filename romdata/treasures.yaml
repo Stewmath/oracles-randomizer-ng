@@ -57,7 +57,6 @@ common:
   d3 boss key: 0x3103
   d4 boss key: 0x3104
   d5 boss key: 0x3105
-  d6 boss key: 0x3106
   d7 boss key: 0x3107
   d8 boss key: 0x3108
   d1 compass: 0x3201
@@ -96,6 +95,7 @@ seasons:
   # dungeon items
   d0 small key: 0x3000
   d6 small key: 0x3006
+  d6 boss key: 0x3106
   d6 compass: 0x3206
   d6 dungeon map: 0x3306
 
@@ -162,6 +162,7 @@ ages:
   d6 past compass: 0x320c
   d6 present dungeon map: 0x3306
   d6 past dungeon map: 0x330c
+  d6 boss key: 0x310c
 
   # page 2
   graveyard key: 0x4200
