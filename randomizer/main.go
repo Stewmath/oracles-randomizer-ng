@@ -59,34 +59,34 @@ func fatalErr(s string) {
 
 // options specified on the command line or via the TUI
 var (
-	flagCpuProf    string
-	flagDevCmd     string
-	flagDungeons   bool
-	flagHard       bool
-	flagKeysanity  bool
-	flagCrossitems bool
-	flagNoUI       bool
-	flagPlan       string
-	flagMulti      string
-	flagPortals    bool
-	flagSeed       string
-	flagRace       bool
-	flagTreewarp   bool
-	flagVerbose    bool
+	flagCpuProf     string
+	flagDevCmd      string
+	flagDungeons    bool
+	flagHard        bool
+	flagKeysanity   bool
+	flagCrossitems  bool
+	flagNoUI        bool
+	flagPlan        string
+	flagMulti       string
+	flagPortals     bool
+	flagSeed        string
+	flagRace        bool
+	flagAutoMermaid bool
+	flagVerbose     bool
 )
 
 type randomizerOptions struct {
-	treewarp   bool
-	hard       bool
-	dungeons   bool
-	portals    bool
-	keysanity  bool
-	crossitems bool
-	plan       *plan
-	race       bool
-	seed       string
-	game       int
-	players    int
+	autoMermaid bool
+	hard        bool
+	dungeons    bool
+	portals     bool
+	keysanity   bool
+	crossitems  bool
+	plan        *plan
+	race        bool
+	seed        string
+	game        int
+	players     int
 }
 
 // initFlags initializes the CLI/TUI option values and variables.
@@ -116,7 +116,7 @@ func initFlags() {
 		"don't print full seed in file select screen or filename")
 	flag.StringVar(&flagSeed, "seed", "",
 		"specific random seed to use (32-bit hex number)")
-	flag.BoolVar(&flagTreewarp, "treewarp", false,
+	flag.BoolVar(&flagAutoMermaid, "automermaid", false,
 		"warp to ember tree by pressing start+B on map screen")
 	flag.BoolVar(&flagVerbose, "verbose", false,
 		"print more detailed output to terminal")
@@ -151,7 +151,7 @@ func roptsFromString(s string, ropts *randomizerOptions) error {
 			case 'p':
 				ropts.portals = true
 			case 't':
-				ropts.treewarp = true
+				ropts.autoMermaid = true
 			default:
 				return fmt.Errorf("unknown flag: %v", c)
 			}
@@ -190,14 +190,14 @@ func Main() {
 		}
 	} else {
 		optsList = append(optsList, &randomizerOptions{
-			race:       flagRace,
-			seed:       flagSeed,
-			treewarp:   flagTreewarp,
-			hard:       flagHard,
-			dungeons:   flagDungeons,
-			portals:    flagPortals,
-			keysanity:  flagKeysanity,
-			crossitems: flagCrossitems,
+			race:        flagRace,
+			seed:        flagSeed,
+			autoMermaid: flagAutoMermaid,
+			hard:        flagHard,
+			dungeons:    flagDungeons,
+			portals:     flagPortals,
+			keysanity:   flagKeysanity,
+			crossitems:  flagCrossitems,
 		})
 	}
 	for _, ropts := range optsList {
@@ -539,9 +539,9 @@ func getAndLogOptions(game int, ui *uiInstance, ropts *randomizerOptions,
 	logf("using %s difficulty.", ternary(ropts.hard, "hard", "normal"))
 
 	if ui != nil {
-		ropts.treewarp = ui.doPrompt("enable tree warp? (y/n)") == 'y'
+		ropts.autoMermaid = ui.doPrompt("enable auto mermaid suit? (y/n)") == 'y'
 	}
-	logf("tree warp %s.", ternary(ropts.treewarp, "on", "off"))
+	logf("auto mermaid suit %s.", ternary(ropts.autoMermaid, "on", "off"))
 
 	if ui != nil {
 		ropts.dungeons = ui.doPrompt("shuffle dungeons? (y/n)") == 'y'
@@ -773,13 +773,9 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		sum := sha1.Sum([]byte(ropts.plan.source))
 		s += fmt.Sprintf("plan-%03x", ((int(sum[0])<<8)+int(sum[1]))>>4)
 
-		// treewarp and keysanity are the only options that make a difference in
-		// plando
-		if ropts.treewarp || ropts.keysanity {
+		// keysanity is the only option that make a difference in plando
+		if ropts.keysanity {
 			s += flagSep
-			if ropts.treewarp {
-				s += "t"
-			}
 			if ropts.keysanity {
 				s += "k"
 			}
@@ -794,13 +790,10 @@ func optString(seed uint32, ropts *randomizerOptions, flagSep string) string {
 		s += fmt.Sprintf("%08x", seed)
 	}
 
-	if ropts.treewarp || ropts.hard || ropts.dungeons || ropts.portals || ropts.keysanity || ropts.crossitems {
+	if ropts.hard || ropts.dungeons || ropts.portals || ropts.keysanity || ropts.crossitems {
 		// these are in chronological order of introduction, for no particular
 		// reason.
 		s += flagSep
-		if ropts.treewarp {
-			s += "t"
-		}
 		if ropts.hard {
 			s += "h"
 		}

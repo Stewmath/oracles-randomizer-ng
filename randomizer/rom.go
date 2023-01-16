@@ -686,11 +686,11 @@ func (rom *romState) setConfigData(ropts *randomizerOptions) {
 	if ropts.keysanity {
 		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_KEYSANITY")
 	}
-	if ropts.treewarp {
-		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_TREEWARP")
-	}
 	if ropts.dungeons {
 		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_DUNGEON_ENTRANCES")
+	}
+	if ropts.autoMermaid {
+		config |= 1 << rom.lookupDefinition("RANDO_CONFIG_MERMAID_AUTO")
 	}
 
 	addr := rom.lookupLabel("randoConfig").fullOffset()
