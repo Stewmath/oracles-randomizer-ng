@@ -40,17 +40,15 @@ magic boomerang: {count: [2, boomerang]}
 hyper slingshot: {count: [2, slingshot]}
 cape: {count: [2, feather]}
 
-# TODO
 jump 3: {or: [[feather, pegasus satchel], cape]}
 bomb jump 2: {or: [jump 3, [hard, feather, bombs]]}
 bomb jump 3: {or: [cape, [hard, jump 3, bombs]]}
 
 seed item: {or: [satchel, slingshot, seed shooter]}
 
-# NOTE: These are defined in a bit of a different way than in Seasons, but they
-# should still work ok. "seed item" and the ability to harvest the tree is
-# checked for each tree in "labrynna.yaml" instead of being checked in this
-# file.
+# These are defined in a bit of a different way than in Seasons, but they should
+# still work ok. "seed item" and the ability to harvest the tree is checked for
+# each tree in "labrynna.yaml" instead of being checked in this file.
 ember seeds: [ember tree seeds]
 scent seeds: {or: [scent tree seeds,
     [hard, seed item, or: [d3 seeds from bridge room, d8 boss]]]}
