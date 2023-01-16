@@ -1,35 +1,7 @@
 Changelog for Oracles-Randomizer-NG
 
 ================================================================================
-Alpha 1 (2021-01-28)
-================================================================================
-
-- Initial release based on original randomizer; seasons only.
-
-================================================================================
-Alpha 2 (2021-12-21)
-================================================================================
-
-Bugfixes:
-- Fixed room layout changes not always being applied (goron mountain water room,
-  spool swamp portal).
-- Fixed non-crossitems logic being totally messed up by thinking that you have
-  all of the ages items immediately.
-
-Logic:
-- OW: Using the switch hook to cross goron mountain is now in hard logic (even
-  with long hook, because you can't see the bushes from the top side).
-- D3: Using switch hook or long hook to reach D3 miniboss is in hard logic
-  (because you can't see the pots). Also, it is actually impossible to use the
-  switch hook without pegasus seeds to reach the pots. Updated logic to reflect
-  this.
-- D6: Removed seed shooter logic for hitting the orb without the magic boomerang
-  to reach the miniboss. It's too much even for hard logic.
-- D7: Fixed a loophole causing jumping on button edges without hitting the
-  buttons to be in normal logic.
-
-================================================================================
-????
+Release ????
 ================================================================================
 
 Features:
@@ -88,3 +60,31 @@ Other changes:
 	echoes again as normal.
   - Seasons softlock prevention features are still in place until I get around
 	to removing them and updating the logic.
+
+================================================================================
+Alpha 2 (2021-12-21)
+================================================================================
+
+Bugfixes:
+- Fixed room layout changes not always being applied (goron mountain water room,
+  spool swamp portal).
+- Fixed non-crossitems logic being totally messed up by thinking that you have
+  all of the ages items immediately.
+
+Logic:
+- OW: Using the switch hook to cross goron mountain is now in hard logic (even
+  with long hook, because you can't see the bushes from the top side).
+- D3: Using switch hook or long hook to reach D3 miniboss is in hard logic
+  (because you can't see the pots). Also, it is actually impossible to use the
+  switch hook without pegasus seeds to reach the pots. Updated logic to reflect
+  this.
+- D6: Removed seed shooter logic for hitting the orb without the magic boomerang
+  to reach the miniboss. It's too much even for hard logic.
+- D7: Fixed a loophole causing jumping on button edges without hitting the
+  buttons to be in normal logic.
+
+================================================================================
+Alpha 1 (2021-01-28)
+================================================================================
+
+- Initial release based on original randomizer; seasons only.
