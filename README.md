@@ -110,4 +110,5 @@ after being tested properly but it's low-priority.
 - Jangler for the [original oracles-randomizer](https://github.com/jangler/oracles-randomizer).
 - Herreteman, dragonc0, Phoenomenom714, and jaysee87 for help with logic,
   playtesting, design, and "customer support".
+- Dan Jia (https://github.com/vinheim3) for his implementation of cross-items
 - Everyone who helped playtest prerelease versions of the randomizer.

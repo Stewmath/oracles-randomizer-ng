@@ -98,7 +98,7 @@ d3 B1F spinner: [d3 S crystal, d3 E crystal, d3 N crystal, d3 W crystal,
     break crystal switch]
 d3 crossroads: [d3 B1F spinner]
 d3 torch chest: [d3 B1F spinner, or: [
-    [ember seeds, or: [seed shooter, hyper slingshot, [hard, cape, satchel]]],
+    [ember seeds, or: [seed shooter, hyper slingshot, [hard, cape, or: [satchel, slingshot]]]],
     [hard, or: [mystery shooter, mystery hyper slingshot]]]]
 # Have the ability to traverse the first switch room from the bottom to the
 # door. TODO: HSS + seeds + feather?
