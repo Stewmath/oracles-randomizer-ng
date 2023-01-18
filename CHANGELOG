@@ -53,7 +53,9 @@ Other changes:
   to present D2 being used as an alternate entrance. However, when dungeons are
   shuffled, one dungeon is now randomly selected to have a second entrance,
   instead of it always being D2.
-- Red soldier who wants mystery seeds has been moved (TODO)
+- Red soldier who wants mystery seeds has been moved to be closer to his
+  original vanilla location.
+- Harp and flute animations can be skipped by pressing A+B.
 - A number of softlock prevention-related changes have been reverted due to the
   always-on "warp to start" feature:
   - The timeportal in crescent island present west now responds to the tune of
