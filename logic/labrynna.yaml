@@ -123,7 +123,7 @@ d4 entrance: [symmetry present, tuni nut, patch]
 # rolling ridge. what a nightmare
 goron elder: [bomb flower, or: [
     ridge west past,
-    [lynna village, or: [feather, ages], or: [switch hook, cape, [hard, magnet gloves]]]]
+    [lynna village, or: [feather, ages], or: [switch hook, cape, [hard, magnet gloves]]]]]
 ridge west past: {or: [
     goron elder,
     [ridge west present, or: [ages, [bracelet, echoes]]]]}
