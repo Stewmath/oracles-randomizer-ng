@@ -1,6 +1,17 @@
 Changelog for Oracles-Randomizer-NG
 
 ================================================================================
+?????
+================================================================================
+
+Bugfixes:
+- Pol's Voices are now killed when flute or harp tunes are truncated
+- Ages: Rod of Seasons displays its name correctly in Wild Tokay minigame
+
+Other changes:
+- Ages: Sped up timewarps by removing a half-second delay upon arrival
+
+================================================================================
 Alpha 3 (2023-01-19)
 ================================================================================
 
