@@ -6,9 +6,14 @@ Changelog for Oracles-Randomizer-NG
 
 Bugfixes:
 - Pol's Voices are now killed when flute or harp tunes are truncated
+- Selecting "warp to start" option in rando menu no longer saves the game
 - Ages: Rod of Seasons displays its name correctly in Wild Tokay minigame
+- Ages: Fixed being able to enter jabu-jabu's belly without mermaid suit when
+  there are two entrances to the dungeon
 
 Other changes:
+- "Warp to start" option now warps to the starting tree (instead of the game's
+  initial spawn location) due to popular demand.
 - Ages: Sped up timewarps by removing a half-second delay upon arrival
 
 ================================================================================
