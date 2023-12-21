@@ -160,8 +160,9 @@ ridge mid present: {or: [
     [ridge mid past, currents],
     [ridge base present, brother emblem, or: [switch hook, jump 3]]]}
 target carts: [ridge mid past, switch hook, ridge mid present]
-target carts 1: [target carts]
-target carts 2: [target carts]
+target carts 1: [target carts, or: [any hyper slingshot,
+    [seed shooter, or: [ember seeds, scent seeds, pegasus seeds, mystery seeds]]]]
+target carts 2: [target carts 1]
 goron gallery entrance: [target carts, or: [ages, [bracelet, echoes]]]
 goron shooting gallery: [goron gallery entrance, sword]
 rolling ridge east tree: [harvest tree, seed item,
