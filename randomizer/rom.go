@@ -640,6 +640,7 @@ func (rom *romState) attachText() {
 		shopMap["randoText_subrosiaMarket5thItem"] = "subrosia market, 5th item"
 	} else { // Ages
 		shopMap["randoText_wildTokayGame"] = "wild tokay game"
+		shopMap["randoText_goronShootingGallery"] = "goron shooting gallery"
 	}
 	for codeName, slotName := range shopMap {
 		addr := rom.lookupLabel(codeName).fullOffset()

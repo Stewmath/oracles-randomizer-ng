@@ -1,3 +1,6 @@
+# All item names should be *15 characters or less*, omitting the article
+# (a/the), in order to fit into textboxes.
+
 bomb flower: a Bomb Flower # not randomized in seasons
 book of seals: the Book of Seals
 brother emblem: the Brother Emblem
@@ -27,7 +30,7 @@ rod: the Rod of Seasons
 
 d6 present small key: a D6Pr small key
 d6 present compass: the D6Pr compass
-d6 present dungeon map: the D6Pr dungeon map
+d6 present dungeon map: the D6Pr map
 d6 past small key: a D6Pa small key
 d6 past compass: the D6Pa compass
-d6 past dungeon map: the D6Pa dungeon map
+d6 past dungeon map: the D6Pa map

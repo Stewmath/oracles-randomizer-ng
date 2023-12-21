@@ -13,20 +13,24 @@ Bugfixes:
 - Ages: Fixed a bug where sometimes the cart would not progress in the target
   carts minigame
 
-Ages logic changes:
-- Defeating Shadow Hag with ember seeds is now in hard logic instead of normal.
+Logic changes (Ages):
+- Defeating Shadow Hag with ember seed satchel is now in hard logic instead of
+  normal.
 - As the "first goron dance" prize can be obtained in either the present or the
   past, logic has been updated to reflect this. The second dance, with the
   Letter of Recommendation, can only be done in the past (after finishing the
   1st dance in either the present or the past).
 
-Other changes:
+Other changes (general):
 - "Warp to start" option now warps to the starting tree (instead of the game's
   initial spawn location) due to popular demand.
-- Ages: Sped up timewarps by removing a half-second delay upon arrival
-- Ages: You no longer get a sword in the shooting gallery, or a seed shooter in
-  target carts, if you don't already have the corresponding item. Logic for
-  target carts has been updated to reflect this.
+
+Other changes (Ages):
+- Sped up timewarps by removing a half-second delay upon arrival
+- The shooting gallery now tells you what item you'll get before playing.
+- You no longer get a sword in the shooting gallery, or a seed shooter in target
+  carts, if you don't already have the corresponding item. Logic for target
+  carts has been updated to reflect this.
   - For target carts, if you don't have the seed shooter, the slingshot may be
     equipped instead. Completing the game with the hyper slingshot is in normal
     logic. (It is impossible with the L-1 slingshot.)
@@ -37,6 +41,11 @@ Other changes:
     first seed type you own from the following list is equipped: scent, ember,
     pegasus, mystery, gale. You are given 99 of that seed type for the duration
     of the game.
+- Water tile in d6 past entrance has been changed to be shallow, like in
+  jangler's randomizer, to prevent softlocks.
+- The left side of the bridge leading to Symmetry City no longer exists before
+  it's supposed to. (Prevents softlocks if you try to cross from the opposite
+  side before building the bridge.)
 
 ================================================================================
 Alpha 3 (2023-01-19)

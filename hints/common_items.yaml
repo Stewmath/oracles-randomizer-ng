@@ -1,7 +1,11 @@
 # misc common items
+#
+# All item names should be *15 characters or less*, omitting the article
+# (a/the), in order to fit into textboxes.
+
 bombs, 10: Bombs
 bombchu, 10: Bombchu
-biggoron's sword: Biggoron's Sword
+biggoron's sword: Biggoron Sword
 boomerang: a Boomerang
 dimitri's flute: Dimitri's Flute
 ember tree seeds: Ember Seeds
@@ -61,13 +65,13 @@ d5 compass: the D5 compass
 d7 compass: the D7 compass
 d8 compass: the D8 compass
 
-d1 dungeon map: the D1 dungeon map
-d2 dungeon map: the D2 dungeon map
-d3 dungeon map: the D3 dungeon map
-d4 dungeon map: the D4 dungeon map
-d5 dungeon map: the D5 dungeon map
-d7 dungeon map: the D7 dungeon map
-d8 dungeon map: the D8 dungeon map
+d1 dungeon map: the D1 map
+d2 dungeon map: the D2 map
+d3 dungeon map: the D3 map
+d4 dungeon map: the D4 map
+d5 dungeon map: the D5 map
+d7 dungeon map: the D7 map
+d8 dungeon map: the D8 map
 
 # rupees
 rupees, 10: 10 Rupees
