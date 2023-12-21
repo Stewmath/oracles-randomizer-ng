@@ -149,7 +149,7 @@ ridge base present: {or: [ridge upper present, ridge mid present,
 mermaid legend owl: [mystery seeds, ridge base present]
 d6 present entrance: [old mermaid key, ridge base present]
 pool in d6 entrance: [ridge base present, mermaid suit]
-first goron dance: [ridge base present, farm rupees]
+first goron dance: [farm rupees, or: [ridge base present, ridge base past east]]
 goron dance, with letter: [ridge base past east, goron letter, farm rupees]
 ridge mid past: {or: [
     [ridge base past west, switch hook],

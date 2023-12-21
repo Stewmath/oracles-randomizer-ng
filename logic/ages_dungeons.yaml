@@ -130,8 +130,8 @@ d3 boss door: {or: [
         traverse d3 switch room 1, traverse d3 switch room 2]]}
 d3 moldorm drop: [kill moldorm, d3 post-subterror]
 d3 boss: [d3 boss door, d3 boss key,
-    or: [ember shooter, scent shooter, ember satchel,
-        [hard, or: [scent satchel, ember hyper slingshot, scent hyper slingshot]]]]
+    or: [ember shooter, scent shooter,
+        [hard, or: [ember satchel, scent satchel, ember hyper slingshot, scent hyper slingshot]]]]
 
 # 3 keys
 d3 bush beetle room: [enter d3, kill switch hook, count: [3, d3 small key]]

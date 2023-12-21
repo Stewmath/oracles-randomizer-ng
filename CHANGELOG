@@ -1,7 +1,7 @@
 Changelog for Oracles-Randomizer-NG
 
 ================================================================================
-?????
+Testing branch
 ================================================================================
 
 Bugfixes:
@@ -10,6 +10,13 @@ Bugfixes:
 - Ages: Rod of Seasons displays its name correctly in Wild Tokay minigame
 - Ages: Fixed being able to enter jabu-jabu's belly without mermaid suit when
   there are two entrances to the dungeon
+
+Ages logic changes:
+- Defeating Shadow Hag with ember seeds is now in hard logic instead of normal.
+- As the "first goron dance" prize can be obtained in either the present or the
+  past, logic has been updated to reflect this. The second dance, with the
+  Letter of Recommendation, can only be done in the past (after finishing the
+  1st dance in either the present or the past).
 
 Other changes:
 - "Warp to start" option now warps to the starting tree (instead of the game's

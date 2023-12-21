@@ -12,10 +12,16 @@ These notes apply specifically to Ages, alongside the game-neutral ones in
   the Poe in Yoll Graveyard gives a randomized item.
 - The red soldier who takes you to Ambi's palace for bombs waits in Deku Forest
   instead. Talk to him to trade mystery seeds for an item.
-- The first **and** second prizes for Target Carts are randomized. Only the
-  first item for each other minigame is randomized, with the exception of the
-  Lynna Village Shooting Gallery, which has no randomized prize since its
-  normal prize is a strange flute.
+- The first **and** second prizes for Target Carts are randomized.
+- The first **and** second prizes for Goron Dancing are randomized. The first
+  prize (corresponding to the goron bracelet) can be obtained in either the
+  present or in the past at any time. The second prize (corresponding to the
+  mermaid key) can be obtained only in the past, after obtaining the Letter of
+  Recommendation in addition to the first prize.
+- Other than Goron Dancing and Target Carts, only the first item for each other
+  minigame is randomized, with the exception of the Lynna Village Shooting
+  Gallery, which has no randomized prize since its normal prize is a strange
+  flute.
 - Past and present versions of the same mystical seed tree grow the same type
   of seed.
 - The secret shop items are not randomized.
