@@ -6,24 +6,12 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
 	"os/exec"
-	"path/filepath"
 	"regexp"
 	"strings"
 )
 
 const (
-	mainTemplate = `package main
-
-// Code generated - DO NOT EDIT.
-
-import "github.com/{{username}}/oracles-randomizer-ng/randomizer"
-
-func main() {
-	randomizer.Main()
-}
-`
 	versionTemplate = `package randomizer
 
 // Code generated - DO NOT EDIT.
@@ -33,32 +21,11 @@ const version = {{version}}
 )
 
 var (
-	usernamePattern = strings.ReplaceAll(
-		filepath.FromSlash(`github.com/(.+)/oracles-randomizer-ng`), `\`, `\\`)
-	usernameRegexp = regexp.MustCompile(usernamePattern)
 	versionRegexp  = regexp.MustCompile(`/(.+)-\d+-g(.+)`)
 )
 
 func main() {
-	generateMain()
 	generateVersion()
-}
-
-func generateMain() {
-	wd, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	matches := usernameRegexp.FindStringSubmatch(wd)
-	if matches == nil {
-		panic("error getting import path from working directory")
-	}
-
-	s := strings.ReplaceAll(mainTemplate, "{{username}}", matches[1])
-	if err := ioutil.WriteFile("main.go", []byte(s), 0644); err != nil {
-		panic(err)
-	}
 }
 
 func generateVersion() {

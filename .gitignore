@@ -1,7 +1,6 @@
 oracles-randomizer-ng
 oracles-randomizer-ng.exe
 embed.go
-main.go
 version.go
 checklist/
 dist/
