@@ -2,8 +2,6 @@ package randomizer
 
 import (
 	"fmt"
-
-	"gopkg.in/yaml.v2"
 )
 
 // an item slot (chest, gift, etc). it references room data and treasure data.
@@ -113,9 +111,8 @@ var agesDungeonMapTiles = map[string]uint16 {
 func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 	raws := make(map[string]*rawSlot)
 
-	filename := fmt.Sprintf("/romdata/%s_slots.yaml", gameNames[rom.game])
-	if err := yaml.Unmarshal(
-		FSMustByte(false, filename), raws); err != nil {
+	filename := fmt.Sprintf("romdata/%s_slots.yaml", gameNames[rom.game])
+	if err := ReadEmbeddedYaml(filename, raws); err != nil {
 		panic(err)
 	}
 

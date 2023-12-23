@@ -25,7 +25,6 @@ since some of the code isn't tracked by the repository and hasn't been
 generated locally yet. Then install Go dependencies:
 
 ```
-go get github.com/mjibson/esc
 go get github.com/gdamore/tcell
 go get github.com/yuin/gopher-lua
 go get gopkg.in/yaml.v2
@@ -37,10 +36,6 @@ Last, generate and build the code (do both whenever changes are made):
 go generate
 go build
 ```
-
-You'll probably have to add `$GOPATH/bin` to your "path" environment variable
-in order for `esc` to work for code generation. Alternately, you can copy
-`$GOPATH/bin/esc` to somewhere that's already in your "path".
 
 
 ## Branches

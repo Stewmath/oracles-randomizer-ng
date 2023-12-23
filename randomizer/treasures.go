@@ -3,8 +3,6 @@ package randomizer
 import (
 	"bytes"
 	"fmt"
-
-	"gopkg.in/yaml.v2"
 )
 
 // data associated with a particular item ID and sub ID.
@@ -72,8 +70,7 @@ func getTreasureAddr(b []byte, tableAddr address, id, subid byte) address {
 // data is loaded.
 func loadTreasures(b []byte, tableAddr *address, game int) map[string]*treasure {
 	allRawIds := make(map[string]map[string]uint16)
-	if err := yaml.Unmarshal(
-		FSMustByte(false, "/romdata/treasures.yaml"), allRawIds); err != nil {
+	if err := ReadEmbeddedYaml("romdata/treasures.yaml", allRawIds); err != nil {
 		panic(err)
 	}
 

@@ -17,7 +17,7 @@ func TestLinks(t *testing.T) {
 
 func testLinksForGame(t *testing.T, game int) {
 	nodes := getPrenodes(game)
-	rom := newRomState(nil, nil, game, 0, true)
+	rom := newRomState(nil, nil, nil, game, 0, true)
 
 	for key, slot := range rom.itemSlots {
 		treasureName, _ := reverseLookup(rom.treasures, slot.treasure)

@@ -2,8 +2,6 @@ package randomizer
 
 import (
 	"fmt"
-
-	"gopkg.in/yaml.v2"
 )
 
 // a prenode is the precursor to a graph node; its parents can be either
@@ -39,7 +37,7 @@ func init() {
 		loadLogic("labrynna.yaml"), loadLogic("ages_dungeons.yaml"))
 	flattenNestedPrenodes(agesPrenodes)
 
-	err := yaml.Unmarshal(FSMustByte(false, "/romdata/rings.yaml"), &rings)
+	err := ReadEmbeddedYaml("romdata/rings.yaml", &rings)
 	if err != nil {
 		panic(err)
 	}
@@ -95,8 +93,7 @@ func appendPrenodes(total map[string]*prenode, maps ...map[string]*prenode) {
 // loads a logic map from yaml.
 func loadLogic(filename string) map[string]*prenode {
 	raw := make(map[string]interface{})
-	if err := yaml.Unmarshal(
-		FSMustByte(false, "/logic/"+filename), raw); err != nil {
+	if err := ReadEmbeddedYaml("logic/"+filename, raw); err != nil {
 		panic(err)
 	}
 	m := make(map[string]*prenode)

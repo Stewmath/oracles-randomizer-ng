@@ -5,15 +5,12 @@ import (
 	"math/rand"
 	"sort"
 	"strings"
-
-	"gopkg.in/yaml.v2"
 )
 
 // returns a map of owl names to text indexes for the given game.
 func getOwlIds(game int) map[string]byte {
 	owls := make(map[string]map[string]byte)
-	if err := yaml.Unmarshal(
-		FSMustByte(false, "/romdata/owls.yaml"), owls); err != nil {
+	if err := ReadEmbeddedYaml("romdata/owls.yaml", owls); err != nil {
 		panic(err)
 	}
 	return owls[gameNames[game]]
@@ -58,21 +55,19 @@ func newHinter(game int) *hinter {
 
 	// load item names
 	itemFiles := []string{
-		"/hints/common_items.yaml",
-		fmt.Sprintf("/hints/%s_items.yaml", gameNames[game]),
+		"hints/common_items.yaml",
+		fmt.Sprintf("hints/%s_items.yaml", gameNames[game]),
 	}
 	for _, filename := range itemFiles {
-		if err := yaml.Unmarshal(
-			FSMustByte(false, filename), h.items); err != nil {
+		if err := ReadEmbeddedYaml(filename, h.items); err != nil {
 			panic(err)
 		}
 	}
 
 	// load area names
 	rawAreas := make(map[string][]string)
-	areasFilename := fmt.Sprintf("/hints/%s_areas.yaml", gameNames[game])
-	if err := yaml.Unmarshal(
-		FSMustByte(false, areasFilename), rawAreas); err != nil {
+	areasFilename := fmt.Sprintf("hints/%s_areas.yaml", gameNames[game])
+	if err := ReadEmbeddedYaml(areasFilename, rawAreas); err != nil {
 		panic(err)
 	}
 
