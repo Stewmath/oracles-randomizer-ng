@@ -161,7 +161,9 @@ func printOrderedHardStats(w io.Writer, counts map[string]int,
 // generate a bunch of seeds and print info about frequency of required hard
 // logic tricks.
 func logHardStats(trials int, filename string, ropts randomizerOptions, logf logFunc) {
-	_, _, _, game, _ := readGivenRom(filename)
+	rawRomData, _ := readGivenRom(filename)
+	game := rawRomData.game
+
 	// get `trials` routes
 	routes := generateSeeds(trials, filename, ropts)
 	nameMap := ternary(game == gameSeasons,

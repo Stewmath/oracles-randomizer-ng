@@ -205,47 +205,6 @@ func Main() {
 	}
 
 	switch flagDevCmd {
-	case "findaddr":
-		// print the name of the mutable/etc that modifies an address
-		tokens := strings.Split(flag.Arg(0), "/")
-		if len(tokens) != 3 {
-			fatal(fmt.Errorf("findaddr: invalid argument: %s", flag.Arg(0)),
-				printErrf)
-			return
-		}
-		game := reverseLookupOrPanic(gameNames, tokens[0]).(int)
-		bank, err := strconv.ParseUint(tokens[1], 16, 8)
-		if err != nil {
-			fatal(err, printErrf)
-			return
-		}
-		addr, err := strconv.ParseUint(tokens[2], 16, 16)
-		if err != nil {
-			fatal(err, printErrf)
-			return
-		}
-
-		// optionally specify path of rom to load.
-		// i forget why or whether this is useful.
-		var rom *romState
-		if flag.Arg(1) == "" {
-			rom = newRomState(nil, nil, nil, game, 1, false)
-		} else {
-			f, err := os.Open(flag.Arg(1))
-			if err != nil {
-				fatal(err, printErrf)
-				return
-			}
-			defer f.Close()
-			b, err := ioutil.ReadAll(f)
-			if err != nil {
-				fatal(err, printErrf)
-				return
-			}
-			rom = newRomState(b, nil, nil, game, 1, false)
-		}
-
-		fmt.Println(rom.findAddr(byte(bank), uint16(addr)))
 	case "stats", "hardstats", "nodestats":
 		// do stats instead of randomizing
 		numTrials, err := strconv.Atoi(flag.Arg(1))
@@ -324,12 +283,13 @@ func runRandomizer(ui *uiInstance, optsList []*randomizerOptions, logf logFunc) 
 		for i, infile := range infiles {
 			ropts := optsList[i]
 
-			b, labels, defs, game, err := readGivenRom(filepath.Join(dirName, infile))
+			rawRomData, err := readGivenRom(filepath.Join(dirName, infile))
+			game := rawRomData.game
 			if err != nil {
 				fatal(err, logf)
 				return
 			} else {
-				roms[i] = newRomState(b, labels, defs, game, i+1, ropts.crossitems)
+				roms[i] = newRomState(rawRomData, i+1, ropts.crossitems)
 			}
 
 			// sanity check beforehand
@@ -653,32 +613,36 @@ func findVanillaRoms(
 	return
 }
 
-// read the specified file into a slice of bytes, returning an error if the
-// read fails or if the file is an invalid rom. also returns the game as an
-// int.
-func readGivenRom(filename string) ([]byte, map[string]*address, map[string]uint32, int, error) {
+// Read the specified file into a slice of bytes, returning an error if the
+// read fails or if the file is an invalid rom.
+func readGivenRom(filename string) (*rawRomData, error) {
 	// read file
 	f, err := os.Open(filename)
 	if err != nil {
-		return nil, nil, nil, gameNil, err
+		return nil, err
 	}
 	defer f.Close()
 	b, err := ioutil.ReadAll(f)
 	if err != nil {
-		return nil, nil, nil, gameNil, err
+		return nil, err
 	}
 
 	// check file data
 	if !romIsAges(b) && !romIsSeasons(b) {
-		return nil, nil, nil, gameNil,
-			fmt.Errorf("%s is not an oracles ROM", filename)
+		return nil, fmt.Errorf("%s is not an oracles ROM", filename)
 	}
 
 	symbolFilename := filename[:strings.LastIndex(filename, ".")] + ".sym"
 	labels, definitions := readSymbolFile(symbolFilename)
 
-	game := ternary(romIsSeasons(b), gameSeasons, gameAges).(int)
-	return b, labels, definitions, game, nil
+
+	var rawRomData rawRomData
+	rawRomData.rom = b
+	rawRomData.labels = labels
+	rawRomData.definitions = definitions
+	rawRomData.game = ternary(romIsSeasons(b), gameSeasons, gameAges).(int)
+
+	return &rawRomData, nil
 }
 
 // setRandomSeed sets a 32-bit unsigned random seed based on a hexstring, if

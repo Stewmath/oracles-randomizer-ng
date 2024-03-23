@@ -15,7 +15,7 @@ func generateSeeds(n int, filename string, ropts randomizerOptions) []*routeInfo
 	threads := runtime.NumCPU()
 	dummyLogf := func(string, ...interface{}) {}
 
-	b, labels, definitions, game, err := readGivenRom(filename)
+	rawRomData, err := readGivenRom(filename)
 	if err != nil {
 		fatal(err, printErrf)
 		return nil
@@ -32,7 +32,7 @@ func generateSeeds(n int, filename string, ropts randomizerOptions) []*routeInfo
 					// created for each iteration.
 					seed := uint32(rand.Int())
 					src := rand.New(rand.NewSource(int64(seed)))
-					rom := newRomState(b, labels, definitions, game, 1, ropts.crossitems)
+					rom := newRomState(rawRomData, 1, ropts.crossitems)
 					route, _ := findRoute(rom, seed, src, ropts, false, dummyLogf)
 					if route != nil {
 						attempts += route.attemptCount
@@ -58,7 +58,8 @@ func generateSeeds(n int, filename string, ropts randomizerOptions) []*routeInfo
 
 // generate a bunch of seeds and print item configurations in YAML format.
 func logStats(trials int, filename string, ropts randomizerOptions,  logf logFunc) {
-	_, _, _, game, _ := readGivenRom(filename)
+	rawRomData, _ := readGivenRom(filename)
+	game := rawRomData.game
 
 	// get `trials` routes
 	routes := generateSeeds(trials, filename, ropts)

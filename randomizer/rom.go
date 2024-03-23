@@ -70,6 +70,15 @@ func makeRomChecksum(data []byte) [2]byte {
 	return [2]byte{byte(sum >> 8), byte(sum)}
 }
 
+// Data read directly from rom & other files in oracles-disasm folder, can be used to initialize
+// a romState.
+type rawRomData struct {
+	rom          []byte
+	labels       map[string]*address
+	definitions  map[string]uint32
+	game         int
+}
+
 type romState struct {
 	game         int
 	player       int
@@ -82,17 +91,17 @@ type romState struct {
 	definitions  map[string]uint32
 }
 
-func newRomState(data []byte, labels map[string]*address, definitions map[string]uint32, game, player int, crossitems bool) *romState {
+func newRomState(rawData *rawRomData, player int, crossitems bool) *romState {
 	rom := &romState{
-		game:        game,
+		game:        rawData.game,
 		player:      player,
-		data:        data,
-		labels:      labels,
-		definitions: definitions,
-		treasures:   loadTreasures(data, labels["treasureObjectData"], game),
+		data:        rawData.rom,
+		labels:      rawData.labels,
+		definitions: rawData.definitions,
+		treasures:   loadTreasures(rawData.rom, rawData.labels["treasureObjectData"], rawData.game),
 	}
 	rom.itemSlots = rom.loadSlots(crossitems)
-	rom.initializeMutables(game)
+	rom.initializeMutables(rawData.game)
 	return rom
 }
 
