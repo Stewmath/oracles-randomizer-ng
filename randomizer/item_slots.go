@@ -106,8 +106,7 @@ var agesDungeonMapTiles = map[string]uint16 {
 }
 
 
-// return a map of slot names to slot data. if romState.data is nil, only
-// "static" data is loaded.
+// return a map of slot names to slot data.
 func (rom *romState) loadSlots(crossitems bool) map[string]*itemSlot {
 	raws := make(map[string]*rawSlot)
 
