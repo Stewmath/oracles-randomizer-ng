@@ -73,10 +73,13 @@ func makeRomChecksum(data []byte) [2]byte {
 // Data read directly from rom & other files in oracles-disasm folder, can be used to initialize
 // a romState.
 type rawRomData struct {
-	rom          []byte
-	labels       map[string]*address
-	definitions  map[string]uint32
-	game         int
+	rom                    []byte
+	labels                 map[string]*address
+	definitions            map[string]uint32
+	musicList              []string
+	customMusicList        []string
+	nonLoopingMusicList    []string
+	game                   int
 }
 
 type romState struct {
@@ -89,15 +92,23 @@ type romState struct {
 	bankEnds     []uint16 // bus offset of free space in each bank
 	labels       map[string]*address
 	definitions  map[string]uint32
+
+	// List of valid music tracks (from the txt file)
+	musicList        []string
+	customMusicList  []string
+	// Map of music index to music track name
+	musicMap     map[uint32]string
 }
 
 func newRomState(rawData *rawRomData, player int, crossitems bool) *romState {
 	rom := &romState{
-		game:        rawData.game,
-		player:      player,
-		data:        rawData.rom,
-		labels:      rawData.labels,
-		definitions: rawData.definitions,
+		game:              rawData.game,
+		player:            player,
+		data:              rawData.rom,
+		labels:            rawData.labels,
+		definitions:       rawData.definitions,
+		musicList:         rawData.musicList,
+		customMusicList:   rawData.customMusicList,
 		treasures:   loadTreasures(rawData.rom, rawData.labels["treasureObjectData"], rawData.game),
 	}
 	rom.itemSlots = rom.loadSlots(crossitems)
@@ -123,6 +134,9 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 	rom.attachText()
 	//rom.codeMutables["multiPlayerNumber"].new[0] = byte(rom.player) // TODO: Multiworld
 
+	rom.setMusic(ropts)
+
+	// TODO: remove mutables, they're not necessary for the ng branch
 	mutables := rom.getAllMutables()
 	for _, k := range orderedKeys(mutables) {
 		mutables[k].mutate(rom.data)
@@ -136,6 +150,20 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 
 	outSum := sha1.Sum(rom.data)
 	return outSum[:], nil
+}
+
+func (rom *romState) setMusic(ropts *randomizerOptions) {
+	if ropts.musicShuffle != "off" {
+		for index, newMusic := range rom.musicMap {
+			pointerAddress := rom.lookupLabel("soundPointers").fullOffset() + int(index) * 3
+			newMusicAddress := rom.lookupLabel(newMusic).offset
+			newMusicBank := rom.lookupLabel(newMusic + "Start").bank
+
+			rom.data[pointerAddress] = byte((newMusicBank - rom.lookupLabel("b39_initSound").bank) & 0xff)
+			rom.data[pointerAddress+1] = byte(newMusicAddress & 0xff)
+			rom.data[pointerAddress+2] = byte(newMusicAddress >> 8)
+		}
+	}
 }
 
 // checks all the package's data against the ROM to see if it matches. It

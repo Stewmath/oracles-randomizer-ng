@@ -49,3 +49,19 @@ func readSymbolFile(filename string) (map[string]*address, map[string]uint32) {
 
 	return labels, defs
 }
+
+// Generic function to read lines from a file into an array
+func readFileLines(filename string) []string {
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(fmt.Sprintf("Couldn't open file \"%s\".", filename))
+	}
+
+	scanner := bufio.NewScanner(file)
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	return lines
+}

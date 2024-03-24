@@ -68,6 +68,7 @@ var (
 	flagNoUI        bool
 	flagPlan        string
 	flagMulti       string
+	flagMusic       string
 	flagPortals     bool
 	flagSeed        string
 	flagRace        bool
@@ -76,17 +77,18 @@ var (
 )
 
 type randomizerOptions struct {
-	autoMermaid bool
-	hard        bool
-	dungeons    bool
-	portals     bool
-	keysanity   bool
-	crossitems  bool
-	plan        *plan
-	race        bool
-	seed        string
-	game        int
-	players     int
+	autoMermaid  bool
+	hard         bool
+	dungeons     bool
+	portals      bool
+	keysanity    bool
+	crossitems   bool
+	musicShuffle string
+	plan         *plan
+	race         bool
+	seed         string
+	game         int
+	players      int
 }
 
 // initFlags initializes the CLI/TUI option values and variables.
@@ -110,6 +112,8 @@ func initFlags() {
 		"use fixed 'randomization' from a file")
 	flag.StringVar(&flagMulti, "multi", "",
 		"comma-separated list of strings such as s+hdp or a+ht")
+	flag.StringVar(&flagMusic, "music", "",
+		"shuffle music. values: 'off'=off, 'on'=oracles music only, 'all'=include custom music")
 	flag.BoolVar(&flagPortals, "portals", false,
 		"shuffle subrosia portal connections (seasons)")
 	flag.BoolVar(&flagRace, "race", false,
@@ -189,15 +193,19 @@ func Main() {
 			}
 		}
 	} else {
+		if flagMusic == "" {
+			flagMusic = "off"
+		}
 		optsList = append(optsList, &randomizerOptions{
-			race:        flagRace,
-			seed:        flagSeed,
-			autoMermaid: flagAutoMermaid,
-			hard:        flagHard,
-			dungeons:    flagDungeons,
-			portals:     flagPortals,
-			keysanity:   flagKeysanity,
-			crossitems:  flagCrossitems,
+			race:         flagRace,
+			seed:         flagSeed,
+			autoMermaid:  flagAutoMermaid,
+			hard:         flagHard,
+			dungeons:     flagDungeons,
+			portals:      flagPortals,
+			keysanity:    flagKeysanity,
+			crossitems:   flagCrossitems,
+			musicShuffle: flagMusic,
 		})
 	}
 	for _, ropts := range optsList {
@@ -524,6 +532,8 @@ func getAndLogOptions(game int, ui *uiInstance, ropts *randomizerOptions,
 		ropts.crossitems = ui.doPrompt("enable crossitems? (y/n)") == 'y'
 	}
 	logf("crossitems %s.", ternary(ropts.crossitems, "on", "off"))
+
+	logf("music shuffle %s.", ropts.musicShuffle)
 }
 
 // attempt to write rom data to a file and print summary info.
@@ -635,11 +645,20 @@ func readGivenRom(filename string) (*rawRomData, error) {
 	symbolFilename := filename[:strings.LastIndex(filename, ".")] + ".sym"
 	labels, definitions := readSymbolFile(symbolFilename)
 
+	musicList := readFileLines(
+		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracks.txt")
+	customMusicList := readFileLines(
+		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracksCustom.txt")
+	nonLoopingMusicList := readFileLines(
+		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracksNonLooping.txt")
 
 	var rawRomData rawRomData
 	rawRomData.rom = b
 	rawRomData.labels = labels
 	rawRomData.definitions = definitions
+	rawRomData.musicList = musicList
+	rawRomData.customMusicList = customMusicList
+	rawRomData.nonLoopingMusicList = nonLoopingMusicList
 	rawRomData.game = ternary(romIsSeasons(b), gameSeasons, gameAges).(int)
 
 	return &rawRomData, nil
@@ -722,7 +741,7 @@ func setRomData(rom *romState, ri *routeInfo, ropts *randomizerOptions,
 		}
 	}
 
-	// do it! (but don't write anything)
+	// Write the data to the rom. (File itself will be saved later)
 	return rom.mutate(warps, ri.seed, ropts)
 }
 
