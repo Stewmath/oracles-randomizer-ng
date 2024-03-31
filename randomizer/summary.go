@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"unicode"
 )
 
 // returns a channel that will write strings to a text file with CRLF line
@@ -232,6 +233,37 @@ func writeSummary(path string, checksum []byte, ropts randomizerOptions,
 			close(c)
 		})
 	}
+
+	// music
+	if ropts.musicShuffle != "off" {
+		// Make music constants more readable (MUS_ANCIENT_RUINS -> Ancient Ruins)
+		prettyMusicConstant := func(s string) string {
+			s = s[3:]
+			modified := ""
+			lastUnderscore := false;
+			for _, c := range s {
+				if c == '_' {
+					lastUnderscore = true;
+				} else if lastUnderscore {
+					modified += " "
+					modified += string(c)
+					lastUnderscore = false;
+				} else {
+					modified += string(unicode.ToLower(c))
+				}
+			}
+
+			return strings.TrimSpace(modified);
+		}
+		sendSectionHeader(summary, "music")
+		sendSorted(summary, func(c chan string) {
+			for oldMusic, newMusic := range rom.musicMap {
+				c <- fmt.Sprintf("%-22s <- %s", prettyMusicConstant(oldMusic), newMusic)
+			}
+			close(c)
+		})
+	}
+
 
 	close(summary)
 	<-summaryDone

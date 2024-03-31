@@ -96,8 +96,8 @@ type romState struct {
 	// List of valid music tracks (from the txt file)
 	musicList        []string
 	customMusicList  []string
-	// Map of music index to music track name
-	musicMap     map[uint32]string
+	// Map of music constant to music track name
+	musicMap     map[string]string
 }
 
 func newRomState(rawData *rawRomData, player int, crossitems bool) *romState {
@@ -154,7 +154,8 @@ func (rom *romState) mutate(warpMap map[string]string, seed uint32,
 
 func (rom *romState) setMusic(ropts *randomizerOptions) {
 	if ropts.musicShuffle != "off" {
-		for index, newMusic := range rom.musicMap {
+		for oldMusic, newMusic := range rom.musicMap {
+			index := rom.lookupDefinition(oldMusic);
 			pointerAddress := rom.lookupLabel("soundPointers").fullOffset() + int(index) * 3
 			newMusicAddress := rom.lookupLabel(newMusic).offset
 			newMusicBank := rom.lookupLabel(newMusic + "Start").bank

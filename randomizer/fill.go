@@ -178,139 +178,12 @@ func shuffleMusic(rom *romState, ropts randomizerOptions, ri *routeInfo) {
 	}
 
 	// All music indices in this list will be randomized
-	var randomizableMusic []uint32
-
-	if rom.game == gameSeasons {
-		// Seasons randomizable music list
-		randomizableMusic = []uint32 {
-			rom.lookupDefinition("MUS_TITLESCREEN"),
-			rom.lookupDefinition("MUS_MINIGAME"),
-			rom.lookupDefinition("MUS_OVERWORLD"),
-			rom.lookupDefinition("MUS_TEMPLE_REMAINS"),
-			rom.lookupDefinition("MUS_TARM_RUINS"),
-			//rom.lookupDefinition("MUS_ESSENCE"), // Doesn't loop
-			//rom.lookupDefinition("MUS_UNUSED_1"), // Doesn't need to be shuffled
-			rom.lookupDefinition("MUS_CARNIVAL"),
-			rom.lookupDefinition("MUS_HORON_VILLAGE"),
-			rom.lookupDefinition("MUS_HIDE_AND_SEEK"),
-			rom.lookupDefinition("MUS_SUNKEN_CITY"),
-			rom.lookupDefinition("MUS_ESSENCE_ROOM"),
-			rom.lookupDefinition("MUS_INDOORS"),
-			rom.lookupDefinition("MUS_FAIRY_FOUNTAIN"),
-			//rom.lookupDefinition("MUS_GET_ESSENCE"), // Doesn't loop
-			rom.lookupDefinition("MUS_FILE_SELECT"),
-			rom.lookupDefinition("MUS_HEROS_CAVE"),
-			rom.lookupDefinition("MUS_GNARLED_ROOT_DUNGEON"),
-			rom.lookupDefinition("MUS_SNAKES_REMAINS"),
-			rom.lookupDefinition("MUS_POISON_MOTHS_LAIR"),
-			rom.lookupDefinition("MUS_DANCING_DRAGON_DUNGEON"),
-			rom.lookupDefinition("MUS_UNICORNS_CAVE"),
-			rom.lookupDefinition("MUS_ANCIENT_RUINS"),
-			rom.lookupDefinition("MUS_EXPLORERS_CRYPT"),
-			rom.lookupDefinition("MUS_SWORD_AND_SHIELD_MAZE"),
-			rom.lookupDefinition("MUS_FINAL_DUNGEON"),
-			rom.lookupDefinition("MUS_ONOX_CASTLE"),
-			rom.lookupDefinition("MUS_ROOM_OF_RITES"),
-			rom.lookupDefinition("MUS_MAKU_TREE"),
-			rom.lookupDefinition("MUS_SADNESS"),
-			rom.lookupDefinition("MUS_TRIUMPHANT"),
-			rom.lookupDefinition("MUS_DISASTER"),
-			rom.lookupDefinition("MUS_SUBROSIAN_DANCE"),
-			rom.lookupDefinition("MUS_PIRATES"),
-			//rom.lookupDefinition("MUS_UNUSED_2"), // Doesn't need to be shuffled
-			rom.lookupDefinition("MUS_SUBROSIAN_SHOP"),
-			rom.lookupDefinition("MUS_ROSA_DATE"),
-			rom.lookupDefinition("MUS_SUBROSIA"),
-			rom.lookupDefinition("MUS_CREDITS_1"),
-			rom.lookupDefinition("MUS_CREDITS_2"),
-			rom.lookupDefinition("MUS_MAPLE_THEME"),
-			rom.lookupDefinition("MUS_MAPLE_GAME"),
-			rom.lookupDefinition("MUS_MINIBOSS"),
-			rom.lookupDefinition("MUS_BOSS"),
-			rom.lookupDefinition("MUS_LADX_SIDEVIEW"),
-			rom.lookupDefinition("MUS_CRAZY_DANCE"),
-			rom.lookupDefinition("MUS_FINAL_BOSS"),
-			rom.lookupDefinition("MUS_TWINROVA"),
-			rom.lookupDefinition("MUS_GANON"),
-			rom.lookupDefinition("MUS_SAMASA_DESERT"),
-			rom.lookupDefinition("MUS_CAVE"),
-			rom.lookupDefinition("MUS_ZELDA_SAVED"),
-			rom.lookupDefinition("MUS_GREAT_MOBLIN"),
-			rom.lookupDefinition("MUS_SYRUP"),
-			rom.lookupDefinition("MUS_SONG_OF_STORMS"),
-			rom.lookupDefinition("MUS_GORON_CAVE"),
-			rom.lookupDefinition("MUS_INTRO_1"),
-			//rom.lookupDefinition("MUS_INTRO_2"), // Doesn't loop
-			rom.lookupDefinition("MUS_BLACK_TOWER_ENTRANCE"),
-			rom.lookupDefinition("MUS_PRECREDITS"),
-		}
-	} else {
-		randomizableMusic = []uint32 {
-			// Ages randomizable music list
-			rom.lookupDefinition("MUS_TITLESCREEN"),
-			rom.lookupDefinition("MUS_MINIGAME"),
-			rom.lookupDefinition("MUS_OVERWORLD"),
-			rom.lookupDefinition("MUS_OVERWORLD_PAST"),
-			rom.lookupDefinition("MUS_CRESCENT"),
-			//rom.lookupDefinition("MUS_ESSENCE"), // Doesn't loop
-			rom.lookupDefinition("MUS_AMBI_PALACE"),
-			rom.lookupDefinition("MUS_NAYRU"),
-			rom.lookupDefinition("MUS_GAMEOVER"),
-			rom.lookupDefinition("MUS_LYNNA_CITY"),
-			rom.lookupDefinition("MUS_LYNNA_VILLAGE"),
-			rom.lookupDefinition("MUS_ZORA_VILLAGE"),
-			rom.lookupDefinition("MUS_ESSENCE_ROOM"),
-			rom.lookupDefinition("MUS_INDOORS"),
-			rom.lookupDefinition("MUS_FAIRY_FOUNTAIN"),
-			//rom.lookupDefinition("MUS_GET_ESSENCE"), // Doesn't loop
-			rom.lookupDefinition("MUS_FILE_SELECT"),
-			rom.lookupDefinition("MUS_MAKU_PATH"),
-			rom.lookupDefinition("MUS_SPIRITS_GRAVE"),
-			rom.lookupDefinition("MUS_WING_DUNGEON"),
-			rom.lookupDefinition("MUS_MOONLIT_GROTTO"),
-			rom.lookupDefinition("MUS_SKULL_DUNGEON"),
-			rom.lookupDefinition("MUS_CROWN_DUNGEON"),
-			rom.lookupDefinition("MUS_MERMAIDS_CAVE"),
-			rom.lookupDefinition("MUS_JABU_JABUS_BELLY"),
-			rom.lookupDefinition("MUS_ANCIENT_TOMB"),
-			rom.lookupDefinition("MUS_FINAL_DUNGEON"),
-			rom.lookupDefinition("MUS_ONOX_CASTLE"),
-			rom.lookupDefinition("MUS_ROOM_OF_RITES"),
-			rom.lookupDefinition("MUS_MAKU_TREE"),
-			rom.lookupDefinition("MUS_SADNESS"),
-			rom.lookupDefinition("MUS_TRIUMPHANT"),
-			rom.lookupDefinition("MUS_DISASTER"),
-			rom.lookupDefinition("MUS_UNDERWATER"),
-			rom.lookupDefinition("MUS_PIRATES"),
-			rom.lookupDefinition("MUS_SYMMETRY_PRESENT"),
-			rom.lookupDefinition("MUS_SYMMETRY_PAST"),
-			rom.lookupDefinition("MUS_TOKAY_HOUSE"),
-			rom.lookupDefinition("MUS_ROSA_DATE"),
-			rom.lookupDefinition("MUS_BLACK_TOWER"),
-			rom.lookupDefinition("MUS_CREDITS_1"),
-			rom.lookupDefinition("MUS_CREDITS_2"),
-			rom.lookupDefinition("MUS_MAPLE_THEME"),
-			rom.lookupDefinition("MUS_MAPLE_GAME"),
-			rom.lookupDefinition("MUS_MINIBOSS"),
-			rom.lookupDefinition("MUS_BOSS"),
-			rom.lookupDefinition("MUS_LADX_SIDEVIEW"),
-			rom.lookupDefinition("MUS_FAIRY_FOREST"),
-			rom.lookupDefinition("MUS_CRAZY_DANCE"),
-			rom.lookupDefinition("MUS_FINAL_BOSS"),
-			rom.lookupDefinition("MUS_TWINROVA"),
-			rom.lookupDefinition("MUS_GANON"),
-			rom.lookupDefinition("MUS_RALPH"),
-			rom.lookupDefinition("MUS_CAVE"),
-			rom.lookupDefinition("MUS_ZELDA_SAVED"),
-			rom.lookupDefinition("MUS_GREAT_MOBLIN"),
-			rom.lookupDefinition("MUS_SYRUP"),
-			rom.lookupDefinition("MUS_GORON_CAVE"),
-			rom.lookupDefinition("MUS_INTRO_1"),
-			//rom.lookupDefinition("MUS_INTRO_2"), // Doesn't loop
-			rom.lookupDefinition("MUS_BLACK_TOWER_ENTRANCE"),
-			rom.lookupDefinition("MUS_PRECREDITS"),
-		}
+	randomizableMusicYaml := make(map[string][]string)
+	if err := ReadEmbeddedYaml("romdata/music.yaml", randomizableMusicYaml); err != nil {
+		panic(err)
 	}
+
+	randomizableMusic := randomizableMusicYaml[sora(rom.game, "seasons", "ages").(string)]
 
 	// Above is the list of tracks to be shuffled, while musicList is the list of available tracks
 	// (including custom music)
@@ -324,8 +197,8 @@ func shuffleMusic(rom *romState, ropts randomizerOptions, ri *routeInfo) {
 		musicList[i], musicList[j] = musicList[j], musicList[i]
 	})
 
-	// musicMap maps a music index to a string representing a track name.
-	rom.musicMap = make(map[uint32]string)
+	// musicMap maps a music constant to a string representing a track name.
+	rom.musicMap = make(map[string]string)
 	for i, v := range randomizableMusic {
 		rom.musicMap[v] = musicList[i]
 	}
