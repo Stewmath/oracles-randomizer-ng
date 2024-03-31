@@ -51,6 +51,8 @@ is also a bit different.
   twice in quick succession), you can access the "Dungeon Items" menu which
   shows you which items you've obtained in each dungeon. Useful for keeping
   track of progress in Keysanity mode.
+- Music randomization: Randomize music tracks from both games, optionally
+  including custom music tracks written by ZerotoKoops.
 
 ## Missing features in NG
 
