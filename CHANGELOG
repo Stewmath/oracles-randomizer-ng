@@ -1,8 +1,29 @@
 Changelog for Oracles-Randomizer-NG
 
 ================================================================================
-Testing branch
+ng-1.0.0 (2024-03-31)
 ================================================================================
+
+Web UI:
+- Revived Jaysee's old Web UI, with sprite & palette selection. This is now the
+  main method of using the randomizer.
+- Includes the following sprites: Dark Link, Demonic Link, Goron, Like-Like,
+  Marin, Matty, Nayru, Piratian, Rosa (with/without key), Subrosian, Tokay,
+  Zoroark.
+
+Features:
+- Music shuffle feature with custom tracks by ZerotoKoops! The custom tracks are
+  all Zelda themes:
+  - Linebeck's Theme
+  - In The Fields
+  - Sacred Grove
+  - Gerudo Valley
+  - Lost Woods
+  - Dragon Roost Island
+  - Sanctuary
+  - Falling Rain
+  - Attacking Vah Naboris
+  - Kass's Theme (Short)
 
 Bugfixes:
 - Pol's Voices are now killed when flute or harp tunes are truncated
