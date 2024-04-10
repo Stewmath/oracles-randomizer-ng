@@ -1,9 +1,3 @@
-# Oracle of Ages randomization notes
-
-These notes apply specifically to Ages, alongside the game-neutral ones in
-[README.md](https://github.com/jangler/oracles-randomizer/blob/master/README.md).
-
-
 ## Randomization
 
 - The harp is progressive, starting with the Tune of Echoes, then Currents,
@@ -99,9 +93,8 @@ exception of:
 - Magic rings from non-randomized locations
 - Linked secrets
 
-See
-[ages_hard_guide.md](https://github.com/jangler/oracles-randomizer/blob/master/doc/ages_hard_guide.md)
-for more information on specific tricks in hard logic.
+See [ages_hard_guide.md](ages_hard_guide.md) for more information on specific
+tricks in hard logic.
 
 
 ### Crossitems
