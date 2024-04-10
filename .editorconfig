@@ -19,5 +19,10 @@ trim_trailing_whitespace = false
 
 eclint_indent_style = unset
 
+; For disassembly (TODO: move this)
+[*.s]
+indent_size = 8
+indent_style = tab
+
 [Dockerfile]
 indent_size = 4
