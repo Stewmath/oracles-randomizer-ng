@@ -1,6 +1,35 @@
 Changelog for Oracles-Randomizer-NG
 
 ================================================================================
+ng-1.0.1 (2024-05-28)
+================================================================================
+
+Web UI:
+- Significantly reduced patch sizes transmitted over the network by using BPS
+- Added new music preview page
+
+Features:
+- New music tracks by ZerotoKoops:
+  - Overthere Stair
+  - The Great Palace
+  - Black Mist
+  - Outset Island
+  - Tal Tal Heights
+
+Other:
+- Fadeout transitions have been sped up. This was mainly done to speed up season
+  changes but it affects other transitions as well.
+- Modifications to Link sprite: some sprites have been unmirrored. While all
+  8x16 sprites were previously "unflipped" to 16x16 sprites to allow for
+  asymmetrical characters, some 16x16 sprites were still "mirrored" in the sense
+  that the entire sprite was mirrored horizontally. Some of these have now been
+  unmirrored by adding a new frame to use instead of mirroring. The modified
+  sprites are:
+  - Walking up/down
+  - Mermaid suit up/down
+  - Link riding dimitri up/down
+
+================================================================================
 ng-1.0.0 (2024-03-31)
 ================================================================================
 

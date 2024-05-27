@@ -646,11 +646,11 @@ func readGivenRom(filename string) (*rawRomData, error) {
 	labels, definitions := readSymbolFile(symbolFilename)
 
 	musicList := readFileLines(
-		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracks.txt")
+		filename[:strings.LastIndex(filename, "/")] + "/audio/meta/musicTracks.txt")
 	customMusicList := readFileLines(
-		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracksCustom.txt")
+		filename[:strings.LastIndex(filename, "/")] + "/audio/meta/musicTracksCustom.txt")
 	nonLoopingMusicList := readFileLines(
-		filename[:strings.LastIndex(filename, "/")] + "/audio/common/musicTracksNonLooping.txt")
+		filename[:strings.LastIndex(filename, "/")] + "/audio/meta/musicTracksNonLooping.txt")
 
 	var rawRomData rawRomData
 	rawRomData.rom = b
